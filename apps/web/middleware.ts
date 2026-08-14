@@ -1,20 +1,20 @@
-import { clerkMiddleware, createRouteMatcher } from '@clerk/nextjs/server';
-import { NextResponse } from 'next/server';
+import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
 
-const isProtectedRoute = createRouteMatcher(['/','sign-in(.*)','sign-up(.*)']);
+const isPublicRoute = createRouteMatcher(['/sign-in(.*)', '/sign-up(.*)']);
 
 export default clerkMiddleware(async (auth, req) => {
- if(!isProtectedRoute(req)) await auth.protect();
+  // 🚀 THIS LOG WILL SHOW IN YOUR TERMINAL ON EVERY PAGE REFRESH
+  console.log("Middleware caught a request to:", req.nextUrl.pathname);
 
+  if (!isPublicRoute(req)) {
+    await auth.protect();
+  }
 });
 
 export const config = {
   matcher: [
-    // Skip Next.js internals and all static files, unless found in search params
-    '/((?!_next|[^?]*\\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)',
-    // Always run for Clerk's auto-proxy path
-    '/__clerk/:path*',
-    // Always run for API routes
+    '/((?!_next|[^?]*\\.[\\w]+$).*)',
     '/(api|trpc)(.*)',
   ],
 };
+
