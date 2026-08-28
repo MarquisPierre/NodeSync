@@ -46,8 +46,7 @@ WebSocket architecture, relational data modeling, and production-grade auth.
 ## 🏗️ Architecture
 
 <div align="center">
-  <img [Uploading architecture.pdf…]()
-src="https://your-architecture-diagram-url.png" alt="Architecture diagram" width="700">
+  <img src="architecture.svg" alt="Architecture diagram" width="700">
 </div>
 
 
