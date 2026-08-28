@@ -57,8 +57,5 @@ WebSocket architecture, relational data modeling, and production-grade auth.
 - Modeling many-to-many relationships (users ↔ servers) with a join table
 - Handling optimistic UI updates for a snappier real-time feel
 
-## 📄 License
-
-MIT
 
 </div>
