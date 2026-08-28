@@ -1,21 +1,12 @@
-# shadcn/ui monorepo template
+## Tech Stack
 
-This is a Next.js monorepo template with shadcn/ui.
-
-## Adding components
-
-To add components to your app, run the following command at the root of your `web` app:
-
-```bash
-pnpm dlx shadcn@latest add button -c apps/web
-```
-
-This will place the ui components in the `packages/ui/src/components` directory.
-
-## Using components
-
-To use the components in your app, import them from the `ui` package.
-
-```tsx
-import { Button } from "@workspace/ui/components/button";
-```
+| Layer | Choice | Why |
+|---|---|---|
+| Framework | Next.js (App Router) | SSR + API routes in one codebase |
+| UI | shadcn/ui + Tailwind | Owned components, no CSS fights |
+| Auth | Clerk | Don't roll your own auth |
+| ORM | Prisma | Type-safe queries, tracked migrations |
+| Database | MySQL (TiDB Cloud) | Relational data (servers→channels→messages) |
+| Real-time | Socket.io | Persistent connections for instant messaging |
+| File storage | UploadThing | Offloaded object storage, not on-server files |
+| Hosting | Vercel + Railway | Serverless frontend, persistent socket server |
