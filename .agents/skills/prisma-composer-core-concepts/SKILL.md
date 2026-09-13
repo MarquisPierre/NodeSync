@@ -13,6 +13,12 @@ description: >-
   `service.load()`, `mockService`, `bootstrapService`.
 ---
 
+# Prisma Composer core concepts
+
+A **Prisma App** is a tree of typed declarations composed in TypeScript and
+handed to the `prisma-composer` CLI. This file covers structures,
+hierarchies, relationships, and workflows: the concepts you cannot observe
+from the code or the CLI's help output. It is not a CLI reference; discover
 any individual command and its flags with `--help`. Commands named here
 belong to the `prisma-composer` CLI itself; a host CLI that embeds Composer
 may not carry every verb, so confirm a command exists via `--help` rather
