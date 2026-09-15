@@ -1,0 +1,121 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum MemberRole {
+  OWNER
+  ADMIN
+  MEMBER
+}
+
+enum ChannelType {
+  TEXT
+  AUDIO
+  VIDEO
+}
+
+model User {
+  id       String @id @default(cuid())
+  clerkId  String @unique
+  username String
+  imageUrl String @db.Text
+  email    String @unique
+
+  members Member[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Server {
+  id         String @id @default(cuid())
+  name       String
+  imageUrl   String @db.Text
+  inviteCode String @unique
+
+  members  Member[]
+  channels Channel[]
+  invites  Invite[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([inviteCode])
+}
+
+model Member {
+  id   String     @id @default(cuid())
+  role MemberRole @default(MEMBER)
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  serverId String
+  server   Server @relation(fields: [serverId], references: [id], onDelete: Cascade)
+
+  messages Message[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([userId, serverId])
+  @@index([serverId])
+  @@index([userId])
+}
+
+model Channel {
+  id   String      @id @default(cuid())
+  name String
+  type ChannelType @default(TEXT)
+
+  serverId String
+  server   Server @relation(fields: [serverId], references: [id], onDelete: Cascade)
+
+  messages Message[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([serverId])
+}
+
+model Message {
+  id      String  @id @default(cuid())
+  content String  @db.Text
+  fileUrl String? @db.Text
+  deleted Boolean @default(false)
+
+  memberId String
+  member   Member @relation(fields: [memberId], references: [id], onDelete: Cascade)
+
+  channelId String
+  channel   Channel @relation(fields: [channelId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([memberId])
+  @@index([channelId])
+}
+
+model Invite {
+  id   String @id @default(cuid())
+  code String @unique
+
+  serverId String
+  server   Server @relation(fields: [serverId], references: [id], onDelete: Cascade)
+
+  expiresAt DateTime?
+  maxUses   Int?
+  uses      Int       @default(0)
+
+  createdAt DateTime @default(now())
+
+  @@index([serverId])
+}
