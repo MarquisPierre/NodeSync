@@ -1,6 +1,6 @@
 'use client'
 import { UserButton } from '@clerk/nextjs'
-import { ThemeToggle } from "@/components/ui/theme-toggle"
+import { ThemeToggle } from "@/features/components/ui/theme-toggle"
 
 export default function Page() {
     // const { signOut } = useClerk()
