@@ -16,12 +16,12 @@ import { fileURLToPath } from 'node:url'
 globalThis['__dirname'] = path.dirname(fileURLToPath(import.meta.url))
 
 import * as runtime from "@prisma/client/runtime/library"
-import * as $Enums from "./enums"
-import * as $Class from "./internal/class"
-import * as Prisma from "./internal/prismaNamespace"
+import * as $Enums from "./enums.js"
+import * as $Class from "./internal/class.js"
+import * as Prisma from "./internal/prismaNamespace.js"
 
-export * as $Enums from './enums'
-export * from "./enums"
+export * as $Enums from './enums.js'
+export * from "./enums.js"
 /**
  * ## Prisma Client
  * 
@@ -42,35 +42,6 @@ export { Prisma }
 
 // file annotations for bundling tools to include these files
 path.join(__dirname, "query_engine-windows.dll.node")
-path.join(process.cwd(), "generated/prisma/query_engine-windows.dll.node")
+path.join(process.cwd(), "lib/generated/prisma/query_engine-windows.dll.node")
 
-/**
- * Model User
- * 
- */
-export type User = Prisma.UserModel
-/**
- * Model Server
- * 
- */
-export type Server = Prisma.ServerModel
-/**
- * Model Member
- * 
- */
-export type Member = Prisma.MemberModel
-/**
- * Model Channel
- * 
- */
-export type Channel = Prisma.ChannelModel
-/**
- * Model Message
- * 
- */
-export type Message = Prisma.MessageModel
-/**
- * Model Invite
- * 
- */
-export type Invite = Prisma.InviteModel
+
