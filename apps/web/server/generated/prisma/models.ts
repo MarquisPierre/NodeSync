@@ -8,10 +8,4 @@
  *
  * 🟢 You can import this file directly.
  */
-export type * from './models/User'
-export type * from './models/Server'
-export type * from './models/Member'
-export type * from './models/Channel'
-export type * from './models/Message'
-export type * from './models/Invite'
-export type * from './commonInputTypes'
+export type * from './commonInputTypes.js'

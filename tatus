@@ -1,0 +1,58 @@
+[33mcommit 35ecc6fb00f6d59c39d24b81fe2351ad780a6b7c[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Merge: 81ef7df 3f39418
+Author: Marquis Pierre <43345914+MarquisPierre@users.noreply.github.com>
+Date:   Mon Sep 21 23:58:00 2026 -0400
+
+    Merge pull request #12 from MarquisPierre/master
+    
+    Organized folders and created a tests folder to test socket.io
+
+[33mcommit 3f3941884cf9bcd8b9f755ef082b7784ac11218e[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m, [m[1;31morigin/master[m[33m)[m
+Author: Marquis Pierre <marquispierre27@gmail.com>
+Date:   Mon Sep 21 23:57:37 2026 -0400
+
+    Organized folders and created a tests folder to test socket.io
+
+[33mcommit 81ef7dfb1b39faad006020ec0ea1a079cb6fe8ed[m
+Merge: 1134181 d5ec24e
+Author: Marquis Pierre <43345914+MarquisPierre@users.noreply.github.com>
+Date:   Mon Sep 14 23:14:33 2026 -0400
+
+    Merge pull request #11 from MarquisPierre/master
+    
+    Core data model is completed
+
+[33mcommit d5ec24e51fb006a21b017c885f9a79747a7d5b8a[m
+Author: Marquis Pierre <marquispierre27@gmail.com>
+Date:   Mon Sep 14 23:14:07 2026 -0400
+
+    Core data model is completed
+[33mcommit 35ecc6fb00f6d59c39d24b81fe2351ad780a6b7c[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Merge: 81ef7df 3f39418
+Author: Marquis Pierre <43345914+MarquisPierre@users.noreply.github.com>
+Date:   Mon Sep 21 23:58:00 2026 -0400
+
+    Merge pull request #12 from MarquisPierre/master
+    
+    Organized folders and created a tests folder to test socket.io
+
+[33mcommit 3f3941884cf9bcd8b9f755ef082b7784ac11218e[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m, [m[1;31morigin/master[m[33m)[m
+Author: Marquis Pierre <marquispierre27@gmail.com>
+Date:   Mon Sep 21 23:57:37 2026 -0400
+
+    Organized folders and created a tests folder to test socket.io
+
+[33mcommit 81ef7dfb1b39faad006020ec0ea1a079cb6fe8ed[m
+Merge: 1134181 d5ec24e
+Author: Marquis Pierre <43345914+MarquisPierre@users.noreply.github.com>
+Date:   Mon Sep 14 23:14:33 2026 -0400
+
+    Merge pull request #11 from MarquisPierre/master
+    
+    Core data model is completed
+
+[33mcommit d5ec24e51fb006a21b017c885f9a79747a7d5b8a[m
+Author: Marquis Pierre <marquispierre27@gmail.com>
+Date:   Mon Sep 14 23:14:07 2026 -0400
+
+    Core data model is completed
