@@ -9,7 +9,19 @@
 * 🟢 You can import this file directly.
 */
 
+export const MemberRole = {
+  ADMIN: 'ADMIN',
+  MODERATOR: 'MODERATOR',
+  GUEST: 'GUEST'
+} as const
+
+export type MemberRole = (typeof MemberRole)[keyof typeof MemberRole]
 
 
-// This file is empty because there are no enums in the schema.
-export {}
+export const ChannelType = {
+  TEXT: 'TEXT',
+  AUDIO: 'AUDIO',
+  VIDEO: 'VIDEO'
+} as const
+
+export type ChannelType = (typeof ChannelType)[keyof typeof ChannelType]
