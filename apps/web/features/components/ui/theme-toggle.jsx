@@ -1,6 +1,6 @@
 'use client'
 import { useTheme } from "next-themes"
-import { Button } from "@workspace/ui/components/button"
+import { Button } from "./button"
 import { Moon, Sun } from "lucide-react"
 
 export function ThemeToggle() {
