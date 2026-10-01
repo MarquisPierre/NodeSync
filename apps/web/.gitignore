@@ -1,3 +1,9 @@
 
 # clerk configuration (can include secrets)
 /.clerk/
+
+/apps/web/server/generated/prisma
+
+/app/generated/prisma
+
+/lib/generated/prisma

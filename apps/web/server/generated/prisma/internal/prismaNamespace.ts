@@ -390,12 +390,13 @@ type FieldRefInputType<Model, FieldType> = Model extends never ? never : FieldRe
 
 
 export const ModelName = {
-  User: 'User',
+  Profile: 'Profile',
   Server: 'Server',
   Member: 'Member',
   Channel: 'Channel',
   Message: 'Message',
-  Invite: 'Invite'
+  Conversation: 'Conversation',
+  DirectMessage: 'DirectMessage'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -411,81 +412,81 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "server" | "member" | "channel" | "message" | "invite"
+    modelProps: "profile" | "server" | "member" | "channel" | "message" | "conversation" | "directMessage"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
-    User: {
-      payload: Prisma.$UserPayload<ExtArgs>
-      fields: Prisma.UserFieldRefs
+    Profile: {
+      payload: Prisma.$ProfilePayload<ExtArgs>
+      fields: Prisma.ProfileFieldRefs
       operations: {
         findUnique: {
-          args: Prisma.UserFindUniqueArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserPayload> | null
+          args: Prisma.ProfileFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProfilePayload> | null
         }
         findUniqueOrThrow: {
-          args: Prisma.UserFindUniqueOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserPayload>
+          args: Prisma.ProfileFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProfilePayload>
         }
         findFirst: {
-          args: Prisma.UserFindFirstArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserPayload> | null
+          args: Prisma.ProfileFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProfilePayload> | null
         }
         findFirstOrThrow: {
-          args: Prisma.UserFindFirstOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserPayload>
+          args: Prisma.ProfileFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProfilePayload>
         }
         findMany: {
-          args: Prisma.UserFindManyArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserPayload>[]
+          args: Prisma.ProfileFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProfilePayload>[]
         }
         create: {
-          args: Prisma.UserCreateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserPayload>
+          args: Prisma.ProfileCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProfilePayload>
         }
         createMany: {
-          args: Prisma.UserCreateManyArgs<ExtArgs>
+          args: Prisma.ProfileCreateManyArgs<ExtArgs>
           result: BatchPayload
         }
         createManyAndReturn: {
-          args: Prisma.UserCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserPayload>[]
+          args: Prisma.ProfileCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProfilePayload>[]
         }
         delete: {
-          args: Prisma.UserDeleteArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserPayload>
+          args: Prisma.ProfileDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProfilePayload>
         }
         update: {
-          args: Prisma.UserUpdateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserPayload>
+          args: Prisma.ProfileUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProfilePayload>
         }
         deleteMany: {
-          args: Prisma.UserDeleteManyArgs<ExtArgs>
+          args: Prisma.ProfileDeleteManyArgs<ExtArgs>
           result: BatchPayload
         }
         updateMany: {
-          args: Prisma.UserUpdateManyArgs<ExtArgs>
+          args: Prisma.ProfileUpdateManyArgs<ExtArgs>
           result: BatchPayload
         }
         updateManyAndReturn: {
-          args: Prisma.UserUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserPayload>[]
+          args: Prisma.ProfileUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProfilePayload>[]
         }
         upsert: {
-          args: Prisma.UserUpsertArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserPayload>
+          args: Prisma.ProfileUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProfilePayload>
         }
         aggregate: {
-          args: Prisma.UserAggregateArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.AggregateUser>
+          args: Prisma.ProfileAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateProfile>
         }
         groupBy: {
-          args: Prisma.UserGroupByArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.UserGroupByOutputType>[]
+          args: Prisma.ProfileGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ProfileGroupByOutputType>[]
         }
         count: {
-          args: Prisma.UserCountArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.UserCountAggregateOutputType> | number
+          args: Prisma.ProfileCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ProfileCountAggregateOutputType> | number
         }
       }
     }
@@ -785,77 +786,151 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
-    Invite: {
-      payload: Prisma.$InvitePayload<ExtArgs>
-      fields: Prisma.InviteFieldRefs
+    Conversation: {
+      payload: Prisma.$ConversationPayload<ExtArgs>
+      fields: Prisma.ConversationFieldRefs
       operations: {
         findUnique: {
-          args: Prisma.InviteFindUniqueArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$InvitePayload> | null
+          args: Prisma.ConversationFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ConversationPayload> | null
         }
         findUniqueOrThrow: {
-          args: Prisma.InviteFindUniqueOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$InvitePayload>
+          args: Prisma.ConversationFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ConversationPayload>
         }
         findFirst: {
-          args: Prisma.InviteFindFirstArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$InvitePayload> | null
+          args: Prisma.ConversationFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ConversationPayload> | null
         }
         findFirstOrThrow: {
-          args: Prisma.InviteFindFirstOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$InvitePayload>
+          args: Prisma.ConversationFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ConversationPayload>
         }
         findMany: {
-          args: Prisma.InviteFindManyArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$InvitePayload>[]
+          args: Prisma.ConversationFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ConversationPayload>[]
         }
         create: {
-          args: Prisma.InviteCreateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$InvitePayload>
+          args: Prisma.ConversationCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ConversationPayload>
         }
         createMany: {
-          args: Prisma.InviteCreateManyArgs<ExtArgs>
+          args: Prisma.ConversationCreateManyArgs<ExtArgs>
           result: BatchPayload
         }
         createManyAndReturn: {
-          args: Prisma.InviteCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$InvitePayload>[]
+          args: Prisma.ConversationCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ConversationPayload>[]
         }
         delete: {
-          args: Prisma.InviteDeleteArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$InvitePayload>
+          args: Prisma.ConversationDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ConversationPayload>
         }
         update: {
-          args: Prisma.InviteUpdateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$InvitePayload>
+          args: Prisma.ConversationUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ConversationPayload>
         }
         deleteMany: {
-          args: Prisma.InviteDeleteManyArgs<ExtArgs>
+          args: Prisma.ConversationDeleteManyArgs<ExtArgs>
           result: BatchPayload
         }
         updateMany: {
-          args: Prisma.InviteUpdateManyArgs<ExtArgs>
+          args: Prisma.ConversationUpdateManyArgs<ExtArgs>
           result: BatchPayload
         }
         updateManyAndReturn: {
-          args: Prisma.InviteUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$InvitePayload>[]
+          args: Prisma.ConversationUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ConversationPayload>[]
         }
         upsert: {
-          args: Prisma.InviteUpsertArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$InvitePayload>
+          args: Prisma.ConversationUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ConversationPayload>
         }
         aggregate: {
-          args: Prisma.InviteAggregateArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.AggregateInvite>
+          args: Prisma.ConversationAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateConversation>
         }
         groupBy: {
-          args: Prisma.InviteGroupByArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.InviteGroupByOutputType>[]
+          args: Prisma.ConversationGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ConversationGroupByOutputType>[]
         }
         count: {
-          args: Prisma.InviteCountArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.InviteCountAggregateOutputType> | number
+          args: Prisma.ConversationCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ConversationCountAggregateOutputType> | number
+        }
+      }
+    }
+    DirectMessage: {
+      payload: Prisma.$DirectMessagePayload<ExtArgs>
+      fields: Prisma.DirectMessageFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.DirectMessageFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DirectMessagePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.DirectMessageFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DirectMessagePayload>
+        }
+        findFirst: {
+          args: Prisma.DirectMessageFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DirectMessagePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.DirectMessageFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DirectMessagePayload>
+        }
+        findMany: {
+          args: Prisma.DirectMessageFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DirectMessagePayload>[]
+        }
+        create: {
+          args: Prisma.DirectMessageCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DirectMessagePayload>
+        }
+        createMany: {
+          args: Prisma.DirectMessageCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.DirectMessageCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DirectMessagePayload>[]
+        }
+        delete: {
+          args: Prisma.DirectMessageDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DirectMessagePayload>
+        }
+        update: {
+          args: Prisma.DirectMessageUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DirectMessagePayload>
+        }
+        deleteMany: {
+          args: Prisma.DirectMessageDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.DirectMessageUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.DirectMessageUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DirectMessagePayload>[]
+        }
+        upsert: {
+          args: Prisma.DirectMessageUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DirectMessagePayload>
+        }
+        aggregate: {
+          args: Prisma.DirectMessageAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateDirectMessage>
+        }
+        groupBy: {
+          args: Prisma.DirectMessageGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.DirectMessageGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.DirectMessageCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.DirectMessageCountAggregateOutputType> | number
         }
       }
     }
@@ -898,17 +973,17 @@ export const TransactionIsolationLevel = runtime.makeStrictEnum({
 export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel]
 
 
-export const UserScalarFieldEnum = {
+export const ProfileScalarFieldEnum = {
   id: 'id',
-  clerkId: 'clerkId',
-  username: 'username',
+  userId: 'userId',
+  name: 'name',
   imageUrl: 'imageUrl',
   email: 'email',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
 
-export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
+export type ProfileScalarFieldEnum = (typeof ProfileScalarFieldEnum)[keyof typeof ProfileScalarFieldEnum]
 
 
 export const ServerScalarFieldEnum = {
@@ -916,6 +991,7 @@ export const ServerScalarFieldEnum = {
   name: 'name',
   imageUrl: 'imageUrl',
   inviteCode: 'inviteCode',
+  profileId: 'profileId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -926,7 +1002,7 @@ export type ServerScalarFieldEnum = (typeof ServerScalarFieldEnum)[keyof typeof 
 export const MemberScalarFieldEnum = {
   id: 'id',
   role: 'role',
-  userId: 'userId',
+  profileId: 'profileId',
   serverId: 'serverId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -939,6 +1015,7 @@ export const ChannelScalarFieldEnum = {
   id: 'id',
   name: 'name',
   type: 'type',
+  profileId: 'profileId',
   serverId: 'serverId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -951,9 +1028,9 @@ export const MessageScalarFieldEnum = {
   id: 'id',
   content: 'content',
   fileUrl: 'fileUrl',
-  deleted: 'deleted',
   memberId: 'memberId',
   channelId: 'channelId',
+  deleted: 'deleted',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -961,17 +1038,27 @@ export const MessageScalarFieldEnum = {
 export type MessageScalarFieldEnum = (typeof MessageScalarFieldEnum)[keyof typeof MessageScalarFieldEnum]
 
 
-export const InviteScalarFieldEnum = {
+export const ConversationScalarFieldEnum = {
   id: 'id',
-  code: 'code',
-  serverId: 'serverId',
-  expiresAt: 'expiresAt',
-  maxUses: 'maxUses',
-  uses: 'uses',
-  createdAt: 'createdAt'
+  memberOneId: 'memberOneId',
+  memberTwoId: 'memberTwoId'
 } as const
 
-export type InviteScalarFieldEnum = (typeof InviteScalarFieldEnum)[keyof typeof InviteScalarFieldEnum]
+export type ConversationScalarFieldEnum = (typeof ConversationScalarFieldEnum)[keyof typeof ConversationScalarFieldEnum]
+
+
+export const DirectMessageScalarFieldEnum = {
+  id: 'id',
+  content: 'content',
+  fileUrl: 'fileUrl',
+  memberId: 'memberId',
+  conversationId: 'conversationId',
+  deleted: 'deleted',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type DirectMessageScalarFieldEnum = (typeof DirectMessageScalarFieldEnum)[keyof typeof DirectMessageScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -1080,20 +1167,6 @@ export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'In
 export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
     
 
-
-/**
- * Reference to a field of type 'Float'
- */
-export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
-    
-
-
-/**
- * Reference to a field of type 'Float[]'
- */
-export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
-    
-
 /**
  * Batch Payload for updateMany & deleteMany & createMany
  */
@@ -1181,12 +1254,13 @@ export interface PrismaClientOptions {
   omit?: GlobalOmitConfig
 }
 export type GlobalOmitConfig = {
-  user?: Prisma.UserOmit
+  profile?: Prisma.ProfileOmit
   server?: Prisma.ServerOmit
   member?: Prisma.MemberOmit
   channel?: Prisma.ChannelOmit
   message?: Prisma.MessageOmit
-  invite?: Prisma.InviteOmit
+  conversation?: Prisma.ConversationOmit
+  directMessage?: Prisma.DirectMessageOmit
 }
 
 /* Types for Logging */

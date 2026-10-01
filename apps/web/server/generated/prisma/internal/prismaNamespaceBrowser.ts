@@ -49,12 +49,13 @@ export const AnyNull = runtime.objectEnumValues.instances.AnyNull
 
 
 export const ModelName = {
-  User: 'User',
+  Profile: 'Profile',
   Server: 'Server',
   Member: 'Member',
   Channel: 'Channel',
   Message: 'Message',
-  Invite: 'Invite'
+  Conversation: 'Conversation',
+  DirectMessage: 'DirectMessage'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -73,17 +74,17 @@ export const TransactionIsolationLevel = runtime.makeStrictEnum({
 export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel]
 
 
-export const UserScalarFieldEnum = {
+export const ProfileScalarFieldEnum = {
   id: 'id',
-  clerkId: 'clerkId',
-  username: 'username',
+  userId: 'userId',
+  name: 'name',
   imageUrl: 'imageUrl',
   email: 'email',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
 
-export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
+export type ProfileScalarFieldEnum = (typeof ProfileScalarFieldEnum)[keyof typeof ProfileScalarFieldEnum]
 
 
 export const ServerScalarFieldEnum = {
@@ -91,6 +92,7 @@ export const ServerScalarFieldEnum = {
   name: 'name',
   imageUrl: 'imageUrl',
   inviteCode: 'inviteCode',
+  profileId: 'profileId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -101,7 +103,7 @@ export type ServerScalarFieldEnum = (typeof ServerScalarFieldEnum)[keyof typeof 
 export const MemberScalarFieldEnum = {
   id: 'id',
   role: 'role',
-  userId: 'userId',
+  profileId: 'profileId',
   serverId: 'serverId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -114,6 +116,7 @@ export const ChannelScalarFieldEnum = {
   id: 'id',
   name: 'name',
   type: 'type',
+  profileId: 'profileId',
   serverId: 'serverId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -126,9 +129,9 @@ export const MessageScalarFieldEnum = {
   id: 'id',
   content: 'content',
   fileUrl: 'fileUrl',
-  deleted: 'deleted',
   memberId: 'memberId',
   channelId: 'channelId',
+  deleted: 'deleted',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -136,17 +139,27 @@ export const MessageScalarFieldEnum = {
 export type MessageScalarFieldEnum = (typeof MessageScalarFieldEnum)[keyof typeof MessageScalarFieldEnum]
 
 
-export const InviteScalarFieldEnum = {
+export const ConversationScalarFieldEnum = {
   id: 'id',
-  code: 'code',
-  serverId: 'serverId',
-  expiresAt: 'expiresAt',
-  maxUses: 'maxUses',
-  uses: 'uses',
-  createdAt: 'createdAt'
+  memberOneId: 'memberOneId',
+  memberTwoId: 'memberTwoId'
 } as const
 
-export type InviteScalarFieldEnum = (typeof InviteScalarFieldEnum)[keyof typeof InviteScalarFieldEnum]
+export type ConversationScalarFieldEnum = (typeof ConversationScalarFieldEnum)[keyof typeof ConversationScalarFieldEnum]
+
+
+export const DirectMessageScalarFieldEnum = {
+  id: 'id',
+  content: 'content',
+  fileUrl: 'fileUrl',
+  memberId: 'memberId',
+  conversationId: 'conversationId',
+  deleted: 'deleted',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type DirectMessageScalarFieldEnum = (typeof DirectMessageScalarFieldEnum)[keyof typeof DirectMessageScalarFieldEnum]
 
 
 export const SortOrder = {

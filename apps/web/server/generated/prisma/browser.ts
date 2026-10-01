@@ -18,10 +18,10 @@ export { Prisma }
 export * as $Enums from './enums'
 export * from './enums';
 /**
- * Model User
+ * Model Profile
  * 
  */
-export type User = Prisma.UserModel
+export type Profile = Prisma.ProfileModel
 /**
  * Model Server
  * 
@@ -43,7 +43,12 @@ export type Channel = Prisma.ChannelModel
  */
 export type Message = Prisma.MessageModel
 /**
- * Model Invite
+ * Model Conversation
  * 
  */
-export type Invite = Prisma.InviteModel
+export type Conversation = Prisma.ConversationModel
+/**
+ * Model DirectMessage
+ * 
+ */
+export type DirectMessage = Prisma.DirectMessageModel

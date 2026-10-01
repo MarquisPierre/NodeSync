@@ -29,6 +29,7 @@ export type ServerMinAggregateOutputType = {
   name: string | null
   imageUrl: string | null
   inviteCode: string | null
+  profileId: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -38,6 +39,7 @@ export type ServerMaxAggregateOutputType = {
   name: string | null
   imageUrl: string | null
   inviteCode: string | null
+  profileId: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -47,6 +49,7 @@ export type ServerCountAggregateOutputType = {
   name: number
   imageUrl: number
   inviteCode: number
+  profileId: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -58,6 +61,7 @@ export type ServerMinAggregateInputType = {
   name?: true
   imageUrl?: true
   inviteCode?: true
+  profileId?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -67,6 +71,7 @@ export type ServerMaxAggregateInputType = {
   name?: true
   imageUrl?: true
   inviteCode?: true
+  profileId?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -76,6 +81,7 @@ export type ServerCountAggregateInputType = {
   name?: true
   imageUrl?: true
   inviteCode?: true
+  profileId?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -158,6 +164,7 @@ export type ServerGroupByOutputType = {
   name: string
   imageUrl: string
   inviteCode: string
+  profileId: string
   createdAt: Date
   updatedAt: Date
   _count: ServerCountAggregateOutputType | null
@@ -188,11 +195,12 @@ export type ServerWhereInput = {
   name?: Prisma.StringFilter<"Server"> | string
   imageUrl?: Prisma.StringFilter<"Server"> | string
   inviteCode?: Prisma.StringFilter<"Server"> | string
+  profileId?: Prisma.StringFilter<"Server"> | string
   createdAt?: Prisma.DateTimeFilter<"Server"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Server"> | Date | string
+  profile?: Prisma.XOR<Prisma.ProfileScalarRelationFilter, Prisma.ProfileWhereInput>
   members?: Prisma.MemberListRelationFilter
   channels?: Prisma.ChannelListRelationFilter
-  invites?: Prisma.InviteListRelationFilter
 }
 
 export type ServerOrderByWithRelationInput = {
@@ -200,11 +208,12 @@ export type ServerOrderByWithRelationInput = {
   name?: Prisma.SortOrder
   imageUrl?: Prisma.SortOrder
   inviteCode?: Prisma.SortOrder
+  profileId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  profile?: Prisma.ProfileOrderByWithRelationInput
   members?: Prisma.MemberOrderByRelationAggregateInput
   channels?: Prisma.ChannelOrderByRelationAggregateInput
-  invites?: Prisma.InviteOrderByRelationAggregateInput
 }
 
 export type ServerWhereUniqueInput = Prisma.AtLeast<{
@@ -215,11 +224,12 @@ export type ServerWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.ServerWhereInput | Prisma.ServerWhereInput[]
   name?: Prisma.StringFilter<"Server"> | string
   imageUrl?: Prisma.StringFilter<"Server"> | string
+  profileId?: Prisma.StringFilter<"Server"> | string
   createdAt?: Prisma.DateTimeFilter<"Server"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Server"> | Date | string
+  profile?: Prisma.XOR<Prisma.ProfileScalarRelationFilter, Prisma.ProfileWhereInput>
   members?: Prisma.MemberListRelationFilter
   channels?: Prisma.ChannelListRelationFilter
-  invites?: Prisma.InviteListRelationFilter
 }, "id" | "inviteCode">
 
 export type ServerOrderByWithAggregationInput = {
@@ -227,6 +237,7 @@ export type ServerOrderByWithAggregationInput = {
   name?: Prisma.SortOrder
   imageUrl?: Prisma.SortOrder
   inviteCode?: Prisma.SortOrder
+  profileId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.ServerCountOrderByAggregateInput
@@ -242,6 +253,7 @@ export type ServerScalarWhereWithAggregatesInput = {
   name?: Prisma.StringWithAggregatesFilter<"Server"> | string
   imageUrl?: Prisma.StringWithAggregatesFilter<"Server"> | string
   inviteCode?: Prisma.StringWithAggregatesFilter<"Server"> | string
+  profileId?: Prisma.StringWithAggregatesFilter<"Server"> | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Server"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Server"> | Date | string
 }
@@ -253,9 +265,9 @@ export type ServerCreateInput = {
   inviteCode: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  profile: Prisma.ProfileCreateNestedOneWithoutServersInput
   members?: Prisma.MemberCreateNestedManyWithoutServerInput
   channels?: Prisma.ChannelCreateNestedManyWithoutServerInput
-  invites?: Prisma.InviteCreateNestedManyWithoutServerInput
 }
 
 export type ServerUncheckedCreateInput = {
@@ -263,11 +275,11 @@ export type ServerUncheckedCreateInput = {
   name: string
   imageUrl: string
   inviteCode: string
+  profileId: string
   createdAt?: Date | string
   updatedAt?: Date | string
   members?: Prisma.MemberUncheckedCreateNestedManyWithoutServerInput
   channels?: Prisma.ChannelUncheckedCreateNestedManyWithoutServerInput
-  invites?: Prisma.InviteUncheckedCreateNestedManyWithoutServerInput
 }
 
 export type ServerUpdateInput = {
@@ -277,9 +289,9 @@ export type ServerUpdateInput = {
   inviteCode?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  profile?: Prisma.ProfileUpdateOneRequiredWithoutServersNestedInput
   members?: Prisma.MemberUpdateManyWithoutServerNestedInput
   channels?: Prisma.ChannelUpdateManyWithoutServerNestedInput
-  invites?: Prisma.InviteUpdateManyWithoutServerNestedInput
 }
 
 export type ServerUncheckedUpdateInput = {
@@ -287,11 +299,11 @@ export type ServerUncheckedUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   imageUrl?: Prisma.StringFieldUpdateOperationsInput | string
   inviteCode?: Prisma.StringFieldUpdateOperationsInput | string
+  profileId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   members?: Prisma.MemberUncheckedUpdateManyWithoutServerNestedInput
   channels?: Prisma.ChannelUncheckedUpdateManyWithoutServerNestedInput
-  invites?: Prisma.InviteUncheckedUpdateManyWithoutServerNestedInput
 }
 
 export type ServerCreateManyInput = {
@@ -299,6 +311,7 @@ export type ServerCreateManyInput = {
   name: string
   imageUrl: string
   inviteCode: string
+  profileId: string
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -317,8 +330,19 @@ export type ServerUncheckedUpdateManyInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   imageUrl?: Prisma.StringFieldUpdateOperationsInput | string
   inviteCode?: Prisma.StringFieldUpdateOperationsInput | string
+  profileId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type ServerListRelationFilter = {
+  every?: Prisma.ServerWhereInput
+  some?: Prisma.ServerWhereInput
+  none?: Prisma.ServerWhereInput
+}
+
+export type ServerOrderByRelationAggregateInput = {
+  _count?: Prisma.SortOrder
 }
 
 export type ServerCountOrderByAggregateInput = {
@@ -326,6 +350,7 @@ export type ServerCountOrderByAggregateInput = {
   name?: Prisma.SortOrder
   imageUrl?: Prisma.SortOrder
   inviteCode?: Prisma.SortOrder
+  profileId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -335,6 +360,7 @@ export type ServerMaxOrderByAggregateInput = {
   name?: Prisma.SortOrder
   imageUrl?: Prisma.SortOrder
   inviteCode?: Prisma.SortOrder
+  profileId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -344,6 +370,7 @@ export type ServerMinOrderByAggregateInput = {
   name?: Prisma.SortOrder
   imageUrl?: Prisma.SortOrder
   inviteCode?: Prisma.SortOrder
+  profileId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -351,6 +378,48 @@ export type ServerMinOrderByAggregateInput = {
 export type ServerScalarRelationFilter = {
   is?: Prisma.ServerWhereInput
   isNot?: Prisma.ServerWhereInput
+}
+
+export type ServerCreateNestedManyWithoutProfileInput = {
+  create?: Prisma.XOR<Prisma.ServerCreateWithoutProfileInput, Prisma.ServerUncheckedCreateWithoutProfileInput> | Prisma.ServerCreateWithoutProfileInput[] | Prisma.ServerUncheckedCreateWithoutProfileInput[]
+  connectOrCreate?: Prisma.ServerCreateOrConnectWithoutProfileInput | Prisma.ServerCreateOrConnectWithoutProfileInput[]
+  createMany?: Prisma.ServerCreateManyProfileInputEnvelope
+  connect?: Prisma.ServerWhereUniqueInput | Prisma.ServerWhereUniqueInput[]
+}
+
+export type ServerUncheckedCreateNestedManyWithoutProfileInput = {
+  create?: Prisma.XOR<Prisma.ServerCreateWithoutProfileInput, Prisma.ServerUncheckedCreateWithoutProfileInput> | Prisma.ServerCreateWithoutProfileInput[] | Prisma.ServerUncheckedCreateWithoutProfileInput[]
+  connectOrCreate?: Prisma.ServerCreateOrConnectWithoutProfileInput | Prisma.ServerCreateOrConnectWithoutProfileInput[]
+  createMany?: Prisma.ServerCreateManyProfileInputEnvelope
+  connect?: Prisma.ServerWhereUniqueInput | Prisma.ServerWhereUniqueInput[]
+}
+
+export type ServerUpdateManyWithoutProfileNestedInput = {
+  create?: Prisma.XOR<Prisma.ServerCreateWithoutProfileInput, Prisma.ServerUncheckedCreateWithoutProfileInput> | Prisma.ServerCreateWithoutProfileInput[] | Prisma.ServerUncheckedCreateWithoutProfileInput[]
+  connectOrCreate?: Prisma.ServerCreateOrConnectWithoutProfileInput | Prisma.ServerCreateOrConnectWithoutProfileInput[]
+  upsert?: Prisma.ServerUpsertWithWhereUniqueWithoutProfileInput | Prisma.ServerUpsertWithWhereUniqueWithoutProfileInput[]
+  createMany?: Prisma.ServerCreateManyProfileInputEnvelope
+  set?: Prisma.ServerWhereUniqueInput | Prisma.ServerWhereUniqueInput[]
+  disconnect?: Prisma.ServerWhereUniqueInput | Prisma.ServerWhereUniqueInput[]
+  delete?: Prisma.ServerWhereUniqueInput | Prisma.ServerWhereUniqueInput[]
+  connect?: Prisma.ServerWhereUniqueInput | Prisma.ServerWhereUniqueInput[]
+  update?: Prisma.ServerUpdateWithWhereUniqueWithoutProfileInput | Prisma.ServerUpdateWithWhereUniqueWithoutProfileInput[]
+  updateMany?: Prisma.ServerUpdateManyWithWhereWithoutProfileInput | Prisma.ServerUpdateManyWithWhereWithoutProfileInput[]
+  deleteMany?: Prisma.ServerScalarWhereInput | Prisma.ServerScalarWhereInput[]
+}
+
+export type ServerUncheckedUpdateManyWithoutProfileNestedInput = {
+  create?: Prisma.XOR<Prisma.ServerCreateWithoutProfileInput, Prisma.ServerUncheckedCreateWithoutProfileInput> | Prisma.ServerCreateWithoutProfileInput[] | Prisma.ServerUncheckedCreateWithoutProfileInput[]
+  connectOrCreate?: Prisma.ServerCreateOrConnectWithoutProfileInput | Prisma.ServerCreateOrConnectWithoutProfileInput[]
+  upsert?: Prisma.ServerUpsertWithWhereUniqueWithoutProfileInput | Prisma.ServerUpsertWithWhereUniqueWithoutProfileInput[]
+  createMany?: Prisma.ServerCreateManyProfileInputEnvelope
+  set?: Prisma.ServerWhereUniqueInput | Prisma.ServerWhereUniqueInput[]
+  disconnect?: Prisma.ServerWhereUniqueInput | Prisma.ServerWhereUniqueInput[]
+  delete?: Prisma.ServerWhereUniqueInput | Prisma.ServerWhereUniqueInput[]
+  connect?: Prisma.ServerWhereUniqueInput | Prisma.ServerWhereUniqueInput[]
+  update?: Prisma.ServerUpdateWithWhereUniqueWithoutProfileInput | Prisma.ServerUpdateWithWhereUniqueWithoutProfileInput[]
+  updateMany?: Prisma.ServerUpdateManyWithWhereWithoutProfileInput | Prisma.ServerUpdateManyWithWhereWithoutProfileInput[]
+  deleteMany?: Prisma.ServerScalarWhereInput | Prisma.ServerScalarWhereInput[]
 }
 
 export type ServerCreateNestedOneWithoutMembersInput = {
@@ -381,18 +450,65 @@ export type ServerUpdateOneRequiredWithoutChannelsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.ServerUpdateToOneWithWhereWithoutChannelsInput, Prisma.ServerUpdateWithoutChannelsInput>, Prisma.ServerUncheckedUpdateWithoutChannelsInput>
 }
 
-export type ServerCreateNestedOneWithoutInvitesInput = {
-  create?: Prisma.XOR<Prisma.ServerCreateWithoutInvitesInput, Prisma.ServerUncheckedCreateWithoutInvitesInput>
-  connectOrCreate?: Prisma.ServerCreateOrConnectWithoutInvitesInput
-  connect?: Prisma.ServerWhereUniqueInput
+export type ServerCreateWithoutProfileInput = {
+  id?: string
+  name: string
+  imageUrl: string
+  inviteCode: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  members?: Prisma.MemberCreateNestedManyWithoutServerInput
+  channels?: Prisma.ChannelCreateNestedManyWithoutServerInput
 }
 
-export type ServerUpdateOneRequiredWithoutInvitesNestedInput = {
-  create?: Prisma.XOR<Prisma.ServerCreateWithoutInvitesInput, Prisma.ServerUncheckedCreateWithoutInvitesInput>
-  connectOrCreate?: Prisma.ServerCreateOrConnectWithoutInvitesInput
-  upsert?: Prisma.ServerUpsertWithoutInvitesInput
-  connect?: Prisma.ServerWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.ServerUpdateToOneWithWhereWithoutInvitesInput, Prisma.ServerUpdateWithoutInvitesInput>, Prisma.ServerUncheckedUpdateWithoutInvitesInput>
+export type ServerUncheckedCreateWithoutProfileInput = {
+  id?: string
+  name: string
+  imageUrl: string
+  inviteCode: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  members?: Prisma.MemberUncheckedCreateNestedManyWithoutServerInput
+  channels?: Prisma.ChannelUncheckedCreateNestedManyWithoutServerInput
+}
+
+export type ServerCreateOrConnectWithoutProfileInput = {
+  where: Prisma.ServerWhereUniqueInput
+  create: Prisma.XOR<Prisma.ServerCreateWithoutProfileInput, Prisma.ServerUncheckedCreateWithoutProfileInput>
+}
+
+export type ServerCreateManyProfileInputEnvelope = {
+  data: Prisma.ServerCreateManyProfileInput | Prisma.ServerCreateManyProfileInput[]
+  skipDuplicates?: boolean
+}
+
+export type ServerUpsertWithWhereUniqueWithoutProfileInput = {
+  where: Prisma.ServerWhereUniqueInput
+  update: Prisma.XOR<Prisma.ServerUpdateWithoutProfileInput, Prisma.ServerUncheckedUpdateWithoutProfileInput>
+  create: Prisma.XOR<Prisma.ServerCreateWithoutProfileInput, Prisma.ServerUncheckedCreateWithoutProfileInput>
+}
+
+export type ServerUpdateWithWhereUniqueWithoutProfileInput = {
+  where: Prisma.ServerWhereUniqueInput
+  data: Prisma.XOR<Prisma.ServerUpdateWithoutProfileInput, Prisma.ServerUncheckedUpdateWithoutProfileInput>
+}
+
+export type ServerUpdateManyWithWhereWithoutProfileInput = {
+  where: Prisma.ServerScalarWhereInput
+  data: Prisma.XOR<Prisma.ServerUpdateManyMutationInput, Prisma.ServerUncheckedUpdateManyWithoutProfileInput>
+}
+
+export type ServerScalarWhereInput = {
+  AND?: Prisma.ServerScalarWhereInput | Prisma.ServerScalarWhereInput[]
+  OR?: Prisma.ServerScalarWhereInput[]
+  NOT?: Prisma.ServerScalarWhereInput | Prisma.ServerScalarWhereInput[]
+  id?: Prisma.StringFilter<"Server"> | string
+  name?: Prisma.StringFilter<"Server"> | string
+  imageUrl?: Prisma.StringFilter<"Server"> | string
+  inviteCode?: Prisma.StringFilter<"Server"> | string
+  profileId?: Prisma.StringFilter<"Server"> | string
+  createdAt?: Prisma.DateTimeFilter<"Server"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"Server"> | Date | string
 }
 
 export type ServerCreateWithoutMembersInput = {
@@ -402,8 +518,8 @@ export type ServerCreateWithoutMembersInput = {
   inviteCode: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  profile: Prisma.ProfileCreateNestedOneWithoutServersInput
   channels?: Prisma.ChannelCreateNestedManyWithoutServerInput
-  invites?: Prisma.InviteCreateNestedManyWithoutServerInput
 }
 
 export type ServerUncheckedCreateWithoutMembersInput = {
@@ -411,10 +527,10 @@ export type ServerUncheckedCreateWithoutMembersInput = {
   name: string
   imageUrl: string
   inviteCode: string
+  profileId: string
   createdAt?: Date | string
   updatedAt?: Date | string
   channels?: Prisma.ChannelUncheckedCreateNestedManyWithoutServerInput
-  invites?: Prisma.InviteUncheckedCreateNestedManyWithoutServerInput
 }
 
 export type ServerCreateOrConnectWithoutMembersInput = {
@@ -440,8 +556,8 @@ export type ServerUpdateWithoutMembersInput = {
   inviteCode?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  profile?: Prisma.ProfileUpdateOneRequiredWithoutServersNestedInput
   channels?: Prisma.ChannelUpdateManyWithoutServerNestedInput
-  invites?: Prisma.InviteUpdateManyWithoutServerNestedInput
 }
 
 export type ServerUncheckedUpdateWithoutMembersInput = {
@@ -449,10 +565,10 @@ export type ServerUncheckedUpdateWithoutMembersInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   imageUrl?: Prisma.StringFieldUpdateOperationsInput | string
   inviteCode?: Prisma.StringFieldUpdateOperationsInput | string
+  profileId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   channels?: Prisma.ChannelUncheckedUpdateManyWithoutServerNestedInput
-  invites?: Prisma.InviteUncheckedUpdateManyWithoutServerNestedInput
 }
 
 export type ServerCreateWithoutChannelsInput = {
@@ -462,8 +578,8 @@ export type ServerCreateWithoutChannelsInput = {
   inviteCode: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  profile: Prisma.ProfileCreateNestedOneWithoutServersInput
   members?: Prisma.MemberCreateNestedManyWithoutServerInput
-  invites?: Prisma.InviteCreateNestedManyWithoutServerInput
 }
 
 export type ServerUncheckedCreateWithoutChannelsInput = {
@@ -471,10 +587,10 @@ export type ServerUncheckedCreateWithoutChannelsInput = {
   name: string
   imageUrl: string
   inviteCode: string
+  profileId: string
   createdAt?: Date | string
   updatedAt?: Date | string
   members?: Prisma.MemberUncheckedCreateNestedManyWithoutServerInput
-  invites?: Prisma.InviteUncheckedCreateNestedManyWithoutServerInput
 }
 
 export type ServerCreateOrConnectWithoutChannelsInput = {
@@ -500,8 +616,8 @@ export type ServerUpdateWithoutChannelsInput = {
   inviteCode?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  profile?: Prisma.ProfileUpdateOneRequiredWithoutServersNestedInput
   members?: Prisma.MemberUpdateManyWithoutServerNestedInput
-  invites?: Prisma.InviteUpdateManyWithoutServerNestedInput
 }
 
 export type ServerUncheckedUpdateWithoutChannelsInput = {
@@ -509,51 +625,22 @@ export type ServerUncheckedUpdateWithoutChannelsInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   imageUrl?: Prisma.StringFieldUpdateOperationsInput | string
   inviteCode?: Prisma.StringFieldUpdateOperationsInput | string
+  profileId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   members?: Prisma.MemberUncheckedUpdateManyWithoutServerNestedInput
-  invites?: Prisma.InviteUncheckedUpdateManyWithoutServerNestedInput
 }
 
-export type ServerCreateWithoutInvitesInput = {
+export type ServerCreateManyProfileInput = {
   id?: string
   name: string
   imageUrl: string
   inviteCode: string
   createdAt?: Date | string
   updatedAt?: Date | string
-  members?: Prisma.MemberCreateNestedManyWithoutServerInput
-  channels?: Prisma.ChannelCreateNestedManyWithoutServerInput
 }
 
-export type ServerUncheckedCreateWithoutInvitesInput = {
-  id?: string
-  name: string
-  imageUrl: string
-  inviteCode: string
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  members?: Prisma.MemberUncheckedCreateNestedManyWithoutServerInput
-  channels?: Prisma.ChannelUncheckedCreateNestedManyWithoutServerInput
-}
-
-export type ServerCreateOrConnectWithoutInvitesInput = {
-  where: Prisma.ServerWhereUniqueInput
-  create: Prisma.XOR<Prisma.ServerCreateWithoutInvitesInput, Prisma.ServerUncheckedCreateWithoutInvitesInput>
-}
-
-export type ServerUpsertWithoutInvitesInput = {
-  update: Prisma.XOR<Prisma.ServerUpdateWithoutInvitesInput, Prisma.ServerUncheckedUpdateWithoutInvitesInput>
-  create: Prisma.XOR<Prisma.ServerCreateWithoutInvitesInput, Prisma.ServerUncheckedCreateWithoutInvitesInput>
-  where?: Prisma.ServerWhereInput
-}
-
-export type ServerUpdateToOneWithWhereWithoutInvitesInput = {
-  where?: Prisma.ServerWhereInput
-  data: Prisma.XOR<Prisma.ServerUpdateWithoutInvitesInput, Prisma.ServerUncheckedUpdateWithoutInvitesInput>
-}
-
-export type ServerUpdateWithoutInvitesInput = {
+export type ServerUpdateWithoutProfileInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   imageUrl?: Prisma.StringFieldUpdateOperationsInput | string
@@ -564,7 +651,7 @@ export type ServerUpdateWithoutInvitesInput = {
   channels?: Prisma.ChannelUpdateManyWithoutServerNestedInput
 }
 
-export type ServerUncheckedUpdateWithoutInvitesInput = {
+export type ServerUncheckedUpdateWithoutProfileInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   imageUrl?: Prisma.StringFieldUpdateOperationsInput | string
@@ -575,6 +662,15 @@ export type ServerUncheckedUpdateWithoutInvitesInput = {
   channels?: Prisma.ChannelUncheckedUpdateManyWithoutServerNestedInput
 }
 
+export type ServerUncheckedUpdateManyWithoutProfileInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  imageUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  inviteCode?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
 
 /**
  * Count Type ServerCountOutputType
@@ -583,13 +679,11 @@ export type ServerUncheckedUpdateWithoutInvitesInput = {
 export type ServerCountOutputType = {
   members: number
   channels: number
-  invites: number
 }
 
 export type ServerCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   members?: boolean | ServerCountOutputTypeCountMembersArgs
   channels?: boolean | ServerCountOutputTypeCountChannelsArgs
-  invites?: boolean | ServerCountOutputTypeCountInvitesArgs
 }
 
 /**
@@ -616,24 +710,18 @@ export type ServerCountOutputTypeCountChannelsArgs<ExtArgs extends runtime.Types
   where?: Prisma.ChannelWhereInput
 }
 
-/**
- * ServerCountOutputType without action
- */
-export type ServerCountOutputTypeCountInvitesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.InviteWhereInput
-}
-
 
 export type ServerSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
   imageUrl?: boolean
   inviteCode?: boolean
+  profileId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  profile?: boolean | Prisma.ProfileDefaultArgs<ExtArgs>
   members?: boolean | Prisma.Server$membersArgs<ExtArgs>
   channels?: boolean | Prisma.Server$channelsArgs<ExtArgs>
-  invites?: boolean | Prisma.Server$invitesArgs<ExtArgs>
   _count?: boolean | Prisma.ServerCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["server"]>
 
@@ -642,8 +730,10 @@ export type ServerSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extens
   name?: boolean
   imageUrl?: boolean
   inviteCode?: boolean
+  profileId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  profile?: boolean | Prisma.ProfileDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["server"]>
 
 export type ServerSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -651,8 +741,10 @@ export type ServerSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extens
   name?: boolean
   imageUrl?: boolean
   inviteCode?: boolean
+  profileId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  profile?: boolean | Prisma.ProfileDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["server"]>
 
 export type ServerSelectScalar = {
@@ -660,32 +752,38 @@ export type ServerSelectScalar = {
   name?: boolean
   imageUrl?: boolean
   inviteCode?: boolean
+  profileId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type ServerOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "imageUrl" | "inviteCode" | "createdAt" | "updatedAt", ExtArgs["result"]["server"]>
+export type ServerOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "imageUrl" | "inviteCode" | "profileId" | "createdAt" | "updatedAt", ExtArgs["result"]["server"]>
 export type ServerInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  profile?: boolean | Prisma.ProfileDefaultArgs<ExtArgs>
   members?: boolean | Prisma.Server$membersArgs<ExtArgs>
   channels?: boolean | Prisma.Server$channelsArgs<ExtArgs>
-  invites?: boolean | Prisma.Server$invitesArgs<ExtArgs>
   _count?: boolean | Prisma.ServerCountOutputTypeDefaultArgs<ExtArgs>
 }
-export type ServerIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
-export type ServerIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
+export type ServerIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  profile?: boolean | Prisma.ProfileDefaultArgs<ExtArgs>
+}
+export type ServerIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  profile?: boolean | Prisma.ProfileDefaultArgs<ExtArgs>
+}
 
 export type $ServerPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Server"
   objects: {
+    profile: Prisma.$ProfilePayload<ExtArgs>
     members: Prisma.$MemberPayload<ExtArgs>[]
     channels: Prisma.$ChannelPayload<ExtArgs>[]
-    invites: Prisma.$InvitePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     name: string
     imageUrl: string
     inviteCode: string
+    profileId: string
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["server"]>
@@ -1082,9 +1180,9 @@ readonly fields: ServerFieldRefs;
  */
 export interface Prisma__ServerClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  profile<T extends Prisma.ProfileDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ProfileDefaultArgs<ExtArgs>>): Prisma.Prisma__ProfileClient<runtime.Types.Result.GetResult<Prisma.$ProfilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   members<T extends Prisma.Server$membersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Server$membersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MemberPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   channels<T extends Prisma.Server$channelsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Server$channelsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ChannelPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  invites<T extends Prisma.Server$invitesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Server$invitesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$InvitePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1118,6 +1216,7 @@ export interface ServerFieldRefs {
   readonly name: Prisma.FieldRef<"Server", 'String'>
   readonly imageUrl: Prisma.FieldRef<"Server", 'String'>
   readonly inviteCode: Prisma.FieldRef<"Server", 'String'>
+  readonly profileId: Prisma.FieldRef<"Server", 'String'>
   readonly createdAt: Prisma.FieldRef<"Server", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Server", 'DateTime'>
 }
@@ -1369,6 +1468,10 @@ export type ServerCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensio
    */
   data: Prisma.ServerCreateManyInput | Prisma.ServerCreateManyInput[]
   skipDuplicates?: boolean
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ServerIncludeCreateManyAndReturn<ExtArgs> | null
 }
 
 /**
@@ -1439,6 +1542,10 @@ export type ServerUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensio
    * Limit how many Servers to update.
    */
   limit?: number
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ServerIncludeUpdateManyAndReturn<ExtArgs> | null
 }
 
 /**
@@ -1553,30 +1660,6 @@ export type Server$channelsArgs<ExtArgs extends runtime.Types.Extensions.Interna
   take?: number
   skip?: number
   distinct?: Prisma.ChannelScalarFieldEnum | Prisma.ChannelScalarFieldEnum[]
-}
-
-/**
- * Server.invites
- */
-export type Server$invitesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the Invite
-   */
-  select?: Prisma.InviteSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the Invite
-   */
-  omit?: Prisma.InviteOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.InviteInclude<ExtArgs> | null
-  where?: Prisma.InviteWhereInput
-  orderBy?: Prisma.InviteOrderByWithRelationInput | Prisma.InviteOrderByWithRelationInput[]
-  cursor?: Prisma.InviteWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.InviteScalarFieldEnum | Prisma.InviteScalarFieldEnum[]
 }
 
 /**
