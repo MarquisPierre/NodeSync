@@ -70,7 +70,7 @@ export const InitialModal = () => {
   if (!isMounted) {
     return null;
   }
-
+ 
   return (
     <Dialog open>
       <DialogContent

@@ -1,11 +1,13 @@
+// proxy.ts (Next.js 16+) — use middleware.ts on Next.js 15 or earlier
 import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
 
-const isPublicRoute = createRouteMatcher(['/sign-in(.*)', '/sign-up(.*)']);
+const isPublicRoute = createRouteMatcher([
+  "/sign-in(.*)",
+  "/sign-up(.*)",
+  "/api/uploadthing", // carried over from your old publicRoutes
+]);
 
 export default clerkMiddleware(async (auth, req) => {
-  // 🚀 THIS LOG WILL SHOW IN YOUR TERMINAL ON EVERY PAGE REFRESH
-  console.log("Middleware caught a request to:", req.nextUrl.pathname);
-
   if (!isPublicRoute(req)) {
     await auth.protect();
   }
@@ -13,8 +15,7 @@ export default clerkMiddleware(async (auth, req) => {
 
 export const config = {
   matcher: [
-    '/((?!_next|[^?]*\\.[\\w]+$).*)',
-    '/(api|trpc)(.*)',
+    "/((?!_next|[^?]*\\.[\\w]+$).*)",
+    "/(api|trpc)(.*)",
   ],
 };
-
