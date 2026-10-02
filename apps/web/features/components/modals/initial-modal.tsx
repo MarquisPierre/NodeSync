@@ -26,6 +26,7 @@ import { Input } from "@/features/components/ui/input";
 import { Button } from "@/features/components/ui/button";
 import { FileUpload } from "@/features/components/file-upload";
 import { useRouter } from "next/navigation";
+import { error } from "console";
 
 const formSchema = z.object({
   name: z.string().min(1, {
@@ -70,18 +71,10 @@ export const InitialModal = () => {
   if (!isMounted) {
     return null;
   }
- 
+
   return (
     <Dialog open>
-      <DialogContent
-    className="bg-white text-black p-0 overflow-hidden"
-    style={{
-      position: "fixed",
-      top: "50%",
-      left: "50%",
-      transform: "translate(-50%, -50%)",
-    }}
-  >
+      <DialogContent className="bg-white text-black p-0 overflow-hidden" style={{ transform: "translate(-50%, -50%)" }}>
         <DialogHeader className="pt-8 px-6">
           <DialogTitle className="text-2xl text-center font-bold">
             Customize your server
@@ -133,8 +126,8 @@ export const InitialModal = () => {
                 )}
               />
             </div>
-            <DialogFooter className="bg-gray-100 px-6 py-4">
-              <Button variant="default" disabled={isLoading}>
+            <DialogFooter className="bg-gray-100 px-6 py-4 mx-0 mb-0" >
+              <Button type="submit" variant="primary" disabled={isLoading}>
                 Create
               </Button>
             </DialogFooter>

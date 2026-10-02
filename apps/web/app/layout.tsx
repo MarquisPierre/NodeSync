@@ -22,7 +22,7 @@ export default function RootLayout({
         suppressHydrationWarning
         className={cn("antialiased", fontMono.variable, "font-sans", font.variable)}
       >
-        <body className="h-full flex items-center justify-start">
+        <body className="h-full ">
           <ThemeProvider>
             {children}
           </ThemeProvider>

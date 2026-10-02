@@ -43,6 +43,7 @@
     "esbuild@0.28.2": true
   },
   "overrides": {
-    "deepmerge-ts": "^8.0.0"
+    "deepmerge-ts": "^8.0.0",
+    "effect": "3.21.0"
   }
 }
