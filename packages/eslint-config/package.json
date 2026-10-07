@@ -10,7 +10,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^9",
-    "@next/eslint-plugin-next": "^16.2.6",
+    "@next/eslint-plugin-next": "^16.4.0",
     "@typescript-eslint/eslint-plugin": "^8.60.0",
     "@typescript-eslint/parser": "^8.60.0",
     "eslint": "^9",
@@ -22,5 +22,9 @@
     "globals": "^17.6.0",
     "typescript": "^5",
     "typescript-eslint": "^8.60.0"
+  },
+  "dependencies": {
+    "@uploadthing/react": "6.6.0",
+    "uploadthing": "6.12.0"
   }
 }

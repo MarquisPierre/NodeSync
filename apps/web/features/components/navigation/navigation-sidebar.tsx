@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
 
-// import { ModeToggle } from "@/features/components/ui/mode-toggle";
+import { ModeToggle } from "@/features/components/ui/mode-toggle";
 import { ScrollArea } from "@/features/components/ui/scroll-area";
 import { Separator } from "@/features/components/ui/separator";
 import { currentProfile } from "@/lib/current-profile";
@@ -8,7 +8,7 @@ import prisma from "@/lib/prisma";
 
 import { NavigationAction } from "@/features/components/navigation/navigation-action";
 import { NavigationItem } from "@/features/components/navigation/navigation-item";
-import { UserButton } from "@clerk/nextjs";
+import { Show , UserButton } from "@clerk/nextjs";
 
 export const NavigationSidebar = async () => {
   const profile = await currentProfile();
@@ -42,17 +42,18 @@ export const NavigationSidebar = async () => {
           </div>
         ))}
       </ScrollArea>
-      {/* <div className="pb-3 mt-auto flex items-center flex-col gap-y-4">
+      <div className="pb-3 mt-auto flex items-center flex-col gap-y-4">
         <ModeToggle />
-        <UserButton
-          afterSignOutUrl="/"
-          appearance={{
-            elements: {
-              avatarBox: "h-[48px] w-[48px]",
-            },
-          }}
-        />
-      </div> */}
+       <Show when="signed-in">
+    <UserButton
+      appearance={{
+        elements: {
+          avatarBox: "h-[48px] w-[48px]",
+        },
+      }}
+    />
+  </Show>
+      </div>
     </div>
   );
 };
