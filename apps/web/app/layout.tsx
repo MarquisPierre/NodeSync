@@ -16,18 +16,18 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <ClerkProvider afterSignOutUrl="/">
-      <html
-        lang="en"
-        suppressHydrationWarning
-        className={cn("antialiased", fontMono.variable, "font-sans", font.variable)}
-      >
-        <body className="h-full ">
+    <html
+      lang="en"
+      suppressHydrationWarning
+      className={cn("h-full antialiased", fontMono.variable, "font-sans", font.variable)}
+    >
+      <body className="h-full">
+        <ClerkProvider afterSignOutUrl="/">
           <ThemeProvider>
             {children}
           </ThemeProvider>
-        </body>
-      </html>
-    </ClerkProvider>
+        </ClerkProvider>
+      </body>
+    </html>
   )
 }
