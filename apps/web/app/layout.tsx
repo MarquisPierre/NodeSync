@@ -1,6 +1,7 @@
 import { Geist, Geist_Mono } from "next/font/google"
 import "@workspace/ui/globals.css"
 import { ThemeProvider } from "@/features/components/providers/theme-provider"
+import { ModalProvider } from "@/features/components/providers/modal-provider"
 import { cn } from "@workspace/ui/lib/utils";
 import { ClerkProvider } from '@clerk/nextjs'
 
@@ -24,6 +25,7 @@ export default function RootLayout({
       <body className="h-full">
         <ClerkProvider afterSignOutUrl="/">
           <ThemeProvider>
+            <ModalProvider />
             {children}
           </ThemeProvider>
         </ClerkProvider>

@@ -3,7 +3,8 @@
 import { Edit, Hash, Lock, Mic, Trash, Video } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
 
-import { Channel, ChannelType, MemberRole, Server } from "@/server/generated/prisma/client";
+import { ChannelType, MemberRole } from "@/server/generated/prisma/enums";
+import type { Channel, Server } from "@/server/generated/prisma/client";
 import { cn } from "@/lib/utils";
 import { ActionTooltip } from "@/features/components/action-tooltip";
 import { useModal, ModalType } from "@/features/hooks/use-modal-store";
