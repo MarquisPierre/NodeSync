@@ -5,7 +5,8 @@ import { useParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 
 import { cn } from "@/lib/utils";
-import { Member, MemberRole, Profile, Server } from "@/server/generated/prisma/client";
+import { MemberRole } from "@/server/generated/prisma/enums";
+import type { Member, Profile, Server } from "@/server/generated/prisma/client";
 import UserAvatar from "@/features/components/user-avatar";
 
 interface ServerMemberProps {

@@ -3,16 +3,16 @@ import { Hash, Mic, ShieldAlert, ShieldCheck, Video } from "lucide-react";
 
 import { currentProfile } from "@/lib/current-profile";
 import  prisma  from "@/lib/prisma";
-import { ChannelType, MemberRole } from "@prisma/client";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { Separator } from "@/components/ui/separator";
+import { ChannelType, MemberRole } from "@/server/generated/prisma/enums";
+import { ScrollArea } from "@/features/components/ui/scroll-area";
+import { Separator } from "@/features/components/ui/separator";
 
-import { ServerHeader } from "./server-header";
-import { ServerSearch } from "./server-search";
-import { ServerSection } from "./server-section";
+import { ServerHeader } from "@/features/components/server/server-header"
+import { ServerSearch } from "@/features/components/server/server-search";
+import { ServerSection } from "@/features/components/server/server-section";
 import { text } from "node:stream/consumers";
-import { ServerChannel } from "./server-channel";
-import { ServerMember } from "./server-member";
+import { ServerChannel } from "@/features/components/server/server-channel";
+import { ServerMember } from "@/features/components/server/server-member";
 
 interface ServerSidebarProps {
   serverId: string;

@@ -12,7 +12,7 @@ import {
   ShieldCheck,
   ShieldQuestion,
 } from "lucide-react";
-import { MemberRole } from "@/server/generated/prisma/client";
+import { MemberRole } from "@/server/generated/prisma/enums";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 

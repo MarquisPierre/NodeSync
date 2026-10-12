@@ -32,7 +32,7 @@ import {
 import { Input } from "@/features/components/ui/input";
 import { Button } from "@/features/components/ui/button";
 import { useModal } from "@/features/hooks/use-modal-store";
-import { ChannelType } from "@/server/generated/prisma/client";
+import { ChannelType } from "@/server/generated/prisma/enums";
 import { useEffect } from "react";
 
 const formSchema = z.object({
