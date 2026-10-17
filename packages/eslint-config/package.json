@@ -22,9 +22,5 @@
     "globals": "^17.6.0",
     "typescript": "^5",
     "typescript-eslint": "^8.60.0"
-  },
-  "dependencies": {
-    "@uploadthing/react": "6.6.0",
-    "uploadthing": "6.12.0"
   }
 }
