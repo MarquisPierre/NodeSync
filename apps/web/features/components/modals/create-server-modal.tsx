@@ -123,8 +123,8 @@ export const CreateServerModal = () => {
                 )}
               />
             </div>
-            <DialogFooter className="bg-gray-100 px-6 py-4">
-              <Button variant="primary" disabled={isLoading}>
+            <DialogFooter className="mx-0 mb-0 bg-gray-100 px-6 py-3">
+              <Button type="submit" variant="primary" disabled={isLoading}>
                 Create
               </Button>
             </DialogFooter>

@@ -25,7 +25,7 @@ import {
 } from "@/features/components/ui/form";
 import { Input } from "@/features/components/ui/input";
 import { Button } from "@/features/components/ui/button";
-import { FileUpload } from "@//features/components/file-upload";
+import { FileUpload } from "@/features/components/file-upload";
 import { useModal } from "@/features/hooks/use-modal-store";
 
 const formSchema = z.object({
@@ -53,11 +53,11 @@ export const EditServerModal = () => {
   });
 
   useEffect(() => {
-    if (server) {
+    if (server && isModalOpen) {
       form.setValue("name", server.name);
       form.setValue("imageUrl", server.imageUrl);
     }
-  }, [server, form]);
+  }, [server, isModalOpen, form]);
 
   const isLoading = form.formState.isSubmitting;
 
@@ -132,8 +132,8 @@ export const EditServerModal = () => {
                 )}
               />
             </div>
-            <DialogFooter className="bg-gray-100 px-6 py-4">
-              <Button variant="primary" disabled={isLoading}>
+            <DialogFooter className="mx-0 mb-0 bg-gray-100 px-6 py-3">
+              <Button type="submit" variant="primary" disabled={isLoading}>
                 Save
               </Button>
             </DialogFooter>

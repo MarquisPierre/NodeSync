@@ -9,7 +9,7 @@ import {
 
 interface ActionTooltipProps {
   label: string;
-  children: React.ReactNode;
+  children: React.ReactElement; // was React.ReactNode
   side?: "top" | "right" | "bottom" | "left";
   align?: "start" | "center" | "end";
 }
