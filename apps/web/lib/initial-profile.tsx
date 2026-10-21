@@ -29,7 +29,7 @@ if (!email) {
   const newProfile = await prisma.profile.create({
     data: {
       userId: user.id,
-      name: `${user.firstName} ${user.lastName}`,
+      name: [user.firstName, user.lastName].filter(Boolean).join(" ") || user.username || "User",
       imageUrl: user.imageUrl,
       email: email,
     },

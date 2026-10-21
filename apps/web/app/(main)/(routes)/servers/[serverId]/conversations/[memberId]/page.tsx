@@ -4,22 +4,26 @@ import { redirect } from "next/navigation";
 import { currentProfile } from "@/lib/current-profile";
 import prisma from "@/lib/prisma";
 import { getOrCreateConversation } from "@/lib/conversation";
+import { markConversationRead } from "@/lib/conversation-read";
 import { ChatHeader } from "@/features/components/chat/chat-header";
 import { ChatMessages } from "@/features/components/chat/chat-messages";
 import { ChatInput } from "@/features/components/chat/chat-input";
 // import { MediaRoom } from "@/features/components/media-room";
 
 interface MemberIdPageProps {
-  params: {
+  params: Promise<{
     memberId: string;
     serverId: string;
-  };
-  searchParams: {
-    video?: boolean;
-  };
+  }>;
+  searchParams: Promise<{
+    video?: string;
+  }>;
 }
 
 const MemberIdPage = async ({ params, searchParams }: MemberIdPageProps) => {
+  const { memberId, serverId } = await params;
+  const { video } = await searchParams;
+
   const profile = await currentProfile();
 
   if (!profile) {
@@ -29,7 +33,7 @@ const MemberIdPage = async ({ params, searchParams }: MemberIdPageProps) => {
 
   const currentMember = await prisma.member.findFirst({
     where: {
-      serverId: params.serverId,
+      serverId,
       profileId: profile.id,
     },
     include: {
@@ -43,12 +47,14 @@ const MemberIdPage = async ({ params, searchParams }: MemberIdPageProps) => {
 
   const conversation = await getOrCreateConversation(
     currentMember.id,
-    params.memberId
+    memberId
   );
 
   if (!conversation) {
-    return redirect(`/servers/${params.serverId}`);
+    return redirect(`/servers/${serverId}`);
   }
+
+  await markConversationRead(conversation.id, profile.id);
 
   const { memberOne, memberTwo } = conversation;
 
@@ -59,21 +65,21 @@ const MemberIdPage = async ({ params, searchParams }: MemberIdPageProps) => {
     <div className="bg-white dark:bg-[#313338] flex flex-col h-full">
       <ChatHeader
         imageUrl={otherMember.profile.imageUrl}
-        serverId={params.serverId}
+        serverId={serverId}
         name={otherMember.profile.name}
         type="conversation"
       />
-      {/* {searchParams.video && (
+      {/* {video && (
         <MediaRoom chatId={conversation.id} video={true} audio={true} />
       )} */}
-      {!searchParams.video && (
+      {!video && (
         <>
           <ChatMessages
             member={currentMember}
             name={otherMember.profile.name}
             chatId={conversation.id}
             type="conversation"
-            apiUrl="@/api/direct-messages"
+            apiUrl="/api/direct-messages"
             paramKey="conversationId"
             paramValue={conversation.id}
             socketUrl="/api/socket/direct-messages"

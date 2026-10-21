@@ -155,7 +155,7 @@ export const ChatItem = ({
               href={fileUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="relative aspect-square rounded-md mt-2 overflow-hidden border flex items-center bg-secondary h-48 w-48"
+              className="relative aspect-square rounded-md mt-2 overflow-hidden border flex items-center bg-secondary h-40 w-40 sm:h-48 sm:w-48"
             >
               <Image
                 src={fileUrl}
@@ -246,7 +246,7 @@ export const ChatItem = ({
         </div>
       </div>
       {canDeleteMessage && (
-       <div className="flex opacity-0 group-hover:opacity-100 transition items-center gap-x-2 absolute p-1 -top-2 right-5 bg-white dark:bg-zinc-800 border rounded-sm z-10">
+       <div className="flex md:opacity-0 md:group-hover:opacity-100 transition items-center gap-x-2 absolute p-1 -top-2 right-5 bg-white dark:bg-zinc-800 border rounded-sm z-10">
           {canEditMessage && (
             <ActionTooltip label="Edit">
               <button

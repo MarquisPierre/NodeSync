@@ -129,6 +129,9 @@ model Conversation {
 
   directMessages DirectMessage[]
 
+  memberOneLastReadAt DateTime @default(now())
+  memberTwoLastReadAt DateTime @default(now())
+
   @@unique([memberOneId, memberTwoId])
   @@index([memberTwoId])
 }

@@ -27,8 +27,10 @@ export const ChatHeader = ({
       {type === "conversation" && (
         <UserAvatar src={imageUrl} className="h-8 w-8 md:h-8 md:w-8 mr-2" />
       )}
-      <p className="font-semibold text-md text-black dark:text-white">{name}</p>
-      <div className="ml-auto flex items-center">
+      <p className="truncate font-semibold text-md text-black dark:text-white">
+        {name}
+      </p>
+      <div className="ml-auto flex shrink-0 items-center pl-2">
         {type === "conversation" && <ChatVideoButton />}
         <SocketIndicator />
       </div>
