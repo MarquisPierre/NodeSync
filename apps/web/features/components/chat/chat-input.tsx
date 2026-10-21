@@ -8,8 +8,10 @@ import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useQueryClient } from "@tanstack/react-query";
+import { generateUploadDropzone } from "@uploadthing/react";
 import { Plus, X } from "lucide-react";
 
+import type { OurFileRouter } from "@/app/api/uploadthing/core";
 import {
   Form,
   FormControl,
@@ -24,8 +26,9 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/features/components/ui/dialog";
-import { FileUpload } from "@/features/components/file-upload";
 // import { EmojiPicker } from "./emoji-picker";
+
+const UploadDropzone = generateUploadDropzone<OurFileRouter>();
 
 interface ChatInputProps {
   apiUrl: string;
@@ -34,44 +37,47 @@ interface ChatInputProps {
   type: "conversation" | "channel";
 }
 
-const formSchema = z
-  .object({
-    content: z.string(),
-    fileUrl: z.string(),
-  })
-  .refine((values) => values.content.trim() !== "" || values.fileUrl !== "", {
-    message: "Type a message or attach a file.",
-  });
+const formSchema = z.object({
+  content: z.string(),
+});
 
 export const ChatInput = ({ apiUrl, query, name, type }: ChatInputProps) => {
   const queryClient = useQueryClient();
   const [isAttachOpen, setIsAttachOpen] = useState(false);
+  const [fileUrls, setFileUrls] = useState<string[]>([]);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       content: "",
-      fileUrl: "",
     },
   });
 
   const isLoading = form.formState.isSubmitting;
-  const fileUrl = form.watch("fileUrl");
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    try {
-      const url = qs.stringifyUrl({
-        url: apiUrl,
-        query,
-      });
+    const caption = values.content.trim();
 
-      await axios.post(url, {
-        fileUrl: values.fileUrl || undefined,
-        // The send route needs non-empty content, so fall back to the file URL
-        content: values.content.trim() || values.fileUrl,
-      });
+    if (!caption && fileUrls.length === 0) return;
+
+    try {
+      const url = qs.stringifyUrl({ url: apiUrl, query });
+
+      if (fileUrls.length === 0) {
+        await axios.post(url, { content: caption });
+      } else {
+        for (let i = 0; i < fileUrls.length; i++) {
+          const fileUrl = fileUrls[i];
+          await axios.post(url, {
+            fileUrl,
+            // The send route needs non-empty content, so fall back to the file URL
+            content: i === 0 && caption ? caption : fileUrl,
+          });
+        }
+      }
 
       form.reset();
+      setFileUrls([]);
 
       const chatId = query.channelId ?? query.conversationId;
       if (chatId) {
@@ -88,19 +94,22 @@ export const ChatInput = ({ apiUrl, query, name, type }: ChatInputProps) => {
         <DialogContent className="bg-white text-black p-0 overflow-hidden">
           <DialogHeader className="pt-8 px-6">
             <DialogTitle className="text-2xl text-center font-bold">
-              Add an attachment
+              Add attachments
             </DialogTitle>
             <DialogDescription className="text-center text-zinc-500">
-              Pick a file, then add a message if you want
+              Pick one or more images, then add a message if you want
             </DialogDescription>
           </DialogHeader>
-          <div className="flex items-center justify-center text-center px-6 pb-8">
-            <FileUpload
+          <div className="px-6 pb-8">
+            <UploadDropzone
               endpoint="messageFile"
-              value={fileUrl}
-              onChange={(url?: string) => {
-                form.setValue("fileUrl", url ?? "", { shouldValidate: true });
-                if (url) setIsAttachOpen(false);
+              onClientUploadComplete={(res) => {
+                const urls = (res ?? []).map((file) => file.ufsUrl);
+                setFileUrls((current) => [...current, ...urls]);
+                setIsAttachOpen(false);
+              }}
+              onUploadError={(error: Error) => {
+                console.log("[ATTACH_UPLOAD]", error);
               }}
             />
           </div>
@@ -109,32 +118,39 @@ export const ChatInput = ({ apiUrl, query, name, type }: ChatInputProps) => {
 
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
-          {fileUrl && (
-     <div className="px-4 pt-4">
-   <div
-  className="relative h-24 w-24 rounded-md overflow-hidden bg-secondary"
-  style={{
-    boxShadow:
-        "0 0 24px 8px rgba(0, 0, 0, 0.7), 0 12px 30px rgba(0, 0, 0, 0.9)",
-  }}
->
-      <Image
-        src={fileUrl}
-        alt="Attachment preview"
-        fill
-        sizes="96px"
-        className="object-cover"
-      />
-      <button
-        type="button"
-        onClick={() => form.setValue("fileUrl", "")}
-        className="absolute top-1 right-1 bg-rose-500 text-white p-1 rounded-full shadow-sm"
-        aria-label="Remove attachment"
-      >
-        <X className="h-3 w-3" />
-      </button>
-    </div>
-  </div>
+          {fileUrls.length > 0 && (
+            <div className="flex flex-wrap gap-4 px-6 pt-6">
+              {fileUrls.map((fileUrl) => (
+                <div
+                  key={fileUrl}
+                  className="relative h-24 w-24 rounded-md overflow-hidden bg-secondary"
+                  style={{
+                    boxShadow:
+                       "0 0 24px 8px rgba(0, 0, 0, 0.4), 0 12px 30px rgba(0, 0, 0, 0.5)",
+                  }}
+                >
+                  <Image
+                    src={fileUrl}
+                    alt="Attachment preview"
+                    fill
+                    sizes="96px"
+                    className="object-cover"
+                  />
+                  <button
+                    type="button"
+                    onClick={() =>
+                      setFileUrls((current) =>
+                        current.filter((u) => u !== fileUrl)
+                      )
+                    }
+                    className="absolute top-1 right-1 bg-rose-500 text-white p-1 rounded-full shadow-sm"
+                    aria-label="Remove attachment"
+                  >
+                    <X className="h-3 w-3" />
+                  </button>
+                </div>
+              ))}
+            </div>
           )}
           <FormField
             control={form.control}
@@ -154,7 +170,7 @@ export const ChatInput = ({ apiUrl, query, name, type }: ChatInputProps) => {
                       disabled={isLoading}
                       className="px-14 py-6 bg-zinc-200/90 dark:bg-zinc-700/75 border-none border-0 focus-visible:ring-0 focus-visible:ring-offset-0 text-zinc-600 dark:text-zinc-200"
                       placeholder={
-                        fileUrl
+                        fileUrls.length > 0
                           ? "Add a message (optional)"
                           : `Message ${
                               type === "conversation" ? name : "#" + name
