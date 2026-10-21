@@ -5,7 +5,7 @@ import axios from "axios";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { useRouter } from "next/navigation";
+import { useQueryClient } from "@tanstack/react-query";
 
 import {
   Dialog,
@@ -15,7 +15,13 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/features/components/ui/dialog";
-import { Form, FormControl, FormField, FormItem } from "@/features/components/ui/form";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormMessage,
+} from "@/features/components/ui/form";
 import { Button } from "@/features/components/ui/button";
 import { FileUpload } from "@/features/components/file-upload";
 
@@ -29,7 +35,7 @@ const formSchema = z.object({
 
 export const MessageFileModal = () => {
   const { isOpen, onClose, type, data } = useModal();
-  const router = useRouter();
+  const queryClient = useQueryClient();
 
   const isModalOpen = isOpen && type === "messageFile";
   const { apiUrl, query } = data;
@@ -54,16 +60,21 @@ export const MessageFileModal = () => {
         url: apiUrl || "",
         query,
       });
+
       await axios.post(url, {
         ...values,
         content: values.fileUrl,
       });
 
-      form.reset();
-      router.refresh();
+      if (query?.channelId) {
+        await queryClient.invalidateQueries({
+          queryKey: [`chat:${query.channelId}`],
+        });
+      }
+
       handleClose();
     } catch (error) {
-      console.log(error);
+      console.log("[MESSAGE_FILE_SEND]", error);
     }
   };
 
@@ -94,13 +105,14 @@ export const MessageFileModal = () => {
                           onChange={field.onChange}
                         />
                       </FormControl>
+                      <FormMessage />
                     </FormItem>
                   )}
                 />
               </div>
             </div>
             <DialogFooter className="mx-0 mb-0 bg-gray-100 px-6 py-3">
-              <Button variant="primary" disabled={isLoading}>
+              <Button type="submit" variant="primary" disabled={isLoading}>
                 Send
               </Button>
             </DialogFooter>
@@ -110,3 +122,5 @@ export const MessageFileModal = () => {
     </Dialog>
   );
 };
+
+export default MessageFileModal;

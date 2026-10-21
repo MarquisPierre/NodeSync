@@ -63,9 +63,9 @@ const MemberIdPage = async ({ params, searchParams }: MemberIdPageProps) => {
         name={otherMember.profile.name}
         type="conversation"
       />
-      {searchParams.video && (
+      {/* {searchParams.video && (
         <MediaRoom chatId={conversation.id} video={true} audio={true} />
-      )}
+      )} */}
       {!searchParams.video && (
         <>
           <ChatMessages
@@ -73,7 +73,7 @@ const MemberIdPage = async ({ params, searchParams }: MemberIdPageProps) => {
             name={otherMember.profile.name}
             chatId={conversation.id}
             type="conversation"
-            apiUrl="/api/direct-messages"
+            apiUrl="@/api/direct-messages"
             paramKey="conversationId"
             paramValue={conversation.id}
             socketUrl="/api/socket/direct-messages"

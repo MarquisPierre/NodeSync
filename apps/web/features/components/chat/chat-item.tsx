@@ -123,10 +123,10 @@ export const ChatItem = ({
   const isPDF = fileType === "pdf" && fileUrl;
   const isImage = !isPDF && fileUrl;
   const roleIcon = roleIconMap[member.role];
-
+  console.log("CHAT_ITEM", { deleted, currentRole: currentMember.role, currentId: currentMember.id, messageMemberId: member.id });
   return (
     <div className="relative group flex items-center hover:bg-black/5 p-4 transition w-full">
-      <div className="group flex gap-x-2 items-start w-full">
+      <div className="flex gap-x-2 items-start w-full">
         <div
           onClick={onMemberClick}
           className="cursor-pointer hover:drop-shadow-md transition"
@@ -236,25 +236,31 @@ export const ChatItem = ({
         </div>
       </div>
       {canDeleteMessage && (
-        <div className="hidden group-hover:flex items-center gap-x-2 absolute p-1 -top-2 right-5 bg-white dark:bg-zinc-800 border rounded-sm">
+       <div className="flex opacity-0 group-hover:opacity-100 transition items-center gap-x-2 absolute p-1 -top-2 right-5 bg-white dark:bg-zinc-800 border rounded-sm z-10">
           {canEditMessage && (
             <ActionTooltip label="Edit">
-              <Edit
+              <button
+                type="button"
                 onClick={() => setIsEditing(true)}
-                className="cursor-pointer ml-auto w-4 h-4 text-zinc-500 hover:text-zinc-600 dark:hover:text-zinc-300 transition"
-              />
+                className="cursor-pointer"
+              >
+                <Edit className="w-4 h-4 text-zinc-500 hover:text-zinc-600 dark:hover:text-zinc-300 transition" />
+              </button>
             </ActionTooltip>
           )}
           <ActionTooltip label="Delete">
-            <Trash
+            <button
+              type="button"
               onClick={() =>
                 onOpen("deleteMessage", {
                   apiUrl: `${socketUrl}/${id}`,
                   query: socketQuery,
                 })
               }
-              className="cursor-pointer ml-auto w-4 h-4 text-zinc-500 hover:text-zinc-600 dark:hover:text-zinc-300 transition"
-            />
+              className="cursor-pointer"
+            >
+              <Trash className="w-4 h-4 text-zinc-500 hover:text-zinc-600 dark:hover:text-zinc-300 transition" />
+            </button>
           </ActionTooltip>
         </div>
       )}
