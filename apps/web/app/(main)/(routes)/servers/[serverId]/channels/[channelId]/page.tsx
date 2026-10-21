@@ -3,9 +3,9 @@ import { redirect } from "next/navigation";
 
 import { currentProfile } from "@/lib/current-profile";
 import prisma from "@/lib/prisma";
-// import { ChatHeader } from "@/components/chat/chat-header";
-// import { ChatInput } from "@/components/chat/chat-input";
-// import { ChatMessages } from "@/features/components/chat/chat-messages";
+import { ChatHeader } from "@/features/components/chat/chat-header";
+import { ChatInput } from "@/features/components/chat/chat-input";
+import { ChatMessages } from "@/features/components/chat/chat-messages";
 import { ChannelType } from "@/server/generated/prisma/enums";
 // import { MediaRoom } from "@/components/media-room";
 
@@ -43,15 +43,9 @@ const ChannelIdPage = async ({ params }: ChannelIdPageProps) => {
     return redirect("/");
   }
 
-
   return (
     <div className="bg-white dark:bg-[#313338] flex flex-col h-full">
-      CHANNEL PAGE OK: {channel.name}
-      {/* <ChatHeader
-        serverId={params.serverId}
-        name={channel.name}
-        type="channel"
-      />
+      <ChatHeader serverId={serverId} name={channel.name} type="channel" />
       {channel.type === ChannelType.TEXT && (
         <>
           <ChatMessages
@@ -72,10 +66,11 @@ const ChannelIdPage = async ({ params }: ChannelIdPageProps) => {
             name={channel.name}
             type="channel"
             apiUrl="/api/socket/messages"
-            query={{ channelId: channel.id, serverId: params.serverId }}
+            query={{ channelId: channel.id, serverId }}
           />
         </>
       )}
+      {/* Restore when MediaRoom exists:
       {channel.type === ChannelType.AUDIO && (
         <MediaRoom chatId={channel.id} video={false} audio={true} />
       )}
