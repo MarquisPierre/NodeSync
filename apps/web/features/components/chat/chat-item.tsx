@@ -179,6 +179,16 @@ export const ChatItem = ({
               </a>
             </div>
           )}
+          {fileUrl && content !== fileUrl && (
+               <p className="text-sm text-zinc-600 dark:text-zinc-300 mt-2">
+                    {content}
+                    {isUpdated && !deleted && (
+                      <span className="text-[10px] mx-2 text-zinc-500 dark:text-zinc-400">
+                         (edited)
+                     </span>
+                    )}
+                </p>
+         )}
           {!fileUrl && !isEditing && (
             <p
               className={cn(
