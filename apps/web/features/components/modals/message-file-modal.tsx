@@ -22,6 +22,7 @@ import {
   FormItem,
   FormMessage,
 } from "@/features/components/ui/form";
+import { Input } from "@/features/components/ui/input";
 import { Button } from "@/features/components/ui/button";
 import { FileUpload } from "@/features/components/file-upload";
 
@@ -31,6 +32,7 @@ const formSchema = z.object({
   fileUrl: z.string().min(1, {
     message: "Attachment is required.",
   }),
+  content: z.string().optional(),
 });
 
 export const MessageFileModal = () => {
@@ -40,10 +42,11 @@ export const MessageFileModal = () => {
   const isModalOpen = isOpen && type === "messageFile";
   const { apiUrl, query } = data;
 
-  const form = useForm({
+  const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       fileUrl: "",
+      content: "",
     },
   });
 
@@ -62,8 +65,9 @@ export const MessageFileModal = () => {
       });
 
       await axios.post(url, {
-        ...values,
-        content: values.fileUrl,
+        fileUrl: values.fileUrl,
+        // The send route requires non-empty content, so fall back to the file URL
+        content: values.content?.trim() || values.fileUrl,
       });
 
       if (query?.channelId) {
@@ -86,12 +90,12 @@ export const MessageFileModal = () => {
             Add an attachment
           </DialogTitle>
           <DialogDescription className="text-center text-zinc-500">
-            Send a file as a message
+            Send a file with an optional message
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-            <div className="space-y-8 px-6">
+            <div className="space-y-6 px-6">
               <div className="flex items-center justify-center text-center">
                 <FormField
                   control={form.control}
@@ -110,6 +114,22 @@ export const MessageFileModal = () => {
                   )}
                 />
               </div>
+              <FormField
+                control={form.control}
+                name="content"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <Input
+                        disabled={isLoading}
+                        className="bg-zinc-300/50 border-0 focus-visible:ring-0 text-black focus-visible:ring-offset-0"
+                        placeholder="Add a message (optional)"
+                        {...field}
+                      />
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
             </div>
             <DialogFooter className="mx-0 mb-0 bg-gray-100 px-6 py-3">
               <Button type="submit" variant="primary" disabled={isLoading}>
