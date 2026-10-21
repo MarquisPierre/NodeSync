@@ -3,7 +3,7 @@
 import qs from "query-string";
 import { useState } from "react";
 import axios from "axios";
-import { useRouter } from "next/navigation";
+import { useQueryClient } from "@tanstack/react-query";
 
 import { useModal } from "@/features/hooks/use-modal-store";
 import {
@@ -18,7 +18,7 @@ import { Button } from "@/features/components/ui/button";
 
 export const DeleteMessageModal = () => {
   const { isOpen, onClose, type, data } = useModal();
-  const router = useRouter();
+  const queryClient = useQueryClient();
 
   const isModalOpen = isOpen && type === "deleteMessage";
   const { apiUrl, query } = data;
@@ -35,9 +35,15 @@ export const DeleteMessageModal = () => {
 
       await axios.delete(url);
 
+      if (query?.channelId) {
+        await queryClient.invalidateQueries({
+          queryKey: [`chat:${query.channelId}`],
+        });
+      }
+
       onClose();
     } catch (error) {
-      console.log(error);
+      console.log("[DELETE_MESSAGE]", error);
     } finally {
       setIsLoading(false);
     }
@@ -57,10 +63,20 @@ export const DeleteMessageModal = () => {
         </DialogHeader>
         <DialogFooter className="mx-0 mb-0 bg-gray-100 px-6 py-3">
           <div className="flex items-center justify-between w-full">
-            <Button disabled={isLoading} onClick={onClose} variant="ghost">
+            <Button
+              type="button"
+              disabled={isLoading}
+              onClick={onClose}
+              variant="ghost"
+            >
               Cancel
             </Button>
-            <Button disabled={isLoading} onClick={onClick} variant="primary">
+            <Button
+              type="button"
+              disabled={isLoading}
+              onClick={onClick}
+              variant="primary"
+            >
               Confirm
             </Button>
           </div>
