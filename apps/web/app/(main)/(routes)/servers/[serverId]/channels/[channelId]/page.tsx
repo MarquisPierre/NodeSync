@@ -7,7 +7,7 @@ import { ChatHeader } from "@/features/components/chat/chat-header";
 import { ChatInput } from "@/features/components/chat/chat-input";
 import { ChatMessages } from "@/features/components/chat/chat-messages";
 import { ChannelType } from "@/server/generated/prisma/enums";
-// import { MediaRoom } from "@/components/media-room";
+import { MediaRoom } from "@/features/components/media-room";
 
 interface ChannelIdPageProps {
   params: Promise<{
@@ -70,13 +70,12 @@ const ChannelIdPage = async ({ params }: ChannelIdPageProps) => {
           />
         </>
       )}
-      {/* Restore when MediaRoom exists:
       {channel.type === ChannelType.AUDIO && (
         <MediaRoom chatId={channel.id} video={false} audio={true} />
       )}
       {channel.type === ChannelType.VIDEO && (
         <MediaRoom chatId={channel.id} video={true} audio={true} />
-      )} */}
+      )}
     </div>
   );
 };

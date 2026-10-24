@@ -158,7 +158,7 @@ export const EditChannelModal = () => {
               />
             </div>
             <DialogFooter className="mx-0 mb-0 bg-gray-100 px-6 py-3">
-              <Button variant="primary" disabled={isLoading}>
+              <Button type="submit" variant="primary" disabled={isLoading}>
                 Save
               </Button>
             </DialogFooter>
