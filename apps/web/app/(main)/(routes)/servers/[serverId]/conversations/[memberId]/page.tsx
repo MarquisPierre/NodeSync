@@ -8,7 +8,7 @@ import { markConversationRead } from "@/lib/conversation-read";
 import { ChatHeader } from "@/features/components/chat/chat-header";
 import { ChatMessages } from "@/features/components/chat/chat-messages";
 import { ChatInput } from "@/features/components/chat/chat-input";
-// import { MediaRoom } from "@/features/components/media-room";
+import { MediaRoom } from "@/features/components/media-room";
 
 interface MemberIdPageProps {
   params: Promise<{
@@ -69,9 +69,9 @@ const MemberIdPage = async ({ params, searchParams }: MemberIdPageProps) => {
         name={otherMember.profile.name}
         type="conversation"
       />
-      {/* {video && (
+      {video && (
         <MediaRoom chatId={conversation.id} video={true} audio={true} />
-      )} */}
+      )}
       {!video && (
         <>
           <ChatMessages

@@ -1,4 +1,4 @@
-"use client";
+       "use client";
 
 import { Edit, Hash, Lock, Mic, Trash, Video } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
@@ -9,10 +9,12 @@ import { cn } from "@/lib/utils";
 import { ActionTooltip } from "@/features/components/action-tooltip";
 import { useModal, ModalType } from "@/features/hooks/use-modal-store";
 
+
 interface ServerChannelProps {
   channel: Channel;
   server: Server;
   role?: MemberRole;
+  isLive?: boolean;
 }
 
 const iconMap = {
@@ -25,6 +27,7 @@ export const ServerChannel = ({
   channel,
   server,
   role,
+   isLive,
 }: ServerChannelProps) => {
   const { onOpen } = useModal();
   const params = useParams();
@@ -59,6 +62,12 @@ export const ServerChannel = ({
       >
         {channel.name}
       </p>
+      {isLive && (
+        <span className="rounded bg-rose-500 px-1.5 py-0.5 text-[10px] font-bold uppercase leading-none text-white">
+                Live
+         </span>
+         )}
+
       {channel.name !== "general" && role !== MemberRole.GUEST && (
         <div className="ml-auto flex items-center gap-x-2">
           <ActionTooltip label="Edit">

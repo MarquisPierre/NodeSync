@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
 import { Hash, Mic, ShieldAlert, ShieldCheck, Video } from "lucide-react";
-
+import { getRoomStatuses } from "@/lib/livekit-rooms";
 import { currentProfile } from "@/lib/current-profile";
 import  prisma  from "@/lib/prisma";
 import { ChannelType, MemberRole } from "@/server/generated/prisma/enums";
@@ -13,6 +13,7 @@ import { ServerSection } from "@/features/components/server/server-section";
 import { text } from "node:stream/consumers";
 import { ServerChannel } from "@/features/components/server/server-channel";
 import { ServerMember } from "@/features/components/server/server-member";
+import { RefreshOnInterval } from "@/features/components/refresh-on-interval";
 
 interface ServerSidebarProps {
   serverId: string;
@@ -76,6 +77,12 @@ export const ServerSidebar = async ({ serverId }: ServerSidebarProps) => {
   if (!server) {
     return redirect("/");
   }
+  
+const roomStatuses = await getRoomStatuses(
+  server.channels
+    .filter((channel) => channel.type !== ChannelType.TEXT)
+    .map((channel) => channel.id)
+);
 
   const role = server.members.find(
     (member) => member.profileId === profile.id
@@ -83,6 +90,7 @@ export const ServerSidebar = async ({ serverId }: ServerSidebarProps) => {
 
   return (
     <div className="flex flex-col h-full text-primary w-full dark:bg-[#2B2D31] bg-[#F2F3F5]">
+      <RefreshOnInterval seconds={20} />
       <ServerHeader server={server} role={role} />
       <ScrollArea className="flex-1 px-3">
         <div className="mt-2">
@@ -163,6 +171,7 @@ export const ServerSidebar = async ({ serverId }: ServerSidebarProps) => {
                   channel={channel}
                   server={server}
                   role={role}
+                  isLive={roomStatuses[channel.id]?.isLive}
                 />
               ))}
             </div>
@@ -183,6 +192,7 @@ export const ServerSidebar = async ({ serverId }: ServerSidebarProps) => {
                   channel={channel}
                   server={server}
                   role={role}
+                  isLive={roomStatuses[channel.id]?.isLive}
                 />
               ))}
             </div>
