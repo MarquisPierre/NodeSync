@@ -9,6 +9,7 @@ const MESSAGES_BATCH = 10;
 
 // Loads a channel's messages, newest first, 10 at a time. Passing ?cursor=
 // (the last message ID from the previous page) loads the next older page.
+// Only members of the channel's server can read them.
 export async function GET(req: Request) {
   try {
     const profile = await currentProfile();
@@ -23,6 +24,19 @@ export async function GET(req: Request) {
 
     if (!channelId) {
       return new NextResponse("Channel ID missing", { status: 400 });
+    }
+
+    // Only members of the channel's server can read its messages.
+    const channel = await prisma.channel.findFirst({
+      where: {
+        id: channelId,
+        server: { members: { some: { profileId: profile.id } } },
+      },
+      select: { id: true },
+    });
+
+    if (!channel) {
+      return new NextResponse("Channel not found", { status: 404 });
     }
 
     let messages: Message[] = [];
