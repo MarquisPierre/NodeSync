@@ -8,9 +8,12 @@ interface InviteCodePageProps {
   params: Promise<{ inviteCode: string }>;
 }
 
+// Invite link page (/invite/<code>). Adds the signed-in user to the server that
+// owns the invite code, then opens that server.
 const InviteCodePage = async ({ params }: InviteCodePageProps) => {
   const { inviteCode } = await params;
 
+  // Sends signed-out users to the sign-in page.
   const profile = await currentProfile();
 
   if (!profile) {
@@ -22,6 +25,7 @@ const InviteCodePage = async ({ params }: InviteCodePageProps) => {
     return redirect("/");
   }
 
+  // Users who are already members go straight to the server.
   const existingServer = await prisma.server.findFirst({
     where: {
       inviteCode,
@@ -37,6 +41,7 @@ const InviteCodePage = async ({ params }: InviteCodePageProps) => {
     return redirect(`/servers/${existingServer.id}`);
   }
 
+  // Looks up the server for this invite code; an invalid code returns to the home page.
   const serverToJoin = await prisma.server.findFirst({
     where: { inviteCode },
   });
@@ -45,6 +50,7 @@ const InviteCodePage = async ({ params }: InviteCodePageProps) => {
     return redirect("/");
   }
 
+  // Adds the user as a new member (Guest role by default).
   const server = await prisma.server.update({
     where: { id: serverToJoin.id },
     data: {

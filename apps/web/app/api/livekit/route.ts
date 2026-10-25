@@ -4,6 +4,8 @@ import { NextRequest, NextResponse } from "next/server";
 import { currentProfile } from "@/lib/current-profile";
 import prisma from "@/lib/prisma";
 
+// Issues a LiveKit access token for a voice/video room (?room=). The room ID is a
+// channel or DM conversation ID, and only users who belong to it receive a token.
 export async function GET(req: NextRequest) {
   const room = req.nextUrl.searchParams.get("room");
 
@@ -54,7 +56,7 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ error: "Forbidden" }, { status: 403 });
   }
 
-  // Identity must be unique per participant, so use the profile id rather than
+  // Identity must be unique per participant, so it uses the profile ID rather than
   // the display name; the name is still shown in the call.
   const at = new AccessToken(apiKey, apiSecret, {
     identity: profile.id,

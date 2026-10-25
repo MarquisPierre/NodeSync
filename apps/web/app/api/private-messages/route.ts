@@ -3,8 +3,11 @@ import { NextResponse } from "next/server";
 import { currentProfile } from "@/lib/current-profile";
 import prisma from "@/lib/prisma";
 
+// Number of messages loaded per page.
 const MESSAGES_BATCH = 10;
 
+// Loads a DM conversation's messages, newest first, 10 at a time. Passing ?cursor=
+// (the last message ID from the previous page) loads the next older page.
 export async function GET(req: Request) {
   try {
     const profile = await currentProfile();
@@ -21,7 +24,7 @@ export async function GET(req: Request) {
       return new NextResponse("Conversation ID missing", { status: 400 });
     }
 
-    // Only the two people in the conversation can read it.
+    // Only the two participants in the conversation can read it.
     const conversation = await prisma.directConversation.findFirst({
       where: {
         id: conversationId,

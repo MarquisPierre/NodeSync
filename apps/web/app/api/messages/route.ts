@@ -4,8 +4,11 @@ import { currentProfile } from "@/lib/current-profile";
 import prisma from "@/lib/prisma";
 import { Message } from "@/server/generated/prisma/client";
 
+// Number of messages loaded per page.
 const MESSAGES_BATCH = 10;
 
+// Loads a channel's messages, newest first, 10 at a time. Passing ?cursor=
+// (the last message ID from the previous page) loads the next older page.
 export async function GET(req: Request) {
   try {
     const profile = await currentProfile();
@@ -64,6 +67,7 @@ export async function GET(req: Request) {
       });
     }
 
+    // A full page means there may be older messages, so the last ID becomes the next cursor.
     let nextCursor = null;
 
     if (messages.length === MESSAGES_BATCH) {

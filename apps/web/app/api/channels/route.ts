@@ -4,6 +4,7 @@ import { NextResponse } from "next/server";
 import { currentProfile } from "@/lib/current-profile";
 import  prisma  from "@/lib/prisma";
 
+// Creates a channel in a server (?serverId=). Only admins and moderators can do this.
 export async function POST(req: Request) {
   try {
     const profile = await currentProfile();
@@ -20,10 +21,13 @@ export async function POST(req: Request) {
       return new NextResponse("Bad Request", { status: 400 });
     }
 
+    // "general" is reserved for the default channel every server has.
     if (name === "general") {
       return new NextResponse("Name cannot be 'general'", { status: 400 });
     }
 
+    // The update only matches if the user is an admin or moderator of this server,
+    // so the role check and the insert happen in a single query.
     const server = await prisma.server.update({
       where: {
         id: serverId,

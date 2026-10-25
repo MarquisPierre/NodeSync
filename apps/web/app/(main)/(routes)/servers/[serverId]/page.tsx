@@ -10,9 +10,11 @@ interface ServerIdPageProps {
   }>;
 }
 
+// Opening a server without choosing a channel redirects to its #general channel.
 const ServerIdPage = async ({ params }: ServerIdPageProps) => {
   const { serverId } = await params;
 
+  // Sends signed-out users to the sign-in page.
   const profile = await currentProfile();
 
   if (!profile) {
@@ -20,6 +22,7 @@ const ServerIdPage = async ({ params }: ServerIdPageProps) => {
     return redirectToSignIn();
   }
 
+  // Finds the server's #general channel, but only if the user is a member.
   const server = await prisma.server.findUnique({
     where: {
       id: serverId,
@@ -43,6 +46,7 @@ const ServerIdPage = async ({ params }: ServerIdPageProps) => {
 
   const initialChannel = server?.channels[0];
 
+  // Not a member, or the server has no #general channel.
   if (initialChannel?.name !== "general") {
     return redirect("/");;
   }

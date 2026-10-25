@@ -14,10 +14,14 @@ interface FriendsPageProps {
   searchParams: Promise<{ tab?: string }>;
 }
 
+// Friends page. The "All" tab lists accepted friends, and the "Pending" tab
+// lists incoming and outgoing friend requests.
 const FriendsPage = async ({ searchParams }: FriendsPageProps) => {
+  // The active tab comes from the URL (?tab=pending); "All" is the default.
   const { tab } = await searchParams;
   const activeTab = tab === "pending" ? "pending" : "all";
 
+  // Sends signed-out users to the sign-in page.
   const profile = await currentProfile();
 
   if (!profile) {
@@ -25,6 +29,7 @@ const FriendsPage = async ({ searchParams }: FriendsPageProps) => {
     return redirectToSignIn();
   }
 
+  // Every friend request the user sent or received, in one query.
   const requests = await prisma.friendRequest.findMany({
     where: {
       OR: [{ senderId: profile.id }, { receiverId: profile.id }],
@@ -33,12 +38,13 @@ const FriendsPage = async ({ searchParams }: FriendsPageProps) => {
     orderBy: { updatedAt: "desc" },
   });
 
-  // For each request, figure out who "the other person" is.
+  // Identifies the other user involved in each request.
   const rows = requests.map((request) => ({
     ...request,
     other: request.senderId === profile.id ? request.receiver : request.sender,
   }));
 
+  // Accepted requests are friends; pending ones are split by direction.
   const friends = rows.filter((r) => r.status === FriendRequestStatus.ACCEPTED);
   const incoming = rows.filter(
     (r) => r.status === FriendRequestStatus.PENDING && r.receiverId === profile.id
@@ -78,6 +84,7 @@ const FriendsPage = async ({ searchParams }: FriendsPageProps) => {
       </div>
 
       <div className="flex-1 overflow-y-auto p-4 space-y-6">
+        {/* All tab: each friend has a Message button and a Remove button (with confirmation). */}
         {activeTab === "all" && (
           <Section title={`All friends — ${friends.length}`} empty="No friends yet. Add people from a server's member list.">
             {friends.map((r) => (
@@ -100,6 +107,7 @@ const FriendsPage = async ({ searchParams }: FriendsPageProps) => {
           </Section>
         )}
 
+        {/* Pending tab: incoming requests can be accepted or declined; outgoing ones can be cancelled. */}
         {activeTab === "pending" && (
           <>
             <Section title={`Incoming — ${incoming.length}`} empty="No incoming requests.">
@@ -123,6 +131,7 @@ const FriendsPage = async ({ searchParams }: FriendsPageProps) => {
   );
 };
 
+// A titled list that shows a message when it has no items.
 const Section = ({
   title,
   empty,
@@ -144,6 +153,7 @@ const Section = ({
   </div>
 );
 
+// One user in a list: avatar, name, optional subtitle, and action buttons.
 const Row = ({
   name,
   imageUrl,

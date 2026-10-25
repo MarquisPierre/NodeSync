@@ -3,6 +3,8 @@ import { NextResponse } from "next/server";
 import { currentProfile } from "@/lib/current-profile";
 import { markDirectConversationRead } from "@/lib/direct-conversation";
 
+// Marks a DM conversation as read for the signed-in user, which clears its unread
+// count. Called when a message arrives in the conversation the user has open.
 export async function POST(
   _req: Request,
   { params }: { params: Promise<{ conversationId: string }> }
