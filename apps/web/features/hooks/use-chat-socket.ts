@@ -5,6 +5,7 @@ import { Member, Message, Profile } from "@/server/generated/prisma/client";
 import { useSocket } from "@/features/components/providers/socket-provider";
 
 type ChatSocketProps = {
+  chatId: string;
   addKey: string;
   updateKey: string;
   queryKey: string;
@@ -17,12 +18,34 @@ type MessageWithMemberWithProfile = Message & {
 };
 
 export const useChatSocket = ({
+  chatId,
   addKey,
   updateKey,
   queryKey,
 }: ChatSocketProps) => {
   const { socket } = useSocket();
   const queryClient = useQueryClient();
+
+  // The server only sends this chat's events to sockets in its room, and only
+  // lets you in if you belong to the channel's server or the DM.
+  useEffect(() => {
+    if (!socket) {
+      return;
+    }
+
+    const join = () => socket.emit("chat:join", chatId);
+
+    if (socket.connected) {
+      join();
+    }
+    // Rooms are lost on reconnect, so join again every time we connect.
+    socket.on("connect", join);
+
+    return () => {
+      socket.off("connect", join);
+      socket.emit("chat:leave", chatId);
+    };
+  }, [socket, chatId]);
 
   useEffect(() => {
     if (!socket) {

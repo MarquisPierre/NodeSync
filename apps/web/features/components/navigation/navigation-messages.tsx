@@ -74,73 +74,67 @@ export const NavigationMessages = ({
   const isOpenConversationRef = useRef(isOpenConversation);
   isOpenConversationRef.current = isOpenConversation;
 
-  const conversationIds = initialConversations.map((c) => c.id).join(",");
+  const conversationsRef = useRef(conversations);
+  conversationsRef.current = conversations;
 
-  useEffect(() => {
-    if (!socket || !conversationIds) {
-      return;
-    }
-
-    const handlers = conversationIds.split(",").map((conversationId) => {
-      const key = `chat:${conversationId}:messages`;
-
-      const handler = (message: IncomingDirectMessage) => {
-        if (message.profileId === profileId) {
-          return;
-        }
-
-        setConversations((current) => {
-          const conversation = current.find((c) => c.id === conversationId);
-
-          if (!conversation) {
-            return current;
-          }
-
-          const viewing = isOpenConversationRef.current(conversation);
-
-          if (viewing) {
-            markRead(conversationId);
-          }
-
-          const updated: ConversationPreview = {
-            ...conversation,
-            lastMessage: getMessagePreview(message),
-            lastMessageAt: new Date(message.createdAt).toISOString(),
-            unreadCount: viewing ? 0 : conversation.unreadCount + 1,
-          };
-
-          return [updated, ...current.filter((c) => c.id !== conversationId)];
-        });
-      };
-
-      socket.on(key, handler);
-      return { key, handler };
-    });
-
-    return () => {
-      handlers.forEach(({ key, handler }) => socket.off(key, handler));
-    };
-  }, [socket, conversationIds, profileId]);
-
-  // A message in a conversation this list doesn't know about yet (e.g. the
-  // first message someone ever sends us) needs fresh data from the server.
+  // New DMs for this user arrive on their personal socket room, including the
+  // very first message of a conversation this list doesn't know about yet.
   useEffect(() => {
     if (!socket) {
       return;
     }
 
     const key = `dms:${profileId}`;
-    const onDirectMessage = ({ conversationId }: { conversationId: string }) => {
-      if (!conversationIds.split(",").includes(conversationId)) {
-        router.refresh();
+
+    const onDirectMessage = ({
+      conversationId,
+      message,
+    }: {
+      conversationId: string;
+      message: IncomingDirectMessage;
+    }) => {
+      if (message.profileId === profileId) {
+        return;
       }
+
+      const conversation = conversationsRef.current.find(
+        (c) => c.id === conversationId
+      );
+
+      if (!conversation) {
+        router.refresh();
+        return;
+      }
+
+      const viewing = isOpenConversationRef.current(conversation);
+
+      if (viewing) {
+        markRead(conversationId);
+      }
+
+      setConversations((current) => {
+        const existing = current.find((c) => c.id === conversationId);
+
+        if (!existing) {
+          return current;
+        }
+
+        const updated: ConversationPreview = {
+          ...existing,
+          lastMessage: getMessagePreview(message),
+          lastMessageAt: new Date(message.createdAt).toISOString(),
+          unreadCount: viewing ? 0 : existing.unreadCount + 1,
+        };
+
+        return [updated, ...current.filter((c) => c.id !== conversationId)];
+      });
     };
 
     socket.on(key, onDirectMessage);
     return () => {
       socket.off(key, onDirectMessage);
     };
-  }, [socket, profileId, conversationIds, router]);
+  }, [socket, profileId, router]);
 
   const unreadFor = (conversation: ConversationPreview) =>
     isOpenConversation(conversation) ? 0 : conversation.unreadCount;

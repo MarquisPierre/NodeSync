@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 
 import { currentProfile } from "@/lib/current-profile";
 import prisma from "@/lib/prisma";
-import { emitSocketEvent } from "@/lib/socket-emit";
+import { emitToUser } from "@/lib/socket-emit";
 import { FriendRequestStatus } from "@/server/generated/prisma/enums";
 
 type RouteContext = { params: Promise<{ requestId: string }> };
@@ -35,7 +35,7 @@ export async function PATCH(_req: Request, { params }: RouteContext) {
     });
 
     // Let the sender know their request was accepted.
-    emitSocketEvent(`friends:${friendRequest.senderId}`);
+    emitToUser(friendRequest.senderId, `friends:${friendRequest.senderId}`);
 
     return NextResponse.json(accepted);
   } catch (error) {
@@ -73,7 +73,7 @@ export async function DELETE(_req: Request, { params }: RouteContext) {
       friendRequest.senderId === profile.id
         ? friendRequest.receiverId
         : friendRequest.senderId;
-    emitSocketEvent(`friends:${otherId}`);
+    emitToUser(otherId, `friends:${otherId}`);
 
     return new NextResponse(null, { status: 204 });
   } catch (error) {

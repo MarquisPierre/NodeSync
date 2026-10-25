@@ -3,6 +3,7 @@ import { NextApiRequest } from "next";
 import { currentProfilePages } from "@/lib/current-profile-pages";
 import { NextApiResponseServerIo } from "@/types";
 import prisma from "@/lib/prisma";
+import { chatRoom } from "@/lib/socket-rooms";
 
 export default async function handler(
   req: NextApiRequest,
@@ -88,7 +89,7 @@ export default async function handler(
 
     const channelKey = `chat:${channelId}:messages`;
 
-    res?.socket?.server?.io?.emit(channelKey, message);
+    res?.socket?.server?.io?.to(chatRoom(channelId as string)).emit(channelKey, message);
 
     return res.status(200).json(message);
   } catch (error) {
