@@ -29,10 +29,12 @@ const ChannelIdPage = async ({ params }: ChannelIdPageProps) => {
     return redirectToSignIn();
   }
 
-  // Loads the channel being viewed.
-  const channel = await prisma.channel.findUnique({
+  // Loads the channel being viewed, but only if it belongs to the server in the URL.
+  // This stops a member of one server from opening another server's channel.
+  const channel = await prisma.channel.findFirst({
     where: {
       id: channelId,
+      serverId,
     },
   });
 
@@ -44,7 +46,7 @@ const ChannelIdPage = async ({ params }: ChannelIdPageProps) => {
     },
   });
 
-  // The channel doesn't exist, or the user isn't a member of this server.
+  // The channel doesn't exist in this server, or the user isn't a member of it.
   if (!channel || !member) {
     return redirect("/");
   }
