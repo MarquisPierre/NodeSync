@@ -4,6 +4,8 @@ import { currentProfile } from "@/lib/current-profile";
 import prisma from "@/lib/prisma";
 import { FriendRequestStatus } from "@/server/generated/prisma/enums";
 
+// Sends a friend request to another user (body: { profileId }). If that user has
+// already sent one, this accepts it instead.
 export async function POST(req: Request) {
   try {
     const profile = await currentProfile();
@@ -30,7 +32,7 @@ export async function POST(req: Request) {
       return new NextResponse("User not found", { status: 404 });
     }
 
-    // Look for a request in either direction between the two people.
+    // Looks for a request in either direction between the two users.
     const existing = await prisma.friendRequest.findFirst({
       where: {
         OR: [
@@ -49,12 +51,13 @@ export async function POST(req: Request) {
         return new NextResponse("Friend request already sent", { status: 409 });
       }
 
-      // They already sent us a request, so sending one back accepts it.
+      // The other user already sent a request, so sending one back accepts it.
       const accepted = await prisma.friendRequest.update({
         where: { id: existing.id },
         data: { status: FriendRequestStatus.ACCEPTED },
       });
-        emitToUser(existing.senderId, `friends:${existing.senderId}`);
+      // Notifies the original sender so their friends list updates live.
+      emitToUser(existing.senderId, `friends:${existing.senderId}`);
 
       return NextResponse.json(accepted);
     }
@@ -65,7 +68,8 @@ export async function POST(req: Request) {
         receiverId: profileId,
       },
     });
-     emitToUser(profileId, `friends:${profileId}`);
+    // Notifies the recipient so their friend request badge updates live.
+    emitToUser(profileId, `friends:${profileId}`);
 
     return NextResponse.json(friendRequest, { status: 201 });
   } catch (error) {

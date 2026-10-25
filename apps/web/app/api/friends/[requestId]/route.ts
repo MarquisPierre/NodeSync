@@ -7,7 +7,7 @@ import { FriendRequestStatus } from "@/server/generated/prisma/enums";
 
 type RouteContext = { params: Promise<{ requestId: string }> };
 
-// Accept a pending request. Only the person who received it can accept.
+// Accepts a pending friend request. Only the user who received it can accept it.
 export async function PATCH(_req: Request, { params }: RouteContext) {
   try {
     const { requestId } = await params;
@@ -34,7 +34,7 @@ export async function PATCH(_req: Request, { params }: RouteContext) {
       data: { status: FriendRequestStatus.ACCEPTED },
     });
 
-    // Let the sender know their request was accepted.
+    // Notifies the sender that their request was accepted.
     emitToUser(friendRequest.senderId, `friends:${friendRequest.senderId}`);
 
     return NextResponse.json(accepted);
@@ -44,7 +44,7 @@ export async function PATCH(_req: Request, { params }: RouteContext) {
   }
 }
 
-// Decline (receiver), cancel (sender), or unfriend (either side).
+// Declines a request (receiver), cancels it (sender), or removes a friend (either user).
 export async function DELETE(_req: Request, { params }: RouteContext) {
   try {
     const { requestId } = await params;
@@ -68,7 +68,7 @@ export async function DELETE(_req: Request, { params }: RouteContext) {
 
     await prisma.friendRequest.delete({ where: { id: friendRequest.id } });
 
-    // Let the other person know so their list and badge update.
+    // Notifies the other user so their list and badge update.
     const otherId =
       friendRequest.senderId === profile.id
         ? friendRequest.receiverId

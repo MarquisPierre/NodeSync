@@ -4,6 +4,7 @@ import  prisma  from "@/lib/prisma";
 import { currentProfile } from "@/lib/current-profile";
 import { MemberRole } from "@/server/generated/prisma/client";
 
+// Deletes a channel. Only admins and moderators can do this, and #general can't be deleted.
 export async function DELETE(
   req: Request,
   { params }: { params: Promise<{ channelId: string }> }
@@ -27,6 +28,7 @@ export async function DELETE(
       return new NextResponse("Channel ID missing", { status: 400 });
     }
 
+    // Only matches if the user is an admin or moderator of this server.
     const server = await prisma.server.update({
       where: {
         id: serverId,
@@ -58,6 +60,8 @@ export async function DELETE(
   }
 }
 
+// Renames a channel or changes its type. Same rules as deleting: admins and
+// moderators only, and #general can't be changed.
 export async function PATCH(
   req: Request,
   { params }: { params: Promise<{ channelId: string }> }

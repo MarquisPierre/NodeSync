@@ -18,10 +18,13 @@ interface DmPageProps {
   searchParams: Promise<{ video?: string }>;
 }
 
+// Direct message page between the signed-in user and another user. Available to
+// friends and to users who share a server; shows a video call when ?video is set.
 const DmPage = async ({ params, searchParams }: DmPageProps) => {
   const { profileId } = await params;
   const { video } = await searchParams;
 
+  // Sends signed-out users to the sign-in page.
   const profile = await currentProfile();
 
   if (!profile) {
@@ -29,25 +32,30 @@ const DmPage = async ({ params, searchParams }: DmPageProps) => {
     return redirectToSignIn();
   }
 
+  // The user being messaged.
   const otherProfile = await prisma.profile.findUnique({
     where: { id: profileId },
   });
 
-  // Unknown user, yourself, or someone you're not friends with and share no server with.
+  // Redirects if the user doesn't exist, is the current user, or is neither a
+  // friend nor a member of a shared server.
   if (!otherProfile || !(await canDirectMessage(profile.id, otherProfile.id))) {
     return redirect("/friends");
   }
 
+  // Each pair of users has exactly one conversation; creates it on the first visit.
   const conversation = await getOrCreateDirectConversation(
     profile.id,
     otherProfile.id
   );
 
+  // Opening the conversation clears its unread count.
   await markDirectConversationRead(conversation.id, profile.id);
 
   return (
     <div className="bg-white dark:bg-[#313338] flex flex-col h-full">
       <DmHeader name={otherProfile.name} imageUrl={otherProfile.imageUrl} />
+      {/* Shows the video call while ?video is set, otherwise the chat. */}
       {video ? (
         <MediaRoom chatId={conversation.id} video={true} audio={true} />
       ) : (

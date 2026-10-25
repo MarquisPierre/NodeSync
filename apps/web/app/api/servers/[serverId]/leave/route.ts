@@ -2,6 +2,7 @@ import { currentProfile } from "@/lib/current-profile";
 import prisma from "@/lib/prisma";
 import { NextResponse } from "next/server";
 
+// Removes the signed-in user from a server. The owner can't leave their own server.
 export async function PATCH(
   req: Request,
   { params }: { params: Promise<{ serverId: string }> }
@@ -18,6 +19,7 @@ export async function PATCH(
       return new NextResponse("Server ID missing", { status: 400 });
     }
 
+    // Only matches if the user is a member but not the owner, then deletes their membership.
     const server = await prisma.server.update({
       where: {
         id: serverId,
