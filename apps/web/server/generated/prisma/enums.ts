@@ -25,3 +25,11 @@ export const ChannelType = {
 } as const
 
 export type ChannelType = (typeof ChannelType)[keyof typeof ChannelType]
+
+
+export const FriendRequestStatus = {
+  PENDING: 'PENDING',
+  ACCEPTED: 'ACCEPTED'
+} as const
+
+export type FriendRequestStatus = (typeof FriendRequestStatus)[keyof typeof FriendRequestStatus]

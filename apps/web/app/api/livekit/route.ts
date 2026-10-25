@@ -31,9 +31,9 @@ export async function GET(req: NextRequest) {
     );
   }
 
-  // A room is either a channel (caller must be in its server)
-  // or a conversation (caller must be one of its two members).
-  const [channel, conversation] = await Promise.all([
+  // A room is a channel (caller must be in its server), a server conversation,
+  // or a direct conversation (caller must be one of its two participants).
+  const [channel, conversation, directConversation] = await Promise.all([
     prisma.channel.findFirst({
       where: {
         id: room,
@@ -51,9 +51,16 @@ export async function GET(req: NextRequest) {
       },
       select: { id: true },
     }),
+    prisma.directConversation.findFirst({
+      where: {
+        id: room,
+        OR: [{ profileOneId: profile.id }, { profileTwoId: profile.id }],
+      },
+      select: { id: true },
+    }),
   ]);
 
-  if (!channel && !conversation) {
+  if (!channel && !conversation && !directConversation) {
     return NextResponse.json({ error: "Forbidden" }, { status: 403 });
   }
 

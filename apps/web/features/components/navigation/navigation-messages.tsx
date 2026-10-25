@@ -18,9 +18,7 @@ import {
 
 export interface ConversationPreview {
   id: string;
-  serverId: string;
-  serverName: string;
-  otherMemberId: string;
+  otherProfileId: string;
   otherName: string;
   otherImageUrl: string;
   lastMessage: string;
@@ -33,9 +31,7 @@ interface IncomingDirectMessage {
   fileUrl: string | null;
   deleted: boolean;
   createdAt: string;
-  member: {
-    profileId: string;
-  };
+  profileId: string;
 }
 
 interface NavigationMessagesProps {
@@ -53,9 +49,9 @@ const formatTime = (iso: string) => {
 };
 
 const markRead = (conversationId: string) =>
-  fetch(`/api/conversations/${conversationId}/read`, { method: "POST" }).catch(
-    () => {}
-  );
+  fetch(`/api/direct-conversations/${conversationId}/read`, {
+    method: "POST",
+  }).catch(() => {});
 
 export const NavigationMessages = ({
   profileId,
@@ -73,8 +69,7 @@ export const NavigationMessages = ({
   }, [initialConversations]);
 
   const isOpenConversation = (conversation: ConversationPreview) =>
-    params?.serverId === conversation.serverId &&
-    params?.memberId === conversation.otherMemberId;
+    params?.profileId === conversation.otherProfileId;
 
   const isOpenConversationRef = useRef(isOpenConversation);
   isOpenConversationRef.current = isOpenConversation;
@@ -90,7 +85,7 @@ export const NavigationMessages = ({
       const key = `chat:${conversationId}:messages`;
 
       const handler = (message: IncomingDirectMessage) => {
-        if (message.member.profileId === profileId) {
+        if (message.profileId === profileId) {
           return;
         }
 
@@ -127,6 +122,26 @@ export const NavigationMessages = ({
     };
   }, [socket, conversationIds, profileId]);
 
+  // A message in a conversation this list doesn't know about yet (e.g. the
+  // first message someone ever sends us) needs fresh data from the server.
+  useEffect(() => {
+    if (!socket) {
+      return;
+    }
+
+    const key = `dms:${profileId}`;
+    const onDirectMessage = ({ conversationId }: { conversationId: string }) => {
+      if (!conversationIds.split(",").includes(conversationId)) {
+        router.refresh();
+      }
+    };
+
+    socket.on(key, onDirectMessage);
+    return () => {
+      socket.off(key, onDirectMessage);
+    };
+  }, [socket, profileId, conversationIds, router]);
+
   const unreadFor = (conversation: ConversationPreview) =>
     isOpenConversation(conversation) ? 0 : conversation.unreadCount;
 
@@ -151,9 +166,7 @@ export const NavigationMessages = ({
         c.id === conversation.id ? { ...c, unreadCount: 0 } : c
       )
     );
-    router.push(
-      `/servers/${conversation.serverId}/conversations/${conversation.otherMemberId}`
-    );
+    router.push(`/dms/${conversation.otherProfileId}`);
   };
 
   return (
@@ -194,7 +207,7 @@ export const NavigationMessages = ({
               onClick={() => onClick(conversation)}
               className={cn(
                 "w-full flex items-center gap-x-3 rounded-md px-2 py-2 text-left transition hover:bg-zinc-700/10 dark:hover:bg-zinc-700/50",
-                params?.memberId === conversation.otherMemberId &&
+                params?.profileId === conversation.otherProfileId &&
                   "bg-zinc-700/20 dark:bg-zinc-700"
               )}
             >
@@ -229,9 +242,6 @@ export const NavigationMessages = ({
                     </span>
                   )}
                 </div>
-                <p className="truncate text-[10px] text-zinc-400 dark:text-zinc-500">
-                  {conversation.serverName}
-                </p>
               </div>
             </button>
           ))}

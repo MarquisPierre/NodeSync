@@ -52,3 +52,18 @@ export type Conversation = Prisma.ConversationModel
  * 
  */
 export type DirectMessage = Prisma.DirectMessageModel
+/**
+ * Model FriendRequest
+ * 
+ */
+export type FriendRequest = Prisma.FriendRequestModel
+/**
+ * Model DirectConversation
+ * 
+ */
+export type DirectConversation = Prisma.DirectConversationModel
+/**
+ * Model PrivateMessage
+ * 
+ */
+export type PrivateMessage = Prisma.PrivateMessageModel

@@ -67,7 +67,7 @@ export const ChatItem = ({
       return;
     }
 
-    router.push(`/servers/${params?.serverId}/conversations/${member.id}`);
+    router.push(`/dms/${member.profile.id}`);
   };
 
   useEffect(() => {
@@ -123,7 +123,6 @@ export const ChatItem = ({
   const isPDF = fileType === "pdf" && fileUrl;
   const isImage = !isPDF && fileUrl;
   const roleIcon = roleIconMap[member.role];
-  console.log("CHAT_ITEM", { deleted, currentRole: currentMember.role, currentId: currentMember.id, messageMemberId: member.id });
   return (
     <div className="relative group flex items-center hover:bg-black/5 p-4 transition w-full">
       <div className="flex gap-x-2 items-start w-full">

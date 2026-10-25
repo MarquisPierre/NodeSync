@@ -201,6 +201,11 @@ export type ProfileWhereInput = {
   servers?: Prisma.ServerListRelationFilter
   members?: Prisma.MemberListRelationFilter
   channels?: Prisma.ChannelListRelationFilter
+  sentFriendRequests?: Prisma.FriendRequestListRelationFilter
+  receivedFriendRequests?: Prisma.FriendRequestListRelationFilter
+  dmsAsProfileOne?: Prisma.DirectConversationListRelationFilter
+  dmsAsProfileTwo?: Prisma.DirectConversationListRelationFilter
+  privateMessages?: Prisma.PrivateMessageListRelationFilter
 }
 
 export type ProfileOrderByWithRelationInput = {
@@ -214,6 +219,11 @@ export type ProfileOrderByWithRelationInput = {
   servers?: Prisma.ServerOrderByRelationAggregateInput
   members?: Prisma.MemberOrderByRelationAggregateInput
   channels?: Prisma.ChannelOrderByRelationAggregateInput
+  sentFriendRequests?: Prisma.FriendRequestOrderByRelationAggregateInput
+  receivedFriendRequests?: Prisma.FriendRequestOrderByRelationAggregateInput
+  dmsAsProfileOne?: Prisma.DirectConversationOrderByRelationAggregateInput
+  dmsAsProfileTwo?: Prisma.DirectConversationOrderByRelationAggregateInput
+  privateMessages?: Prisma.PrivateMessageOrderByRelationAggregateInput
 }
 
 export type ProfileWhereUniqueInput = Prisma.AtLeast<{
@@ -230,6 +240,11 @@ export type ProfileWhereUniqueInput = Prisma.AtLeast<{
   servers?: Prisma.ServerListRelationFilter
   members?: Prisma.MemberListRelationFilter
   channels?: Prisma.ChannelListRelationFilter
+  sentFriendRequests?: Prisma.FriendRequestListRelationFilter
+  receivedFriendRequests?: Prisma.FriendRequestListRelationFilter
+  dmsAsProfileOne?: Prisma.DirectConversationListRelationFilter
+  dmsAsProfileTwo?: Prisma.DirectConversationListRelationFilter
+  privateMessages?: Prisma.PrivateMessageListRelationFilter
 }, "id" | "userId">
 
 export type ProfileOrderByWithAggregationInput = {
@@ -269,6 +284,11 @@ export type ProfileCreateInput = {
   servers?: Prisma.ServerCreateNestedManyWithoutProfileInput
   members?: Prisma.MemberCreateNestedManyWithoutProfileInput
   channels?: Prisma.ChannelCreateNestedManyWithoutProfileInput
+  sentFriendRequests?: Prisma.FriendRequestCreateNestedManyWithoutSenderInput
+  receivedFriendRequests?: Prisma.FriendRequestCreateNestedManyWithoutReceiverInput
+  dmsAsProfileOne?: Prisma.DirectConversationCreateNestedManyWithoutProfileOneInput
+  dmsAsProfileTwo?: Prisma.DirectConversationCreateNestedManyWithoutProfileTwoInput
+  privateMessages?: Prisma.PrivateMessageCreateNestedManyWithoutProfileInput
 }
 
 export type ProfileUncheckedCreateInput = {
@@ -282,6 +302,11 @@ export type ProfileUncheckedCreateInput = {
   servers?: Prisma.ServerUncheckedCreateNestedManyWithoutProfileInput
   members?: Prisma.MemberUncheckedCreateNestedManyWithoutProfileInput
   channels?: Prisma.ChannelUncheckedCreateNestedManyWithoutProfileInput
+  sentFriendRequests?: Prisma.FriendRequestUncheckedCreateNestedManyWithoutSenderInput
+  receivedFriendRequests?: Prisma.FriendRequestUncheckedCreateNestedManyWithoutReceiverInput
+  dmsAsProfileOne?: Prisma.DirectConversationUncheckedCreateNestedManyWithoutProfileOneInput
+  dmsAsProfileTwo?: Prisma.DirectConversationUncheckedCreateNestedManyWithoutProfileTwoInput
+  privateMessages?: Prisma.PrivateMessageUncheckedCreateNestedManyWithoutProfileInput
 }
 
 export type ProfileUpdateInput = {
@@ -295,6 +320,11 @@ export type ProfileUpdateInput = {
   servers?: Prisma.ServerUpdateManyWithoutProfileNestedInput
   members?: Prisma.MemberUpdateManyWithoutProfileNestedInput
   channels?: Prisma.ChannelUpdateManyWithoutProfileNestedInput
+  sentFriendRequests?: Prisma.FriendRequestUpdateManyWithoutSenderNestedInput
+  receivedFriendRequests?: Prisma.FriendRequestUpdateManyWithoutReceiverNestedInput
+  dmsAsProfileOne?: Prisma.DirectConversationUpdateManyWithoutProfileOneNestedInput
+  dmsAsProfileTwo?: Prisma.DirectConversationUpdateManyWithoutProfileTwoNestedInput
+  privateMessages?: Prisma.PrivateMessageUpdateManyWithoutProfileNestedInput
 }
 
 export type ProfileUncheckedUpdateInput = {
@@ -308,6 +338,11 @@ export type ProfileUncheckedUpdateInput = {
   servers?: Prisma.ServerUncheckedUpdateManyWithoutProfileNestedInput
   members?: Prisma.MemberUncheckedUpdateManyWithoutProfileNestedInput
   channels?: Prisma.ChannelUncheckedUpdateManyWithoutProfileNestedInput
+  sentFriendRequests?: Prisma.FriendRequestUncheckedUpdateManyWithoutSenderNestedInput
+  receivedFriendRequests?: Prisma.FriendRequestUncheckedUpdateManyWithoutReceiverNestedInput
+  dmsAsProfileOne?: Prisma.DirectConversationUncheckedUpdateManyWithoutProfileOneNestedInput
+  dmsAsProfileTwo?: Prisma.DirectConversationUncheckedUpdateManyWithoutProfileTwoNestedInput
+  privateMessages?: Prisma.PrivateMessageUncheckedUpdateManyWithoutProfileNestedInput
 }
 
 export type ProfileCreateManyInput = {
@@ -425,6 +460,76 @@ export type ProfileUpdateOneRequiredWithoutChannelsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.ProfileUpdateToOneWithWhereWithoutChannelsInput, Prisma.ProfileUpdateWithoutChannelsInput>, Prisma.ProfileUncheckedUpdateWithoutChannelsInput>
 }
 
+export type ProfileCreateNestedOneWithoutSentFriendRequestsInput = {
+  create?: Prisma.XOR<Prisma.ProfileCreateWithoutSentFriendRequestsInput, Prisma.ProfileUncheckedCreateWithoutSentFriendRequestsInput>
+  connectOrCreate?: Prisma.ProfileCreateOrConnectWithoutSentFriendRequestsInput
+  connect?: Prisma.ProfileWhereUniqueInput
+}
+
+export type ProfileCreateNestedOneWithoutReceivedFriendRequestsInput = {
+  create?: Prisma.XOR<Prisma.ProfileCreateWithoutReceivedFriendRequestsInput, Prisma.ProfileUncheckedCreateWithoutReceivedFriendRequestsInput>
+  connectOrCreate?: Prisma.ProfileCreateOrConnectWithoutReceivedFriendRequestsInput
+  connect?: Prisma.ProfileWhereUniqueInput
+}
+
+export type ProfileUpdateOneRequiredWithoutSentFriendRequestsNestedInput = {
+  create?: Prisma.XOR<Prisma.ProfileCreateWithoutSentFriendRequestsInput, Prisma.ProfileUncheckedCreateWithoutSentFriendRequestsInput>
+  connectOrCreate?: Prisma.ProfileCreateOrConnectWithoutSentFriendRequestsInput
+  upsert?: Prisma.ProfileUpsertWithoutSentFriendRequestsInput
+  connect?: Prisma.ProfileWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ProfileUpdateToOneWithWhereWithoutSentFriendRequestsInput, Prisma.ProfileUpdateWithoutSentFriendRequestsInput>, Prisma.ProfileUncheckedUpdateWithoutSentFriendRequestsInput>
+}
+
+export type ProfileUpdateOneRequiredWithoutReceivedFriendRequestsNestedInput = {
+  create?: Prisma.XOR<Prisma.ProfileCreateWithoutReceivedFriendRequestsInput, Prisma.ProfileUncheckedCreateWithoutReceivedFriendRequestsInput>
+  connectOrCreate?: Prisma.ProfileCreateOrConnectWithoutReceivedFriendRequestsInput
+  upsert?: Prisma.ProfileUpsertWithoutReceivedFriendRequestsInput
+  connect?: Prisma.ProfileWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ProfileUpdateToOneWithWhereWithoutReceivedFriendRequestsInput, Prisma.ProfileUpdateWithoutReceivedFriendRequestsInput>, Prisma.ProfileUncheckedUpdateWithoutReceivedFriendRequestsInput>
+}
+
+export type ProfileCreateNestedOneWithoutDmsAsProfileOneInput = {
+  create?: Prisma.XOR<Prisma.ProfileCreateWithoutDmsAsProfileOneInput, Prisma.ProfileUncheckedCreateWithoutDmsAsProfileOneInput>
+  connectOrCreate?: Prisma.ProfileCreateOrConnectWithoutDmsAsProfileOneInput
+  connect?: Prisma.ProfileWhereUniqueInput
+}
+
+export type ProfileCreateNestedOneWithoutDmsAsProfileTwoInput = {
+  create?: Prisma.XOR<Prisma.ProfileCreateWithoutDmsAsProfileTwoInput, Prisma.ProfileUncheckedCreateWithoutDmsAsProfileTwoInput>
+  connectOrCreate?: Prisma.ProfileCreateOrConnectWithoutDmsAsProfileTwoInput
+  connect?: Prisma.ProfileWhereUniqueInput
+}
+
+export type ProfileUpdateOneRequiredWithoutDmsAsProfileOneNestedInput = {
+  create?: Prisma.XOR<Prisma.ProfileCreateWithoutDmsAsProfileOneInput, Prisma.ProfileUncheckedCreateWithoutDmsAsProfileOneInput>
+  connectOrCreate?: Prisma.ProfileCreateOrConnectWithoutDmsAsProfileOneInput
+  upsert?: Prisma.ProfileUpsertWithoutDmsAsProfileOneInput
+  connect?: Prisma.ProfileWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ProfileUpdateToOneWithWhereWithoutDmsAsProfileOneInput, Prisma.ProfileUpdateWithoutDmsAsProfileOneInput>, Prisma.ProfileUncheckedUpdateWithoutDmsAsProfileOneInput>
+}
+
+export type ProfileUpdateOneRequiredWithoutDmsAsProfileTwoNestedInput = {
+  create?: Prisma.XOR<Prisma.ProfileCreateWithoutDmsAsProfileTwoInput, Prisma.ProfileUncheckedCreateWithoutDmsAsProfileTwoInput>
+  connectOrCreate?: Prisma.ProfileCreateOrConnectWithoutDmsAsProfileTwoInput
+  upsert?: Prisma.ProfileUpsertWithoutDmsAsProfileTwoInput
+  connect?: Prisma.ProfileWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ProfileUpdateToOneWithWhereWithoutDmsAsProfileTwoInput, Prisma.ProfileUpdateWithoutDmsAsProfileTwoInput>, Prisma.ProfileUncheckedUpdateWithoutDmsAsProfileTwoInput>
+}
+
+export type ProfileCreateNestedOneWithoutPrivateMessagesInput = {
+  create?: Prisma.XOR<Prisma.ProfileCreateWithoutPrivateMessagesInput, Prisma.ProfileUncheckedCreateWithoutPrivateMessagesInput>
+  connectOrCreate?: Prisma.ProfileCreateOrConnectWithoutPrivateMessagesInput
+  connect?: Prisma.ProfileWhereUniqueInput
+}
+
+export type ProfileUpdateOneRequiredWithoutPrivateMessagesNestedInput = {
+  create?: Prisma.XOR<Prisma.ProfileCreateWithoutPrivateMessagesInput, Prisma.ProfileUncheckedCreateWithoutPrivateMessagesInput>
+  connectOrCreate?: Prisma.ProfileCreateOrConnectWithoutPrivateMessagesInput
+  upsert?: Prisma.ProfileUpsertWithoutPrivateMessagesInput
+  connect?: Prisma.ProfileWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ProfileUpdateToOneWithWhereWithoutPrivateMessagesInput, Prisma.ProfileUpdateWithoutPrivateMessagesInput>, Prisma.ProfileUncheckedUpdateWithoutPrivateMessagesInput>
+}
+
 export type ProfileCreateWithoutServersInput = {
   id?: string
   userId: string
@@ -435,6 +540,11 @@ export type ProfileCreateWithoutServersInput = {
   updatedAt?: Date | string
   members?: Prisma.MemberCreateNestedManyWithoutProfileInput
   channels?: Prisma.ChannelCreateNestedManyWithoutProfileInput
+  sentFriendRequests?: Prisma.FriendRequestCreateNestedManyWithoutSenderInput
+  receivedFriendRequests?: Prisma.FriendRequestCreateNestedManyWithoutReceiverInput
+  dmsAsProfileOne?: Prisma.DirectConversationCreateNestedManyWithoutProfileOneInput
+  dmsAsProfileTwo?: Prisma.DirectConversationCreateNestedManyWithoutProfileTwoInput
+  privateMessages?: Prisma.PrivateMessageCreateNestedManyWithoutProfileInput
 }
 
 export type ProfileUncheckedCreateWithoutServersInput = {
@@ -447,6 +557,11 @@ export type ProfileUncheckedCreateWithoutServersInput = {
   updatedAt?: Date | string
   members?: Prisma.MemberUncheckedCreateNestedManyWithoutProfileInput
   channels?: Prisma.ChannelUncheckedCreateNestedManyWithoutProfileInput
+  sentFriendRequests?: Prisma.FriendRequestUncheckedCreateNestedManyWithoutSenderInput
+  receivedFriendRequests?: Prisma.FriendRequestUncheckedCreateNestedManyWithoutReceiverInput
+  dmsAsProfileOne?: Prisma.DirectConversationUncheckedCreateNestedManyWithoutProfileOneInput
+  dmsAsProfileTwo?: Prisma.DirectConversationUncheckedCreateNestedManyWithoutProfileTwoInput
+  privateMessages?: Prisma.PrivateMessageUncheckedCreateNestedManyWithoutProfileInput
 }
 
 export type ProfileCreateOrConnectWithoutServersInput = {
@@ -475,6 +590,11 @@ export type ProfileUpdateWithoutServersInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   members?: Prisma.MemberUpdateManyWithoutProfileNestedInput
   channels?: Prisma.ChannelUpdateManyWithoutProfileNestedInput
+  sentFriendRequests?: Prisma.FriendRequestUpdateManyWithoutSenderNestedInput
+  receivedFriendRequests?: Prisma.FriendRequestUpdateManyWithoutReceiverNestedInput
+  dmsAsProfileOne?: Prisma.DirectConversationUpdateManyWithoutProfileOneNestedInput
+  dmsAsProfileTwo?: Prisma.DirectConversationUpdateManyWithoutProfileTwoNestedInput
+  privateMessages?: Prisma.PrivateMessageUpdateManyWithoutProfileNestedInput
 }
 
 export type ProfileUncheckedUpdateWithoutServersInput = {
@@ -487,6 +607,11 @@ export type ProfileUncheckedUpdateWithoutServersInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   members?: Prisma.MemberUncheckedUpdateManyWithoutProfileNestedInput
   channels?: Prisma.ChannelUncheckedUpdateManyWithoutProfileNestedInput
+  sentFriendRequests?: Prisma.FriendRequestUncheckedUpdateManyWithoutSenderNestedInput
+  receivedFriendRequests?: Prisma.FriendRequestUncheckedUpdateManyWithoutReceiverNestedInput
+  dmsAsProfileOne?: Prisma.DirectConversationUncheckedUpdateManyWithoutProfileOneNestedInput
+  dmsAsProfileTwo?: Prisma.DirectConversationUncheckedUpdateManyWithoutProfileTwoNestedInput
+  privateMessages?: Prisma.PrivateMessageUncheckedUpdateManyWithoutProfileNestedInput
 }
 
 export type ProfileCreateWithoutMembersInput = {
@@ -499,6 +624,11 @@ export type ProfileCreateWithoutMembersInput = {
   updatedAt?: Date | string
   servers?: Prisma.ServerCreateNestedManyWithoutProfileInput
   channels?: Prisma.ChannelCreateNestedManyWithoutProfileInput
+  sentFriendRequests?: Prisma.FriendRequestCreateNestedManyWithoutSenderInput
+  receivedFriendRequests?: Prisma.FriendRequestCreateNestedManyWithoutReceiverInput
+  dmsAsProfileOne?: Prisma.DirectConversationCreateNestedManyWithoutProfileOneInput
+  dmsAsProfileTwo?: Prisma.DirectConversationCreateNestedManyWithoutProfileTwoInput
+  privateMessages?: Prisma.PrivateMessageCreateNestedManyWithoutProfileInput
 }
 
 export type ProfileUncheckedCreateWithoutMembersInput = {
@@ -511,6 +641,11 @@ export type ProfileUncheckedCreateWithoutMembersInput = {
   updatedAt?: Date | string
   servers?: Prisma.ServerUncheckedCreateNestedManyWithoutProfileInput
   channels?: Prisma.ChannelUncheckedCreateNestedManyWithoutProfileInput
+  sentFriendRequests?: Prisma.FriendRequestUncheckedCreateNestedManyWithoutSenderInput
+  receivedFriendRequests?: Prisma.FriendRequestUncheckedCreateNestedManyWithoutReceiverInput
+  dmsAsProfileOne?: Prisma.DirectConversationUncheckedCreateNestedManyWithoutProfileOneInput
+  dmsAsProfileTwo?: Prisma.DirectConversationUncheckedCreateNestedManyWithoutProfileTwoInput
+  privateMessages?: Prisma.PrivateMessageUncheckedCreateNestedManyWithoutProfileInput
 }
 
 export type ProfileCreateOrConnectWithoutMembersInput = {
@@ -539,6 +674,11 @@ export type ProfileUpdateWithoutMembersInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   servers?: Prisma.ServerUpdateManyWithoutProfileNestedInput
   channels?: Prisma.ChannelUpdateManyWithoutProfileNestedInput
+  sentFriendRequests?: Prisma.FriendRequestUpdateManyWithoutSenderNestedInput
+  receivedFriendRequests?: Prisma.FriendRequestUpdateManyWithoutReceiverNestedInput
+  dmsAsProfileOne?: Prisma.DirectConversationUpdateManyWithoutProfileOneNestedInput
+  dmsAsProfileTwo?: Prisma.DirectConversationUpdateManyWithoutProfileTwoNestedInput
+  privateMessages?: Prisma.PrivateMessageUpdateManyWithoutProfileNestedInput
 }
 
 export type ProfileUncheckedUpdateWithoutMembersInput = {
@@ -551,6 +691,11 @@ export type ProfileUncheckedUpdateWithoutMembersInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   servers?: Prisma.ServerUncheckedUpdateManyWithoutProfileNestedInput
   channels?: Prisma.ChannelUncheckedUpdateManyWithoutProfileNestedInput
+  sentFriendRequests?: Prisma.FriendRequestUncheckedUpdateManyWithoutSenderNestedInput
+  receivedFriendRequests?: Prisma.FriendRequestUncheckedUpdateManyWithoutReceiverNestedInput
+  dmsAsProfileOne?: Prisma.DirectConversationUncheckedUpdateManyWithoutProfileOneNestedInput
+  dmsAsProfileTwo?: Prisma.DirectConversationUncheckedUpdateManyWithoutProfileTwoNestedInput
+  privateMessages?: Prisma.PrivateMessageUncheckedUpdateManyWithoutProfileNestedInput
 }
 
 export type ProfileCreateWithoutChannelsInput = {
@@ -563,6 +708,11 @@ export type ProfileCreateWithoutChannelsInput = {
   updatedAt?: Date | string
   servers?: Prisma.ServerCreateNestedManyWithoutProfileInput
   members?: Prisma.MemberCreateNestedManyWithoutProfileInput
+  sentFriendRequests?: Prisma.FriendRequestCreateNestedManyWithoutSenderInput
+  receivedFriendRequests?: Prisma.FriendRequestCreateNestedManyWithoutReceiverInput
+  dmsAsProfileOne?: Prisma.DirectConversationCreateNestedManyWithoutProfileOneInput
+  dmsAsProfileTwo?: Prisma.DirectConversationCreateNestedManyWithoutProfileTwoInput
+  privateMessages?: Prisma.PrivateMessageCreateNestedManyWithoutProfileInput
 }
 
 export type ProfileUncheckedCreateWithoutChannelsInput = {
@@ -575,6 +725,11 @@ export type ProfileUncheckedCreateWithoutChannelsInput = {
   updatedAt?: Date | string
   servers?: Prisma.ServerUncheckedCreateNestedManyWithoutProfileInput
   members?: Prisma.MemberUncheckedCreateNestedManyWithoutProfileInput
+  sentFriendRequests?: Prisma.FriendRequestUncheckedCreateNestedManyWithoutSenderInput
+  receivedFriendRequests?: Prisma.FriendRequestUncheckedCreateNestedManyWithoutReceiverInput
+  dmsAsProfileOne?: Prisma.DirectConversationUncheckedCreateNestedManyWithoutProfileOneInput
+  dmsAsProfileTwo?: Prisma.DirectConversationUncheckedCreateNestedManyWithoutProfileTwoInput
+  privateMessages?: Prisma.PrivateMessageUncheckedCreateNestedManyWithoutProfileInput
 }
 
 export type ProfileCreateOrConnectWithoutChannelsInput = {
@@ -603,6 +758,11 @@ export type ProfileUpdateWithoutChannelsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   servers?: Prisma.ServerUpdateManyWithoutProfileNestedInput
   members?: Prisma.MemberUpdateManyWithoutProfileNestedInput
+  sentFriendRequests?: Prisma.FriendRequestUpdateManyWithoutSenderNestedInput
+  receivedFriendRequests?: Prisma.FriendRequestUpdateManyWithoutReceiverNestedInput
+  dmsAsProfileOne?: Prisma.DirectConversationUpdateManyWithoutProfileOneNestedInput
+  dmsAsProfileTwo?: Prisma.DirectConversationUpdateManyWithoutProfileTwoNestedInput
+  privateMessages?: Prisma.PrivateMessageUpdateManyWithoutProfileNestedInput
 }
 
 export type ProfileUncheckedUpdateWithoutChannelsInput = {
@@ -615,6 +775,431 @@ export type ProfileUncheckedUpdateWithoutChannelsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   servers?: Prisma.ServerUncheckedUpdateManyWithoutProfileNestedInput
   members?: Prisma.MemberUncheckedUpdateManyWithoutProfileNestedInput
+  sentFriendRequests?: Prisma.FriendRequestUncheckedUpdateManyWithoutSenderNestedInput
+  receivedFriendRequests?: Prisma.FriendRequestUncheckedUpdateManyWithoutReceiverNestedInput
+  dmsAsProfileOne?: Prisma.DirectConversationUncheckedUpdateManyWithoutProfileOneNestedInput
+  dmsAsProfileTwo?: Prisma.DirectConversationUncheckedUpdateManyWithoutProfileTwoNestedInput
+  privateMessages?: Prisma.PrivateMessageUncheckedUpdateManyWithoutProfileNestedInput
+}
+
+export type ProfileCreateWithoutSentFriendRequestsInput = {
+  id?: string
+  userId: string
+  name: string
+  imageUrl: string
+  email: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  servers?: Prisma.ServerCreateNestedManyWithoutProfileInput
+  members?: Prisma.MemberCreateNestedManyWithoutProfileInput
+  channels?: Prisma.ChannelCreateNestedManyWithoutProfileInput
+  receivedFriendRequests?: Prisma.FriendRequestCreateNestedManyWithoutReceiverInput
+  dmsAsProfileOne?: Prisma.DirectConversationCreateNestedManyWithoutProfileOneInput
+  dmsAsProfileTwo?: Prisma.DirectConversationCreateNestedManyWithoutProfileTwoInput
+  privateMessages?: Prisma.PrivateMessageCreateNestedManyWithoutProfileInput
+}
+
+export type ProfileUncheckedCreateWithoutSentFriendRequestsInput = {
+  id?: string
+  userId: string
+  name: string
+  imageUrl: string
+  email: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  servers?: Prisma.ServerUncheckedCreateNestedManyWithoutProfileInput
+  members?: Prisma.MemberUncheckedCreateNestedManyWithoutProfileInput
+  channels?: Prisma.ChannelUncheckedCreateNestedManyWithoutProfileInput
+  receivedFriendRequests?: Prisma.FriendRequestUncheckedCreateNestedManyWithoutReceiverInput
+  dmsAsProfileOne?: Prisma.DirectConversationUncheckedCreateNestedManyWithoutProfileOneInput
+  dmsAsProfileTwo?: Prisma.DirectConversationUncheckedCreateNestedManyWithoutProfileTwoInput
+  privateMessages?: Prisma.PrivateMessageUncheckedCreateNestedManyWithoutProfileInput
+}
+
+export type ProfileCreateOrConnectWithoutSentFriendRequestsInput = {
+  where: Prisma.ProfileWhereUniqueInput
+  create: Prisma.XOR<Prisma.ProfileCreateWithoutSentFriendRequestsInput, Prisma.ProfileUncheckedCreateWithoutSentFriendRequestsInput>
+}
+
+export type ProfileCreateWithoutReceivedFriendRequestsInput = {
+  id?: string
+  userId: string
+  name: string
+  imageUrl: string
+  email: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  servers?: Prisma.ServerCreateNestedManyWithoutProfileInput
+  members?: Prisma.MemberCreateNestedManyWithoutProfileInput
+  channels?: Prisma.ChannelCreateNestedManyWithoutProfileInput
+  sentFriendRequests?: Prisma.FriendRequestCreateNestedManyWithoutSenderInput
+  dmsAsProfileOne?: Prisma.DirectConversationCreateNestedManyWithoutProfileOneInput
+  dmsAsProfileTwo?: Prisma.DirectConversationCreateNestedManyWithoutProfileTwoInput
+  privateMessages?: Prisma.PrivateMessageCreateNestedManyWithoutProfileInput
+}
+
+export type ProfileUncheckedCreateWithoutReceivedFriendRequestsInput = {
+  id?: string
+  userId: string
+  name: string
+  imageUrl: string
+  email: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  servers?: Prisma.ServerUncheckedCreateNestedManyWithoutProfileInput
+  members?: Prisma.MemberUncheckedCreateNestedManyWithoutProfileInput
+  channels?: Prisma.ChannelUncheckedCreateNestedManyWithoutProfileInput
+  sentFriendRequests?: Prisma.FriendRequestUncheckedCreateNestedManyWithoutSenderInput
+  dmsAsProfileOne?: Prisma.DirectConversationUncheckedCreateNestedManyWithoutProfileOneInput
+  dmsAsProfileTwo?: Prisma.DirectConversationUncheckedCreateNestedManyWithoutProfileTwoInput
+  privateMessages?: Prisma.PrivateMessageUncheckedCreateNestedManyWithoutProfileInput
+}
+
+export type ProfileCreateOrConnectWithoutReceivedFriendRequestsInput = {
+  where: Prisma.ProfileWhereUniqueInput
+  create: Prisma.XOR<Prisma.ProfileCreateWithoutReceivedFriendRequestsInput, Prisma.ProfileUncheckedCreateWithoutReceivedFriendRequestsInput>
+}
+
+export type ProfileUpsertWithoutSentFriendRequestsInput = {
+  update: Prisma.XOR<Prisma.ProfileUpdateWithoutSentFriendRequestsInput, Prisma.ProfileUncheckedUpdateWithoutSentFriendRequestsInput>
+  create: Prisma.XOR<Prisma.ProfileCreateWithoutSentFriendRequestsInput, Prisma.ProfileUncheckedCreateWithoutSentFriendRequestsInput>
+  where?: Prisma.ProfileWhereInput
+}
+
+export type ProfileUpdateToOneWithWhereWithoutSentFriendRequestsInput = {
+  where?: Prisma.ProfileWhereInput
+  data: Prisma.XOR<Prisma.ProfileUpdateWithoutSentFriendRequestsInput, Prisma.ProfileUncheckedUpdateWithoutSentFriendRequestsInput>
+}
+
+export type ProfileUpdateWithoutSentFriendRequestsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  imageUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  servers?: Prisma.ServerUpdateManyWithoutProfileNestedInput
+  members?: Prisma.MemberUpdateManyWithoutProfileNestedInput
+  channels?: Prisma.ChannelUpdateManyWithoutProfileNestedInput
+  receivedFriendRequests?: Prisma.FriendRequestUpdateManyWithoutReceiverNestedInput
+  dmsAsProfileOne?: Prisma.DirectConversationUpdateManyWithoutProfileOneNestedInput
+  dmsAsProfileTwo?: Prisma.DirectConversationUpdateManyWithoutProfileTwoNestedInput
+  privateMessages?: Prisma.PrivateMessageUpdateManyWithoutProfileNestedInput
+}
+
+export type ProfileUncheckedUpdateWithoutSentFriendRequestsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  imageUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  servers?: Prisma.ServerUncheckedUpdateManyWithoutProfileNestedInput
+  members?: Prisma.MemberUncheckedUpdateManyWithoutProfileNestedInput
+  channels?: Prisma.ChannelUncheckedUpdateManyWithoutProfileNestedInput
+  receivedFriendRequests?: Prisma.FriendRequestUncheckedUpdateManyWithoutReceiverNestedInput
+  dmsAsProfileOne?: Prisma.DirectConversationUncheckedUpdateManyWithoutProfileOneNestedInput
+  dmsAsProfileTwo?: Prisma.DirectConversationUncheckedUpdateManyWithoutProfileTwoNestedInput
+  privateMessages?: Prisma.PrivateMessageUncheckedUpdateManyWithoutProfileNestedInput
+}
+
+export type ProfileUpsertWithoutReceivedFriendRequestsInput = {
+  update: Prisma.XOR<Prisma.ProfileUpdateWithoutReceivedFriendRequestsInput, Prisma.ProfileUncheckedUpdateWithoutReceivedFriendRequestsInput>
+  create: Prisma.XOR<Prisma.ProfileCreateWithoutReceivedFriendRequestsInput, Prisma.ProfileUncheckedCreateWithoutReceivedFriendRequestsInput>
+  where?: Prisma.ProfileWhereInput
+}
+
+export type ProfileUpdateToOneWithWhereWithoutReceivedFriendRequestsInput = {
+  where?: Prisma.ProfileWhereInput
+  data: Prisma.XOR<Prisma.ProfileUpdateWithoutReceivedFriendRequestsInput, Prisma.ProfileUncheckedUpdateWithoutReceivedFriendRequestsInput>
+}
+
+export type ProfileUpdateWithoutReceivedFriendRequestsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  imageUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  servers?: Prisma.ServerUpdateManyWithoutProfileNestedInput
+  members?: Prisma.MemberUpdateManyWithoutProfileNestedInput
+  channels?: Prisma.ChannelUpdateManyWithoutProfileNestedInput
+  sentFriendRequests?: Prisma.FriendRequestUpdateManyWithoutSenderNestedInput
+  dmsAsProfileOne?: Prisma.DirectConversationUpdateManyWithoutProfileOneNestedInput
+  dmsAsProfileTwo?: Prisma.DirectConversationUpdateManyWithoutProfileTwoNestedInput
+  privateMessages?: Prisma.PrivateMessageUpdateManyWithoutProfileNestedInput
+}
+
+export type ProfileUncheckedUpdateWithoutReceivedFriendRequestsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  imageUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  servers?: Prisma.ServerUncheckedUpdateManyWithoutProfileNestedInput
+  members?: Prisma.MemberUncheckedUpdateManyWithoutProfileNestedInput
+  channels?: Prisma.ChannelUncheckedUpdateManyWithoutProfileNestedInput
+  sentFriendRequests?: Prisma.FriendRequestUncheckedUpdateManyWithoutSenderNestedInput
+  dmsAsProfileOne?: Prisma.DirectConversationUncheckedUpdateManyWithoutProfileOneNestedInput
+  dmsAsProfileTwo?: Prisma.DirectConversationUncheckedUpdateManyWithoutProfileTwoNestedInput
+  privateMessages?: Prisma.PrivateMessageUncheckedUpdateManyWithoutProfileNestedInput
+}
+
+export type ProfileCreateWithoutDmsAsProfileOneInput = {
+  id?: string
+  userId: string
+  name: string
+  imageUrl: string
+  email: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  servers?: Prisma.ServerCreateNestedManyWithoutProfileInput
+  members?: Prisma.MemberCreateNestedManyWithoutProfileInput
+  channels?: Prisma.ChannelCreateNestedManyWithoutProfileInput
+  sentFriendRequests?: Prisma.FriendRequestCreateNestedManyWithoutSenderInput
+  receivedFriendRequests?: Prisma.FriendRequestCreateNestedManyWithoutReceiverInput
+  dmsAsProfileTwo?: Prisma.DirectConversationCreateNestedManyWithoutProfileTwoInput
+  privateMessages?: Prisma.PrivateMessageCreateNestedManyWithoutProfileInput
+}
+
+export type ProfileUncheckedCreateWithoutDmsAsProfileOneInput = {
+  id?: string
+  userId: string
+  name: string
+  imageUrl: string
+  email: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  servers?: Prisma.ServerUncheckedCreateNestedManyWithoutProfileInput
+  members?: Prisma.MemberUncheckedCreateNestedManyWithoutProfileInput
+  channels?: Prisma.ChannelUncheckedCreateNestedManyWithoutProfileInput
+  sentFriendRequests?: Prisma.FriendRequestUncheckedCreateNestedManyWithoutSenderInput
+  receivedFriendRequests?: Prisma.FriendRequestUncheckedCreateNestedManyWithoutReceiverInput
+  dmsAsProfileTwo?: Prisma.DirectConversationUncheckedCreateNestedManyWithoutProfileTwoInput
+  privateMessages?: Prisma.PrivateMessageUncheckedCreateNestedManyWithoutProfileInput
+}
+
+export type ProfileCreateOrConnectWithoutDmsAsProfileOneInput = {
+  where: Prisma.ProfileWhereUniqueInput
+  create: Prisma.XOR<Prisma.ProfileCreateWithoutDmsAsProfileOneInput, Prisma.ProfileUncheckedCreateWithoutDmsAsProfileOneInput>
+}
+
+export type ProfileCreateWithoutDmsAsProfileTwoInput = {
+  id?: string
+  userId: string
+  name: string
+  imageUrl: string
+  email: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  servers?: Prisma.ServerCreateNestedManyWithoutProfileInput
+  members?: Prisma.MemberCreateNestedManyWithoutProfileInput
+  channels?: Prisma.ChannelCreateNestedManyWithoutProfileInput
+  sentFriendRequests?: Prisma.FriendRequestCreateNestedManyWithoutSenderInput
+  receivedFriendRequests?: Prisma.FriendRequestCreateNestedManyWithoutReceiverInput
+  dmsAsProfileOne?: Prisma.DirectConversationCreateNestedManyWithoutProfileOneInput
+  privateMessages?: Prisma.PrivateMessageCreateNestedManyWithoutProfileInput
+}
+
+export type ProfileUncheckedCreateWithoutDmsAsProfileTwoInput = {
+  id?: string
+  userId: string
+  name: string
+  imageUrl: string
+  email: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  servers?: Prisma.ServerUncheckedCreateNestedManyWithoutProfileInput
+  members?: Prisma.MemberUncheckedCreateNestedManyWithoutProfileInput
+  channels?: Prisma.ChannelUncheckedCreateNestedManyWithoutProfileInput
+  sentFriendRequests?: Prisma.FriendRequestUncheckedCreateNestedManyWithoutSenderInput
+  receivedFriendRequests?: Prisma.FriendRequestUncheckedCreateNestedManyWithoutReceiverInput
+  dmsAsProfileOne?: Prisma.DirectConversationUncheckedCreateNestedManyWithoutProfileOneInput
+  privateMessages?: Prisma.PrivateMessageUncheckedCreateNestedManyWithoutProfileInput
+}
+
+export type ProfileCreateOrConnectWithoutDmsAsProfileTwoInput = {
+  where: Prisma.ProfileWhereUniqueInput
+  create: Prisma.XOR<Prisma.ProfileCreateWithoutDmsAsProfileTwoInput, Prisma.ProfileUncheckedCreateWithoutDmsAsProfileTwoInput>
+}
+
+export type ProfileUpsertWithoutDmsAsProfileOneInput = {
+  update: Prisma.XOR<Prisma.ProfileUpdateWithoutDmsAsProfileOneInput, Prisma.ProfileUncheckedUpdateWithoutDmsAsProfileOneInput>
+  create: Prisma.XOR<Prisma.ProfileCreateWithoutDmsAsProfileOneInput, Prisma.ProfileUncheckedCreateWithoutDmsAsProfileOneInput>
+  where?: Prisma.ProfileWhereInput
+}
+
+export type ProfileUpdateToOneWithWhereWithoutDmsAsProfileOneInput = {
+  where?: Prisma.ProfileWhereInput
+  data: Prisma.XOR<Prisma.ProfileUpdateWithoutDmsAsProfileOneInput, Prisma.ProfileUncheckedUpdateWithoutDmsAsProfileOneInput>
+}
+
+export type ProfileUpdateWithoutDmsAsProfileOneInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  imageUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  servers?: Prisma.ServerUpdateManyWithoutProfileNestedInput
+  members?: Prisma.MemberUpdateManyWithoutProfileNestedInput
+  channels?: Prisma.ChannelUpdateManyWithoutProfileNestedInput
+  sentFriendRequests?: Prisma.FriendRequestUpdateManyWithoutSenderNestedInput
+  receivedFriendRequests?: Prisma.FriendRequestUpdateManyWithoutReceiverNestedInput
+  dmsAsProfileTwo?: Prisma.DirectConversationUpdateManyWithoutProfileTwoNestedInput
+  privateMessages?: Prisma.PrivateMessageUpdateManyWithoutProfileNestedInput
+}
+
+export type ProfileUncheckedUpdateWithoutDmsAsProfileOneInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  imageUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  servers?: Prisma.ServerUncheckedUpdateManyWithoutProfileNestedInput
+  members?: Prisma.MemberUncheckedUpdateManyWithoutProfileNestedInput
+  channels?: Prisma.ChannelUncheckedUpdateManyWithoutProfileNestedInput
+  sentFriendRequests?: Prisma.FriendRequestUncheckedUpdateManyWithoutSenderNestedInput
+  receivedFriendRequests?: Prisma.FriendRequestUncheckedUpdateManyWithoutReceiverNestedInput
+  dmsAsProfileTwo?: Prisma.DirectConversationUncheckedUpdateManyWithoutProfileTwoNestedInput
+  privateMessages?: Prisma.PrivateMessageUncheckedUpdateManyWithoutProfileNestedInput
+}
+
+export type ProfileUpsertWithoutDmsAsProfileTwoInput = {
+  update: Prisma.XOR<Prisma.ProfileUpdateWithoutDmsAsProfileTwoInput, Prisma.ProfileUncheckedUpdateWithoutDmsAsProfileTwoInput>
+  create: Prisma.XOR<Prisma.ProfileCreateWithoutDmsAsProfileTwoInput, Prisma.ProfileUncheckedCreateWithoutDmsAsProfileTwoInput>
+  where?: Prisma.ProfileWhereInput
+}
+
+export type ProfileUpdateToOneWithWhereWithoutDmsAsProfileTwoInput = {
+  where?: Prisma.ProfileWhereInput
+  data: Prisma.XOR<Prisma.ProfileUpdateWithoutDmsAsProfileTwoInput, Prisma.ProfileUncheckedUpdateWithoutDmsAsProfileTwoInput>
+}
+
+export type ProfileUpdateWithoutDmsAsProfileTwoInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  imageUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  servers?: Prisma.ServerUpdateManyWithoutProfileNestedInput
+  members?: Prisma.MemberUpdateManyWithoutProfileNestedInput
+  channels?: Prisma.ChannelUpdateManyWithoutProfileNestedInput
+  sentFriendRequests?: Prisma.FriendRequestUpdateManyWithoutSenderNestedInput
+  receivedFriendRequests?: Prisma.FriendRequestUpdateManyWithoutReceiverNestedInput
+  dmsAsProfileOne?: Prisma.DirectConversationUpdateManyWithoutProfileOneNestedInput
+  privateMessages?: Prisma.PrivateMessageUpdateManyWithoutProfileNestedInput
+}
+
+export type ProfileUncheckedUpdateWithoutDmsAsProfileTwoInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  imageUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  servers?: Prisma.ServerUncheckedUpdateManyWithoutProfileNestedInput
+  members?: Prisma.MemberUncheckedUpdateManyWithoutProfileNestedInput
+  channels?: Prisma.ChannelUncheckedUpdateManyWithoutProfileNestedInput
+  sentFriendRequests?: Prisma.FriendRequestUncheckedUpdateManyWithoutSenderNestedInput
+  receivedFriendRequests?: Prisma.FriendRequestUncheckedUpdateManyWithoutReceiverNestedInput
+  dmsAsProfileOne?: Prisma.DirectConversationUncheckedUpdateManyWithoutProfileOneNestedInput
+  privateMessages?: Prisma.PrivateMessageUncheckedUpdateManyWithoutProfileNestedInput
+}
+
+export type ProfileCreateWithoutPrivateMessagesInput = {
+  id?: string
+  userId: string
+  name: string
+  imageUrl: string
+  email: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  servers?: Prisma.ServerCreateNestedManyWithoutProfileInput
+  members?: Prisma.MemberCreateNestedManyWithoutProfileInput
+  channels?: Prisma.ChannelCreateNestedManyWithoutProfileInput
+  sentFriendRequests?: Prisma.FriendRequestCreateNestedManyWithoutSenderInput
+  receivedFriendRequests?: Prisma.FriendRequestCreateNestedManyWithoutReceiverInput
+  dmsAsProfileOne?: Prisma.DirectConversationCreateNestedManyWithoutProfileOneInput
+  dmsAsProfileTwo?: Prisma.DirectConversationCreateNestedManyWithoutProfileTwoInput
+}
+
+export type ProfileUncheckedCreateWithoutPrivateMessagesInput = {
+  id?: string
+  userId: string
+  name: string
+  imageUrl: string
+  email: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  servers?: Prisma.ServerUncheckedCreateNestedManyWithoutProfileInput
+  members?: Prisma.MemberUncheckedCreateNestedManyWithoutProfileInput
+  channels?: Prisma.ChannelUncheckedCreateNestedManyWithoutProfileInput
+  sentFriendRequests?: Prisma.FriendRequestUncheckedCreateNestedManyWithoutSenderInput
+  receivedFriendRequests?: Prisma.FriendRequestUncheckedCreateNestedManyWithoutReceiverInput
+  dmsAsProfileOne?: Prisma.DirectConversationUncheckedCreateNestedManyWithoutProfileOneInput
+  dmsAsProfileTwo?: Prisma.DirectConversationUncheckedCreateNestedManyWithoutProfileTwoInput
+}
+
+export type ProfileCreateOrConnectWithoutPrivateMessagesInput = {
+  where: Prisma.ProfileWhereUniqueInput
+  create: Prisma.XOR<Prisma.ProfileCreateWithoutPrivateMessagesInput, Prisma.ProfileUncheckedCreateWithoutPrivateMessagesInput>
+}
+
+export type ProfileUpsertWithoutPrivateMessagesInput = {
+  update: Prisma.XOR<Prisma.ProfileUpdateWithoutPrivateMessagesInput, Prisma.ProfileUncheckedUpdateWithoutPrivateMessagesInput>
+  create: Prisma.XOR<Prisma.ProfileCreateWithoutPrivateMessagesInput, Prisma.ProfileUncheckedCreateWithoutPrivateMessagesInput>
+  where?: Prisma.ProfileWhereInput
+}
+
+export type ProfileUpdateToOneWithWhereWithoutPrivateMessagesInput = {
+  where?: Prisma.ProfileWhereInput
+  data: Prisma.XOR<Prisma.ProfileUpdateWithoutPrivateMessagesInput, Prisma.ProfileUncheckedUpdateWithoutPrivateMessagesInput>
+}
+
+export type ProfileUpdateWithoutPrivateMessagesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  imageUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  servers?: Prisma.ServerUpdateManyWithoutProfileNestedInput
+  members?: Prisma.MemberUpdateManyWithoutProfileNestedInput
+  channels?: Prisma.ChannelUpdateManyWithoutProfileNestedInput
+  sentFriendRequests?: Prisma.FriendRequestUpdateManyWithoutSenderNestedInput
+  receivedFriendRequests?: Prisma.FriendRequestUpdateManyWithoutReceiverNestedInput
+  dmsAsProfileOne?: Prisma.DirectConversationUpdateManyWithoutProfileOneNestedInput
+  dmsAsProfileTwo?: Prisma.DirectConversationUpdateManyWithoutProfileTwoNestedInput
+}
+
+export type ProfileUncheckedUpdateWithoutPrivateMessagesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  imageUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  servers?: Prisma.ServerUncheckedUpdateManyWithoutProfileNestedInput
+  members?: Prisma.MemberUncheckedUpdateManyWithoutProfileNestedInput
+  channels?: Prisma.ChannelUncheckedUpdateManyWithoutProfileNestedInput
+  sentFriendRequests?: Prisma.FriendRequestUncheckedUpdateManyWithoutSenderNestedInput
+  receivedFriendRequests?: Prisma.FriendRequestUncheckedUpdateManyWithoutReceiverNestedInput
+  dmsAsProfileOne?: Prisma.DirectConversationUncheckedUpdateManyWithoutProfileOneNestedInput
+  dmsAsProfileTwo?: Prisma.DirectConversationUncheckedUpdateManyWithoutProfileTwoNestedInput
 }
 
 
@@ -626,12 +1211,22 @@ export type ProfileCountOutputType = {
   servers: number
   members: number
   channels: number
+  sentFriendRequests: number
+  receivedFriendRequests: number
+  dmsAsProfileOne: number
+  dmsAsProfileTwo: number
+  privateMessages: number
 }
 
 export type ProfileCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   servers?: boolean | ProfileCountOutputTypeCountServersArgs
   members?: boolean | ProfileCountOutputTypeCountMembersArgs
   channels?: boolean | ProfileCountOutputTypeCountChannelsArgs
+  sentFriendRequests?: boolean | ProfileCountOutputTypeCountSentFriendRequestsArgs
+  receivedFriendRequests?: boolean | ProfileCountOutputTypeCountReceivedFriendRequestsArgs
+  dmsAsProfileOne?: boolean | ProfileCountOutputTypeCountDmsAsProfileOneArgs
+  dmsAsProfileTwo?: boolean | ProfileCountOutputTypeCountDmsAsProfileTwoArgs
+  privateMessages?: boolean | ProfileCountOutputTypeCountPrivateMessagesArgs
 }
 
 /**
@@ -665,6 +1260,41 @@ export type ProfileCountOutputTypeCountChannelsArgs<ExtArgs extends runtime.Type
   where?: Prisma.ChannelWhereInput
 }
 
+/**
+ * ProfileCountOutputType without action
+ */
+export type ProfileCountOutputTypeCountSentFriendRequestsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.FriendRequestWhereInput
+}
+
+/**
+ * ProfileCountOutputType without action
+ */
+export type ProfileCountOutputTypeCountReceivedFriendRequestsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.FriendRequestWhereInput
+}
+
+/**
+ * ProfileCountOutputType without action
+ */
+export type ProfileCountOutputTypeCountDmsAsProfileOneArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.DirectConversationWhereInput
+}
+
+/**
+ * ProfileCountOutputType without action
+ */
+export type ProfileCountOutputTypeCountDmsAsProfileTwoArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.DirectConversationWhereInput
+}
+
+/**
+ * ProfileCountOutputType without action
+ */
+export type ProfileCountOutputTypeCountPrivateMessagesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.PrivateMessageWhereInput
+}
+
 
 export type ProfileSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -677,6 +1307,11 @@ export type ProfileSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   servers?: boolean | Prisma.Profile$serversArgs<ExtArgs>
   members?: boolean | Prisma.Profile$membersArgs<ExtArgs>
   channels?: boolean | Prisma.Profile$channelsArgs<ExtArgs>
+  sentFriendRequests?: boolean | Prisma.Profile$sentFriendRequestsArgs<ExtArgs>
+  receivedFriendRequests?: boolean | Prisma.Profile$receivedFriendRequestsArgs<ExtArgs>
+  dmsAsProfileOne?: boolean | Prisma.Profile$dmsAsProfileOneArgs<ExtArgs>
+  dmsAsProfileTwo?: boolean | Prisma.Profile$dmsAsProfileTwoArgs<ExtArgs>
+  privateMessages?: boolean | Prisma.Profile$privateMessagesArgs<ExtArgs>
   _count?: boolean | Prisma.ProfileCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["profile"]>
 
@@ -715,6 +1350,11 @@ export type ProfileInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs
   servers?: boolean | Prisma.Profile$serversArgs<ExtArgs>
   members?: boolean | Prisma.Profile$membersArgs<ExtArgs>
   channels?: boolean | Prisma.Profile$channelsArgs<ExtArgs>
+  sentFriendRequests?: boolean | Prisma.Profile$sentFriendRequestsArgs<ExtArgs>
+  receivedFriendRequests?: boolean | Prisma.Profile$receivedFriendRequestsArgs<ExtArgs>
+  dmsAsProfileOne?: boolean | Prisma.Profile$dmsAsProfileOneArgs<ExtArgs>
+  dmsAsProfileTwo?: boolean | Prisma.Profile$dmsAsProfileTwoArgs<ExtArgs>
+  privateMessages?: boolean | Prisma.Profile$privateMessagesArgs<ExtArgs>
   _count?: boolean | Prisma.ProfileCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type ProfileIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -726,6 +1366,11 @@ export type $ProfilePayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     servers: Prisma.$ServerPayload<ExtArgs>[]
     members: Prisma.$MemberPayload<ExtArgs>[]
     channels: Prisma.$ChannelPayload<ExtArgs>[]
+    sentFriendRequests: Prisma.$FriendRequestPayload<ExtArgs>[]
+    receivedFriendRequests: Prisma.$FriendRequestPayload<ExtArgs>[]
+    dmsAsProfileOne: Prisma.$DirectConversationPayload<ExtArgs>[]
+    dmsAsProfileTwo: Prisma.$DirectConversationPayload<ExtArgs>[]
+    privateMessages: Prisma.$PrivateMessagePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1132,6 +1777,11 @@ export interface Prisma__ProfileClient<T, Null = never, ExtArgs extends runtime.
   servers<T extends Prisma.Profile$serversArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Profile$serversArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ServerPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   members<T extends Prisma.Profile$membersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Profile$membersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MemberPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   channels<T extends Prisma.Profile$channelsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Profile$channelsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ChannelPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  sentFriendRequests<T extends Prisma.Profile$sentFriendRequestsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Profile$sentFriendRequestsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FriendRequestPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  receivedFriendRequests<T extends Prisma.Profile$receivedFriendRequestsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Profile$receivedFriendRequestsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FriendRequestPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  dmsAsProfileOne<T extends Prisma.Profile$dmsAsProfileOneArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Profile$dmsAsProfileOneArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DirectConversationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  dmsAsProfileTwo<T extends Prisma.Profile$dmsAsProfileTwoArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Profile$dmsAsProfileTwoArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DirectConversationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  privateMessages<T extends Prisma.Profile$privateMessagesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Profile$privateMessagesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PrivateMessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1625,6 +2275,126 @@ export type Profile$channelsArgs<ExtArgs extends runtime.Types.Extensions.Intern
   take?: number
   skip?: number
   distinct?: Prisma.ChannelScalarFieldEnum | Prisma.ChannelScalarFieldEnum[]
+}
+
+/**
+ * Profile.sentFriendRequests
+ */
+export type Profile$sentFriendRequestsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the FriendRequest
+   */
+  select?: Prisma.FriendRequestSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the FriendRequest
+   */
+  omit?: Prisma.FriendRequestOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.FriendRequestInclude<ExtArgs> | null
+  where?: Prisma.FriendRequestWhereInput
+  orderBy?: Prisma.FriendRequestOrderByWithRelationInput | Prisma.FriendRequestOrderByWithRelationInput[]
+  cursor?: Prisma.FriendRequestWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.FriendRequestScalarFieldEnum | Prisma.FriendRequestScalarFieldEnum[]
+}
+
+/**
+ * Profile.receivedFriendRequests
+ */
+export type Profile$receivedFriendRequestsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the FriendRequest
+   */
+  select?: Prisma.FriendRequestSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the FriendRequest
+   */
+  omit?: Prisma.FriendRequestOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.FriendRequestInclude<ExtArgs> | null
+  where?: Prisma.FriendRequestWhereInput
+  orderBy?: Prisma.FriendRequestOrderByWithRelationInput | Prisma.FriendRequestOrderByWithRelationInput[]
+  cursor?: Prisma.FriendRequestWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.FriendRequestScalarFieldEnum | Prisma.FriendRequestScalarFieldEnum[]
+}
+
+/**
+ * Profile.dmsAsProfileOne
+ */
+export type Profile$dmsAsProfileOneArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the DirectConversation
+   */
+  select?: Prisma.DirectConversationSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the DirectConversation
+   */
+  omit?: Prisma.DirectConversationOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.DirectConversationInclude<ExtArgs> | null
+  where?: Prisma.DirectConversationWhereInput
+  orderBy?: Prisma.DirectConversationOrderByWithRelationInput | Prisma.DirectConversationOrderByWithRelationInput[]
+  cursor?: Prisma.DirectConversationWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.DirectConversationScalarFieldEnum | Prisma.DirectConversationScalarFieldEnum[]
+}
+
+/**
+ * Profile.dmsAsProfileTwo
+ */
+export type Profile$dmsAsProfileTwoArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the DirectConversation
+   */
+  select?: Prisma.DirectConversationSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the DirectConversation
+   */
+  omit?: Prisma.DirectConversationOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.DirectConversationInclude<ExtArgs> | null
+  where?: Prisma.DirectConversationWhereInput
+  orderBy?: Prisma.DirectConversationOrderByWithRelationInput | Prisma.DirectConversationOrderByWithRelationInput[]
+  cursor?: Prisma.DirectConversationWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.DirectConversationScalarFieldEnum | Prisma.DirectConversationScalarFieldEnum[]
+}
+
+/**
+ * Profile.privateMessages
+ */
+export type Profile$privateMessagesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the PrivateMessage
+   */
+  select?: Prisma.PrivateMessageSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the PrivateMessage
+   */
+  omit?: Prisma.PrivateMessageOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PrivateMessageInclude<ExtArgs> | null
+  where?: Prisma.PrivateMessageWhereInput
+  orderBy?: Prisma.PrivateMessageOrderByWithRelationInput | Prisma.PrivateMessageOrderByWithRelationInput[]
+  cursor?: Prisma.PrivateMessageWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.PrivateMessageScalarFieldEnum | Prisma.PrivateMessageScalarFieldEnum[]
 }
 
 /**
