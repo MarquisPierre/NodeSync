@@ -54,8 +54,6 @@ export const ModelName = {
   Member: 'Member',
   Channel: 'Channel',
   Message: 'Message',
-  Conversation: 'Conversation',
-  DirectMessage: 'DirectMessage',
   FriendRequest: 'FriendRequest',
   DirectConversation: 'DirectConversation',
   PrivateMessage: 'PrivateMessage'
@@ -140,31 +138,6 @@ export const MessageScalarFieldEnum = {
 } as const
 
 export type MessageScalarFieldEnum = (typeof MessageScalarFieldEnum)[keyof typeof MessageScalarFieldEnum]
-
-
-export const ConversationScalarFieldEnum = {
-  id: 'id',
-  memberOneId: 'memberOneId',
-  memberTwoId: 'memberTwoId',
-  memberOneLastReadAt: 'memberOneLastReadAt',
-  memberTwoLastReadAt: 'memberTwoLastReadAt'
-} as const
-
-export type ConversationScalarFieldEnum = (typeof ConversationScalarFieldEnum)[keyof typeof ConversationScalarFieldEnum]
-
-
-export const DirectMessageScalarFieldEnum = {
-  id: 'id',
-  content: 'content',
-  fileUrl: 'fileUrl',
-  memberId: 'memberId',
-  conversationId: 'conversationId',
-  deleted: 'deleted',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-} as const
-
-export type DirectMessageScalarFieldEnum = (typeof DirectMessageScalarFieldEnum)[keyof typeof DirectMessageScalarFieldEnum]
 
 
 export const FriendRequestScalarFieldEnum = {

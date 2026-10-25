@@ -127,7 +127,7 @@ const roomStatuses = await getRoomStatuses(
                 label: "Members",
                 type: "member",
                 data: members?.map((member) => ({
-                  id: member.id,
+                  id: member.profile.id,
                   name: member.profile.name,
                   icon: roleIconMap[member.role],
                 })),
