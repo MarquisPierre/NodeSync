@@ -5,6 +5,8 @@
 A full-stack, real-time chat app inspired by Discord. Text, direct messages,
 voice, video, and screen sharing, all in one place.
 
+[![Live Demo](https://img.shields.io/badge/Live_Demo-nodesync.onrender.com-5865F2?style=for-the-badge)](https://nodesync.onrender.com)
+
 ![Next.js](https://img.shields.io/badge/Next.js_16-000000?style=for-the-badge&logo=next.js&logoColor=white)
 ![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-4169E1?style=for-the-badge&logo=postgresql&logoColor=white)
@@ -13,6 +15,14 @@ voice, video, and screen sharing, all in one place.
 ![LiveKit](https://img.shields.io/badge/LiveKit-FF4D4D?style=for-the-badge)
 
 </div>
+
+### ⭐ Highlights
+
+- **Real-time messaging** over WebSockets, with every event delivered only to users who belong to that chat
+- **Voice, video, and screen sharing** in channels and 1-on-1 DMs, powered by LiveKit (WebRTC)
+- **Friends and direct messages** that work across servers, with live unread badges and friend requests
+- **Redesigned the DM system** and migrated existing data to the new schema with no history lost
+- **Server-side authorization** on every route, plus role-based permissions (Admin, Moderator, Guest)
 
 ## 👋 About
 
@@ -25,9 +35,12 @@ The project involved keeping data synchronized in real time, ensuring users can
 only access the conversations they belong to, and changing the database schema
 after it already contained data.
 
-> 🚧 Not yet deployed. The app requires a long-running Node server for its
-> WebSocket connections (see [Design Decisions](#-design-decisions)), so it will
-> be hosted on a platform such as Railway rather than a serverless provider.
+> 🌐 **Live demo:** [nodesync.onrender.com](https://nodesync.onrender.com)
+>
+> The app runs on Render as a long-running Node server, which its WebSocket
+> connections require (see [Design Decisions](#-design-decisions)). It is hosted
+> on Render's free tier, so the first visit after a period of inactivity may take
+> about a minute to load.
 
 <!--
 ## 📸 Screenshots
@@ -160,7 +173,6 @@ requires more care than designing one from scratch.
 - **Video filters for calls**
 - Typing indicators and online/offline presence
 - Automated tests and CI
-- Deployment and a live demo
 
 ## 🧑‍💻 Running Locally
 
