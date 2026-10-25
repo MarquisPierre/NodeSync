@@ -94,18 +94,24 @@ export const NavigationSidebar = async () => {
     })
     .sort((a, b) => b.lastMessageAt.localeCompare(a.lastMessageAt));
 
-  const pendingFriendRequests = await prisma.friendRequest.count({
+  const incomingFriendRequests = await prisma.friendRequest.findMany({
     where: {
       receiverId: profile.id,
       status: FriendRequestStatus.PENDING,
     },
+    include: { sender: true },
+    orderBy: { createdAt: "desc" },
   });
 
   return (
     <div className="space-y-4 flex flex-col items-center h-full text-primary w-full dark:bg-[#1E1F22] bg-[#E3E5E8] py-3">
       <NavigationFriends
-        pendingCount={pendingFriendRequests}
         profileId={profile.id}
+        incomingRequests={incomingFriendRequests.map((request) => ({
+          id: request.id,
+          name: request.sender.name,
+          imageUrl: request.sender.imageUrl,
+        }))}
       />
       <NavigationMessages
         profileId={profile.id}

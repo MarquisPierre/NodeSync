@@ -89,7 +89,11 @@ const FriendsPage = async ({ searchParams }: FriendsPageProps) => {
                   >
                     <MessageCircle className="h-4 w-4" />
                   </Link>
-                  <FriendRequestActions requestId={r.id} removeLabel="Remove friend" />
+                  <FriendRequestActions
+                    requestId={r.id}
+                    removeLabel="Remove friend"
+                    confirmName={r.other.name}
+                  />
                 </div>
               </Row>
             ))}

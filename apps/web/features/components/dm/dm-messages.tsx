@@ -43,7 +43,7 @@ export const DmMessages = ({
       paramKey: "conversationId",
       paramValue: conversationId,
     });
-  useChatSocket({ queryKey, addKey, updateKey });
+  useChatSocket({ chatId: conversationId, queryKey, addKey, updateKey });
   useChatScroll({
     chatRef,
     bottomRef,

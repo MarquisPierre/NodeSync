@@ -1,5 +1,6 @@
 import { currentProfilePages } from "@/lib/current-profile-pages";
 import prisma from "@/lib/prisma";
+import { chatRoom } from "@/lib/socket-rooms";
 import { NextApiResponseServerIo } from "@/types";
 import { MemberRole } from "@/server/generated/prisma/enums";
 import { NextApiRequest } from "next";
@@ -137,7 +138,7 @@ export default async function handler(
 
     const updateKey = `chat:${channelId}:messages:update`;
 
-    res?.socket?.server?.io?.emit(updateKey, message);
+    res?.socket?.server?.io?.to(chatRoom(channelId as string)).emit(updateKey, message);
 
     return res.status(200).json(message);
   } catch (error) {

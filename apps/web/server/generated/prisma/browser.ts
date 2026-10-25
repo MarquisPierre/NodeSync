@@ -43,16 +43,6 @@ export type Channel = Prisma.ChannelModel
  */
 export type Message = Prisma.MessageModel
 /**
- * Model Conversation
- * 
- */
-export type Conversation = Prisma.ConversationModel
-/**
- * Model DirectMessage
- * 
- */
-export type DirectMessage = Prisma.DirectMessageModel
-/**
  * Model FriendRequest
  * 
  */

@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { emitSocketEvent } from "@/lib/socket-emit";
+import { emitToUser } from "@/lib/socket-emit";
 import { currentProfile } from "@/lib/current-profile";
 import prisma from "@/lib/prisma";
 import { FriendRequestStatus } from "@/server/generated/prisma/enums";
@@ -54,7 +54,7 @@ export async function POST(req: Request) {
         where: { id: existing.id },
         data: { status: FriendRequestStatus.ACCEPTED },
       });
-        emitSocketEvent(`friends:${existing.senderId}`);
+        emitToUser(existing.senderId, `friends:${existing.senderId}`);
 
       return NextResponse.json(accepted);
     }
@@ -65,7 +65,7 @@ export async function POST(req: Request) {
         receiverId: profileId,
       },
     });
-     emitSocketEvent(`friends:${profileId}`);
+     emitToUser(profileId, `friends:${profileId}`);
 
     return NextResponse.json(friendRequest, { status: 201 });
   } catch (error) {

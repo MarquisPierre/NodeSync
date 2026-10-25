@@ -2,6 +2,7 @@ import { NextApiRequest } from "next";
 
 import { currentProfilePages } from "@/lib/current-profile-pages";
 import prisma from "@/lib/prisma";
+import { chatRoom } from "@/lib/socket-rooms";
 import { NextApiResponseServerIo } from "@/types";
 
 export default async function handler(
@@ -66,10 +67,9 @@ export default async function handler(
     }
 
     // Same update key your chat already listens for.
-    res?.socket?.server?.io?.emit(
-      `chat:${conversationId}:messages:update`,
-      message
-    );
+    res?.socket?.server?.io
+      ?.to(chatRoom(conversationId))
+      .emit(`chat:${conversationId}:messages:update`, message);
 
     return res.status(200).json(message);
   } catch (error) {

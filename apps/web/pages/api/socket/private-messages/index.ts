@@ -2,6 +2,7 @@ import { NextApiRequest } from "next";
 
 import { currentProfilePages } from "@/lib/current-profile-pages";
 import prisma from "@/lib/prisma";
+import { chatRoom, userRoom } from "@/lib/socket-rooms";
 import { NextApiResponseServerIo } from "@/types";
 
 export default async function handler(
@@ -50,16 +51,21 @@ export default async function handler(
       include: { profile: true },
     });
 
-    // Same key pattern as your other chats, so useChatSocket picks it up.
-    res?.socket?.server?.io?.emit(`chat:${conversationId}:messages`, message);
+    const io = res?.socket?.server?.io;
 
-    // Also notify the recipient directly, so a brand-new conversation shows up
-    // in their Messages popup even though they aren't listening to it yet.
+    // Everyone with this conversation open (both participants) gets the message.
+    io?.to(chatRoom(conversationId)).emit(`chat:${conversationId}:messages`, message);
+
+    // The recipient's Messages popup and unread badge listen on their user room,
+    // which also covers brand-new conversations they haven't opened yet.
     const recipientId =
       conversation.profileOneId === profile.id
         ? conversation.profileTwoId
         : conversation.profileOneId;
-    res?.socket?.server?.io?.emit(`dms:${recipientId}`, { conversationId });
+    io?.to(userRoom(recipientId)).emit(`dms:${recipientId}`, {
+      conversationId,
+      message,
+    });
 
     return res.status(200).json(message);
   } catch (error) {

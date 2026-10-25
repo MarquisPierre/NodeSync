@@ -395,8 +395,6 @@ export const ModelName = {
   Member: 'Member',
   Channel: 'Channel',
   Message: 'Message',
-  Conversation: 'Conversation',
-  DirectMessage: 'DirectMessage',
   FriendRequest: 'FriendRequest',
   DirectConversation: 'DirectConversation',
   PrivateMessage: 'PrivateMessage'
@@ -415,7 +413,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "profile" | "server" | "member" | "channel" | "message" | "conversation" | "directMessage" | "friendRequest" | "directConversation" | "privateMessage"
+    modelProps: "profile" | "server" | "member" | "channel" | "message" | "friendRequest" | "directConversation" | "privateMessage"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -789,154 +787,6 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
-    Conversation: {
-      payload: Prisma.$ConversationPayload<ExtArgs>
-      fields: Prisma.ConversationFieldRefs
-      operations: {
-        findUnique: {
-          args: Prisma.ConversationFindUniqueArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ConversationPayload> | null
-        }
-        findUniqueOrThrow: {
-          args: Prisma.ConversationFindUniqueOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ConversationPayload>
-        }
-        findFirst: {
-          args: Prisma.ConversationFindFirstArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ConversationPayload> | null
-        }
-        findFirstOrThrow: {
-          args: Prisma.ConversationFindFirstOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ConversationPayload>
-        }
-        findMany: {
-          args: Prisma.ConversationFindManyArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ConversationPayload>[]
-        }
-        create: {
-          args: Prisma.ConversationCreateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ConversationPayload>
-        }
-        createMany: {
-          args: Prisma.ConversationCreateManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        createManyAndReturn: {
-          args: Prisma.ConversationCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ConversationPayload>[]
-        }
-        delete: {
-          args: Prisma.ConversationDeleteArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ConversationPayload>
-        }
-        update: {
-          args: Prisma.ConversationUpdateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ConversationPayload>
-        }
-        deleteMany: {
-          args: Prisma.ConversationDeleteManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        updateMany: {
-          args: Prisma.ConversationUpdateManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        updateManyAndReturn: {
-          args: Prisma.ConversationUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ConversationPayload>[]
-        }
-        upsert: {
-          args: Prisma.ConversationUpsertArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ConversationPayload>
-        }
-        aggregate: {
-          args: Prisma.ConversationAggregateArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.AggregateConversation>
-        }
-        groupBy: {
-          args: Prisma.ConversationGroupByArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.ConversationGroupByOutputType>[]
-        }
-        count: {
-          args: Prisma.ConversationCountArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.ConversationCountAggregateOutputType> | number
-        }
-      }
-    }
-    DirectMessage: {
-      payload: Prisma.$DirectMessagePayload<ExtArgs>
-      fields: Prisma.DirectMessageFieldRefs
-      operations: {
-        findUnique: {
-          args: Prisma.DirectMessageFindUniqueArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$DirectMessagePayload> | null
-        }
-        findUniqueOrThrow: {
-          args: Prisma.DirectMessageFindUniqueOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$DirectMessagePayload>
-        }
-        findFirst: {
-          args: Prisma.DirectMessageFindFirstArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$DirectMessagePayload> | null
-        }
-        findFirstOrThrow: {
-          args: Prisma.DirectMessageFindFirstOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$DirectMessagePayload>
-        }
-        findMany: {
-          args: Prisma.DirectMessageFindManyArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$DirectMessagePayload>[]
-        }
-        create: {
-          args: Prisma.DirectMessageCreateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$DirectMessagePayload>
-        }
-        createMany: {
-          args: Prisma.DirectMessageCreateManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        createManyAndReturn: {
-          args: Prisma.DirectMessageCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$DirectMessagePayload>[]
-        }
-        delete: {
-          args: Prisma.DirectMessageDeleteArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$DirectMessagePayload>
-        }
-        update: {
-          args: Prisma.DirectMessageUpdateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$DirectMessagePayload>
-        }
-        deleteMany: {
-          args: Prisma.DirectMessageDeleteManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        updateMany: {
-          args: Prisma.DirectMessageUpdateManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        updateManyAndReturn: {
-          args: Prisma.DirectMessageUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$DirectMessagePayload>[]
-        }
-        upsert: {
-          args: Prisma.DirectMessageUpsertArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$DirectMessagePayload>
-        }
-        aggregate: {
-          args: Prisma.DirectMessageAggregateArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.AggregateDirectMessage>
-        }
-        groupBy: {
-          args: Prisma.DirectMessageGroupByArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.DirectMessageGroupByOutputType>[]
-        }
-        count: {
-          args: Prisma.DirectMessageCountArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.DirectMessageCountAggregateOutputType> | number
-        }
-      }
-    }
     FriendRequest: {
       payload: Prisma.$FriendRequestPayload<ExtArgs>
       fields: Prisma.FriendRequestFieldRefs
@@ -1263,31 +1113,6 @@ export const MessageScalarFieldEnum = {
 export type MessageScalarFieldEnum = (typeof MessageScalarFieldEnum)[keyof typeof MessageScalarFieldEnum]
 
 
-export const ConversationScalarFieldEnum = {
-  id: 'id',
-  memberOneId: 'memberOneId',
-  memberTwoId: 'memberTwoId',
-  memberOneLastReadAt: 'memberOneLastReadAt',
-  memberTwoLastReadAt: 'memberTwoLastReadAt'
-} as const
-
-export type ConversationScalarFieldEnum = (typeof ConversationScalarFieldEnum)[keyof typeof ConversationScalarFieldEnum]
-
-
-export const DirectMessageScalarFieldEnum = {
-  id: 'id',
-  content: 'content',
-  fileUrl: 'fileUrl',
-  memberId: 'memberId',
-  conversationId: 'conversationId',
-  deleted: 'deleted',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-} as const
-
-export type DirectMessageScalarFieldEnum = (typeof DirectMessageScalarFieldEnum)[keyof typeof DirectMessageScalarFieldEnum]
-
-
 export const FriendRequestScalarFieldEnum = {
   id: 'id',
   senderId: 'senderId',
@@ -1538,8 +1363,6 @@ export type GlobalOmitConfig = {
   member?: Prisma.MemberOmit
   channel?: Prisma.ChannelOmit
   message?: Prisma.MessageOmit
-  conversation?: Prisma.ConversationOmit
-  directMessage?: Prisma.DirectMessageOmit
   friendRequest?: Prisma.FriendRequestOmit
   directConversation?: Prisma.DirectConversationOmit
   privateMessage?: Prisma.PrivateMessageOmit
