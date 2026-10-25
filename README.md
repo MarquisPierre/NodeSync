@@ -16,8 +16,7 @@ voice, video, and screen sharing, all in one place.
 
 ## 👋 About
 
-I'm a recent college grad looking for a developer role, and NodeSync is the
-project I built to really learn how apps let people communicate with each other.
+I built NodeSync to really learn how apps let people communicate with each other.
 I didn't want to stop at sending text back and forth. My goal was to give users
 all the essential ways to talk: servers and channels, private messages, voice
 and video calls, and screen sharing.
@@ -221,8 +220,6 @@ packages/ui/             # Shared Tailwind setup and UI components
 ```
 
 ## 📬 Contact
-
-I'm actively looking for developer roles, so feel free to reach out!
 
 - GitHub: [@MarquisPierre](https://github.com/MarquisPierre)
 - Email: <!-- your email -->
