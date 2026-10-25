@@ -55,7 +55,10 @@ export const ModelName = {
   Channel: 'Channel',
   Message: 'Message',
   Conversation: 'Conversation',
-  DirectMessage: 'DirectMessage'
+  DirectMessage: 'DirectMessage',
+  FriendRequest: 'FriendRequest',
+  DirectConversation: 'DirectConversation',
+  PrivateMessage: 'PrivateMessage'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -162,6 +165,44 @@ export const DirectMessageScalarFieldEnum = {
 } as const
 
 export type DirectMessageScalarFieldEnum = (typeof DirectMessageScalarFieldEnum)[keyof typeof DirectMessageScalarFieldEnum]
+
+
+export const FriendRequestScalarFieldEnum = {
+  id: 'id',
+  senderId: 'senderId',
+  receiverId: 'receiverId',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type FriendRequestScalarFieldEnum = (typeof FriendRequestScalarFieldEnum)[keyof typeof FriendRequestScalarFieldEnum]
+
+
+export const DirectConversationScalarFieldEnum = {
+  id: 'id',
+  profileOneId: 'profileOneId',
+  profileTwoId: 'profileTwoId',
+  profileOneLastReadAt: 'profileOneLastReadAt',
+  profileTwoLastReadAt: 'profileTwoLastReadAt',
+  createdAt: 'createdAt'
+} as const
+
+export type DirectConversationScalarFieldEnum = (typeof DirectConversationScalarFieldEnum)[keyof typeof DirectConversationScalarFieldEnum]
+
+
+export const PrivateMessageScalarFieldEnum = {
+  id: 'id',
+  content: 'content',
+  fileUrl: 'fileUrl',
+  deleted: 'deleted',
+  profileId: 'profileId',
+  conversationId: 'conversationId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type PrivateMessageScalarFieldEnum = (typeof PrivateMessageScalarFieldEnum)[keyof typeof PrivateMessageScalarFieldEnum]
 
 
 export const SortOrder = {

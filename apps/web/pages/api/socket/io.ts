@@ -19,6 +19,7 @@ const ioHandler = (req: NextApiRequest, res: NextApiResponseServerIo) => {
       addTrailingSlash: false,
     });
     res.socket.server.io = io;
+    globalThis.io = io;
   }
 
   res.end();

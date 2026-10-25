@@ -22,6 +22,15 @@ model Profile {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  
+  sentFriendRequests     FriendRequest[] @relation("SentFriendRequests")
+  receivedFriendRequests FriendRequest[] @relation("ReceivedFriendRequests")
+  
+
+  dmsAsProfileOne DirectConversation[] @relation("DmProfileOne")
+  dmsAsProfileTwo DirectConversation[] @relation("DmProfileTwo")
+  privateMessages PrivateMessage[]
+
 }
 
 model Server {
@@ -153,5 +162,68 @@ model DirectMessage {
   updatedAt DateTime @updatedAt
 
   @@index([memberId])
+  @@index([conversationId])
+}
+
+enum FriendRequestStatus {
+  PENDING
+  ACCEPTED
+}
+
+model FriendRequest {
+  id String @id @default(uuid())
+
+  senderId String
+  sender   Profile @relation("SentFriendRequests", fields: [senderId], references: [id], onDelete: Cascade)
+
+  receiverId String
+  receiver   Profile @relation("ReceivedFriendRequests", fields: [receiverId], references: [id], onDelete: Cascade)
+
+  status FriendRequestStatus @default(PENDING)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([senderId, receiverId])
+  @@index([receiverId])
+}
+
+
+model DirectConversation {
+  id String @id @default(uuid())
+
+  profileOneId String
+  profileOne   Profile @relation("DmProfileOne", fields: [profileOneId], references: [id], onDelete: Cascade)
+
+  profileTwoId String
+  profileTwo   Profile @relation("DmProfileTwo", fields: [profileTwoId], references: [id], onDelete: Cascade)
+
+  profileOneLastReadAt DateTime @default(now())
+  profileTwoLastReadAt DateTime @default(now())
+
+  messages PrivateMessage[]
+
+  createdAt DateTime @default(now())
+
+  @@unique([profileOneId, profileTwoId])
+  @@index([profileTwoId])
+}
+
+model PrivateMessage {
+  id      String  @id @default(uuid())
+  content String  @db.Text
+  fileUrl String? @db.Text
+  deleted Boolean @default(false)
+
+  profileId String
+  profile   Profile @relation(fields: [profileId], references: [id], onDelete: Cascade)
+
+  conversationId String
+  conversation   DirectConversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([profileId])
   @@index([conversationId])
 }

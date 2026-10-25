@@ -1,4 +1,3 @@
-// proxy.ts (Next.js 16+) — use middleware.ts on Next.js 15 or earlier
 import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
 
 const isPublicRoute = createRouteMatcher([
