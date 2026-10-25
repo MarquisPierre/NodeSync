@@ -16,19 +16,18 @@ voice, video, and screen sharing, all in one place.
 
 ## 👋 About
 
-I built NodeSync to really learn how apps let people communicate with each other.
-I didn't want to stop at sending text back and forth. My goal was to give users
-all the essential ways to talk: servers and channels, private messages, voice
-and video calls, and screen sharing.
+I built NodeSync to learn how to create an application that allows users to
+communicate with each other. My goal was to go beyond text messaging and give
+users all the essential ways to communicate: servers and channels, private
+messages, voice and video calls, and screen sharing.
 
-Building it meant working through the parts that tutorials usually skip, like
-keeping everything in sync in real time, making sure people can only see what
-they're supposed to see, and changing the database after it already had real
-data in it.
+The project involved keeping data synchronized in real time, ensuring users can
+only access the conversations they belong to, and changing the database schema
+after it already contained data.
 
-> 🚧 Not deployed yet. The app needs a long-running Node server for its
-> WebSocket connections (more on that [below](#-design-decisions)), so it's
-> headed for a host like Railway instead of a serverless platform.
+> 🚧 Not yet deployed. The app requires a long-running Node server for its
+> WebSocket connections (see [Design Decisions](#-design-decisions)), so it will
+> be hosted on a platform such as Railway rather than a serverless provider.
 
 <!--
 ## 📸 Screenshots
@@ -44,40 +43,40 @@ Add screenshots here, for example:
 **Servers & channels**
 - Create servers, invite people with an invite link, and manage text, voice, and video channels
 - Roles (**Admin / Moderator / Guest**) control who can manage channels, change roles, and kick members
-- A **LIVE** badge shows up on a voice or video channel when someone in it is sharing their screen
+- A **LIVE** badge appears on a voice or video channel when someone in it is sharing their screen
 
 **Messaging**
 - Real-time messages, edits, and deletes over WebSockets
 - Send up to 10 images (or a PDF) in a message, with an optional caption
-- Emoji picker, and infinite scroll for older messages
+- Emoji picker and infinite scroll for message history
 
 **Friends & direct messages**
 - Send, accept, decline, and remove friend requests, with live updates on both sides
 - A Friends popup in the sidebar with pending requests and a badge count
-- Discord-style DMs that belong to *people*, not servers, so you can message friends without sharing a server
-- A Messages popup with unread counts that update the moment a message arrives
+- Direct messages that belong to *users*, not servers, so friends can message each other without sharing a server
+- A Messages popup with unread counts that update as soon as a message arrives
 
 **Voice, video & screen sharing**
 - Voice and video channels, plus 1-on-1 video calls in DMs, powered by LiveKit
 - Screen sharing, with the shared screen taking over the main view
 
-**Everything else**
+**General**
 - Sign up and sign in with Clerk
 - Dark and light mode
 
 ## 🛠️ Tech Stack
 
-| Layer | Tech | Why I picked it |
+| Layer | Technology | Reason |
 |---|---|---|
 | Framework | **Next.js 16** (App + Pages Router), **React 19** | Server-rendered pages and API routes in one codebase |
-| Language | **TypeScript** | Catches a whole class of bugs before they ever run |
-| UI | **Tailwind CSS 4**, shadcn/ui + Base UI | Components I own and can tweak, no fighting a theme |
+| Language | **TypeScript** | Catches type errors at compile time |
+| UI | **Tailwind CSS 4**, shadcn/ui + Base UI | Accessible components that live in the codebase and can be customized directly |
 | Data fetching | **TanStack Query** | Caching and infinite scroll for message history |
-| Auth | **Clerk** | Solid auth without rolling my own |
+| Auth | **Clerk** | Secure, production-ready authentication |
 | Database | **PostgreSQL** with **Prisma** | Relational data (servers → members → channels → messages) with type-safe queries |
 | Real-time | **Socket.io** | Persistent connections for instant updates |
 | Voice & video | **LiveKit** | WebRTC calls and screen sharing without building a media server |
-| File uploads | **UploadThing** | Files live in object storage, not on my server |
+| File uploads | **UploadThing** | Stores files in object storage rather than on the application server |
 | Monorepo | **npm workspaces** + **Turborepo** | Shared UI package alongside the web app |
 
 ## 🏗️ How It Works
@@ -103,72 +102,69 @@ flowchart LR
     Pages -- "issue call tokens" --> LK
 ```
 
-**Sending a message, start to finish:**
+**Message flow:**
 1. The chat input posts the message to an API route.
-2. The route checks who you are from your session (never from anything the browser sends) and that you're actually allowed in that channel or DM.
+2. The route identifies the user from their session (never from data supplied by the browser) and verifies that they belong to that channel or DM.
 3. Prisma saves the message to PostgreSQL.
 4. The route emits the message over Socket.io, but **only to the room for that chat**.
-5. Everyone with that chat open gets the event, and the message is added straight into their TanStack Query cache, so it shows up instantly without a refetch.
+5. Every client with that chat open receives the event, and the message is added directly to its TanStack Query cache, so it appears immediately without a refetch.
 
-If the socket ever disconnects, the chat quietly falls back to polling every second until it reconnects.
+If the socket disconnects, the chat falls back to polling every second until the connection is restored.
 
 ## 🔒 Keeping Conversations Private
 
-Real-time features are easy to get *working* and easy to get *wrong*. Early on,
-every socket event went to every connected browser. Nothing sensitive was being
-shown on screen, but anyone poking around in the console could have listened in
-on a chat they didn't belong to. So I locked it down:
+In the first version, every socket event was broadcast to every connected
+client. Although the UI only displayed the user's own chats, a user could have
+subscribed to another chat's events from the browser console. I addressed this
+with the following measures:
 
 - **Sockets require a login.** When the browser connects, it sends its Clerk session token, and the server verifies it before accepting the connection.
-- **Rooms you have to be allowed into.** Each user gets a personal room for their own notifications. To join a chat's room, the server first checks that you're in that channel's server or one of the two people in the DM.
-- **Events only go where they belong.** Messages go to the chat's room; friend requests and DM notifications go to the person they're for.
-- **Every API route checks permissions on its own.** For example, only the two people in a DM can read it, only the author can edit a message, and only the person who received a friend request can accept it.
+- **Authorized rooms.** Each user has a personal room for their own notifications. Before a socket can join a chat's room, the server verifies that the user is a member of that channel's server or a participant in the DM.
+- **Targeted events.** Messages are sent to the chat's room, while friend requests and DM notifications are sent only to the intended recipient.
+- **Server-side authorization on every route.** For example, only the two participants in a DM can read it, only the author can edit a message, and only the recipient of a friend request can accept it.
 
 ## 🧗 The Hardest Part: Redoing Direct Messages
 
-The hardest part of this project was getting private messages *untied* from
-servers, which meant redoing them.
+The most challenging part of this project was making private messages
+independent of servers, which required redesigning them.
 
-My first version stored a DM between two **server members**. It worked, but it
-had real problems: you could only message someone you shared a server with, and
-if you shared three servers with someone you ended up with three separate
-conversations with them. That's not how anyone expects DMs to work.
+The first version stored a DM between two **server members**. This had two
+problems: users could only message someone they shared a server with, and two
+users who shared several servers had a separate conversation in each one.
 
-So I rebuilt DMs around **people** (profiles) instead:
+I rebuilt DMs around **users** (profiles) instead:
 
 - A new `DirectConversation` model links two profiles directly, so friends can talk whether or not they share a server.
 - The two profile IDs are always stored in sorted order, and a unique constraint on the pair guarantees **exactly one conversation per pair of people**, no matter who starts it.
-- I built the new system **alongside** the old one, switched every link and badge over to it, and only then removed the old one, so the app never broke in between.
-- Before dropping the old tables, I **copied the existing messages into the new system** (same authors, content, and timestamps), so no conversation history was lost.
+- I built the new system **alongside** the old one, migrated every link and badge to it, and only then removed the old one, so the app remained functional throughout.
+- Before removing the old tables, I **migrated the existing messages to the new system** (preserving authors, content, and timestamps), so no conversation history was lost.
 
-It was a good lesson in changing a system that already has data in it, which is
-a lot harder than designing one from scratch.
+This taught me how to evolve a system that already contains data, which
+requires more care than designing one from scratch.
 
 ## 🧠 Design Decisions
 
-- **Why not Vercel?** Socket.io needs a server that stays running and holds connections open. Serverless platforms spin functions up and down per request, so the WebSocket server can't live there. NodeSync runs as a normal Node server instead.
-- **Why one process?** The Next.js routes and the Socket.io server share the same Node process, so any route can emit an event without an extra service in the middle.
-- **Soft deletes for messages.** Deleted messages are marked as deleted instead of removed, so the conversation still reads naturally ("This message has been deleted.").
-- **LiveKit for media.** Video and screen sharing are WebRTC under the hood. Instead of running my own media server, my server just issues short-lived LiveKit tokens, and only to people who belong to that channel or DM.
+- **Long-running server instead of serverless.** Socket.io requires a server that stays running and holds connections open. Serverless platforms such as Vercel start and stop functions per request, so they cannot host the WebSocket server. NodeSync runs as a standard Node server instead.
+- **Single process.** The Next.js routes and the Socket.io server share one Node process, so any route can emit an event without an additional service.
+- **Soft deletes for messages.** Deleted messages are flagged rather than removed, so the conversation keeps its context ("This message has been deleted.").
+- **LiveKit for media.** Video and screen sharing use WebRTC. Rather than running a media server, the application issues short-lived LiveKit tokens, and only to users who belong to that channel or DM.
 
 ## ⚠️ Known Limitations
 
-I'd rather be upfront about these than have someone find them first:
-
-- **One server instance.** Socket rooms live in that server's memory. To run multiple instances behind a load balancer, I'd add the Socket.io Redis adapter so they can share rooms.
-- **Schema changes use `prisma db push`.** That's fine for a solo project, but on a team I'd switch to tracked migrations (`prisma migrate`).
-- **No automated tests yet.** That's the next thing I'd add, starting with the permission checks in the API routes.
+- **Single server instance.** Socket rooms are stored in the server's memory. Running multiple instances behind a load balancer would require the Socket.io Redis adapter so instances can share rooms.
+- **Schema changes use `prisma db push`.** This works for a solo project; a team setting would call for tracked migrations (`prisma migrate`).
+- **No automated tests yet.** These are the next priority, starting with the permission checks in the API routes.
 
 ## 🚀 What's Next
 
-- **Video filters for calls.** This is the feature I'd most like to build next.
+- **Video filters for calls**
 - Typing indicators and online/offline presence
 - Automated tests and CI
-- Deployment, with a live demo link right here
+- Deployment and a live demo
 
-## 🧑‍💻 Running It Locally
+## 🧑‍💻 Running Locally
 
-**You'll need:** Node.js 20.9+, a PostgreSQL database, and accounts with Clerk,
+**Requirements:** Node.js 20.9+, a PostgreSQL database, and accounts with Clerk,
 UploadThing, and LiveKit.
 
 1. **Install dependencies** from the repo root:
