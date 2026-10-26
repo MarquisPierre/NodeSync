@@ -42,14 +42,15 @@ after it already contained data.
 > on Render's free tier, so the first visit after a period of inactivity may take
 > about a minute to load.
 
-<!--
 ## 📸 Screenshots
 
-Add screenshots here, for example:
-![Chat](docs/screenshots/chat.png)
-![Friends and DMs](docs/screenshots/friends-dms.png)
-![Video call](docs/screenshots/video-call.png)
--->
+**Text channel** with real-time messages, image attachments, and the live connection indicator
+
+![Text channel](docs/screenshots/general.png)
+
+**Screen sharing** during a 1-on-1 video call in direct messages
+
+![Screen sharing in a DM video call](docs/screenshots/screenshare.png)
 
 ## ✨ Features
 
