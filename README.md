@@ -2,8 +2,7 @@
 
 # 💬 NodeSync
 
-A full-stack, real-time chat app inspired by Discord. Text, direct messages,
-voice, video, and screen sharing, all in one place.
+**A real-time chat app inspired by Discord, with group channels, private messages,<br>voice and video calls, and screen sharing.**
 
 [![Live Demo](https://img.shields.io/badge/Live_Demo-nodesync.onrender.com-5865F2?style=for-the-badge)](https://nodesync.onrender.com)
 
@@ -16,13 +15,13 @@ voice, video, and screen sharing, all in one place.
 
 </div>
 
-### ⭐ Highlights
+## ⭐ Highlights
 
-- **Real-time messaging** over WebSockets, with every event delivered only to users who belong to that chat
-- **Voice, video, and screen sharing** in channels and 1-on-1 DMs, powered by LiveKit (WebRTC)
-- **Friends and direct messages** that work across servers, with live unread badges and friend requests
-- **Redesigned the DM system** and migrated existing data to the new schema with no history lost
-- **Server-side authorization** on every route, plus role-based permissions (Admin, Moderator, Guest)
+- **Instant messaging** — messages, edits, and notifications appear live for everyone in the chat (WebSockets)
+- **Video calls and screen sharing** in group channels and private 1-on-1 chats (WebRTC via LiveKit)
+- **Friends and private messages** with friend requests and unread-message badges, just like Discord
+- **Rebuilt a core feature without losing user data** — redesigned how private messages work and safely moved all existing conversations to the new system
+- **Built with security in mind** — users can only see and join the chats they belong to, with Admin, Moderator, and Guest roles
 
 ## 👋 About
 
