@@ -2,8 +2,7 @@
 
 # 💬 NodeSync
 
-A full-stack, real-time chat app inspired by Discord. Text, direct messages,
-voice, video, and screen sharing, all in one place.
+A real-time chat app inspired by Discord, with group channels, private messages, voice and video calls, and screen sharing.
 
 [![Live Demo](https://img.shields.io/badge/Live_Demo-nodesync.onrender.com-5865F2?style=for-the-badge)](https://nodesync.onrender.com)
 
