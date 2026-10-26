@@ -15,7 +15,7 @@ A real-time chat app inspired by Discord, with group channels, private messages,
 
 </div>
 
-### ⭐ Highlights
+## ⭐ Highlights
 
 - **Instant messaging** — messages, edits, and notifications appear live for everyone in the chat (WebSockets)
 - **Video calls and screen sharing** in group channels and private 1-on-1 chats (WebRTC via LiveKit)
