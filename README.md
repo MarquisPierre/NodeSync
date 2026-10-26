@@ -2,7 +2,7 @@
 
 # 💬 NodeSync
 
-**A real-time chat app inspired by Discord, with group channels, private messages,<br>voice and video calls, and screen sharing.**
+A real-time chat app inspired by Discord, with group channels, private messages, voice and video calls, and screen sharing.
 
 [![Live Demo](https://img.shields.io/badge/Live_Demo-nodesync.onrender.com-5865F2?style=for-the-badge)](https://nodesync.onrender.com)
 
@@ -22,6 +22,7 @@
 - **Friends and private messages** with friend requests and unread-message badges, just like Discord
 - **Rebuilt a core feature without losing user data** — redesigned how private messages work and safely moved all existing conversations to the new system
 - **Built with security in mind** — users can only see and join the chats they belong to, with Admin, Moderator, and Guest roles
+
 
 ## 👋 About
 
@@ -162,54 +163,7 @@ requires more care than designing one from scratch.
 - **Soft deletes for messages.** Deleted messages are flagged rather than removed, so the conversation keeps its context ("This message has been deleted.").
 - **LiveKit for media.** Video and screen sharing use WebRTC. Rather than running a media server, the application issues short-lived LiveKit tokens, and only to users who belong to that channel or DM.
 
-## ⚠️ Known Limitations
 
-- **Single server instance.** Socket rooms are stored in the server's memory. Running multiple instances behind a load balancer would require the Socket.io Redis adapter so instances can share rooms.
-- **Schema changes use `prisma db push`.** This works for a solo project; a team setting would call for tracked migrations (`prisma migrate`).
-- **No automated tests yet.** These are the next priority, starting with the permission checks in the API routes.
-
-## 🚀 What's Next
-
-- **Video filters for calls**
-- Typing indicators and online/offline presence
-- Automated tests and CI
-
-## 🧑‍💻 Running Locally
-
-**Requirements:** Node.js 20.9+, a PostgreSQL database, and accounts with Clerk,
-UploadThing, and LiveKit.
-
-1. **Install dependencies** from the repo root:
-   ```bash
-   npm install
-   ```
-2. **Create `apps/web/.env`** with these variables:
-   ```bash
-   DATABASE_URL=
-
-   NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=
-   CLERK_SECRET_KEY=
-   NEXT_PUBLIC_CLERK_SIGN_IN_URL=
-   NEXT_PUBLIC_CLERK_SIGN_UP_URL=
-   NEXT_PUBLIC_CLERK_SIGN_IN_FALLBACK_REDIRECT_URL=
-   NEXT_PUBLIC_CLERK_SIGN_UP_FALLBACK_REDIRECT_URL=
-
-   UPLOADTHING_TOKEN=
-
-   NEXT_PUBLIC_LIVEKIT_URL=
-   LIVEKIT_API_KEY=
-   LIVEKIT_API_SECRET=
-   ```
-3. **Set up the database** (from `apps/web`):
-   ```bash
-   npx prisma db push
-   npx prisma generate
-   ```
-4. **Start the dev server** (from the repo root):
-   ```bash
-   npm run dev
-   ```
-   Then open [http://localhost:3000](http://localhost:3000).
 
 ## 📁 Project Structure
 
@@ -226,9 +180,3 @@ apps/web/
 └── prisma/              # Database schema
 packages/ui/             # Shared Tailwind setup and UI components
 ```
-
-## 📬 Contact
-
-- GitHub: [@MarquisPierre](https://github.com/MarquisPierre)
-- Email: <!-- your email -->
-- LinkedIn: <!-- your LinkedIn -->
